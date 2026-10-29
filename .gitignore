@@ -1,0 +1,53 @@
+# Local configuration and credentials (keep example configuration tracked).
+.env
+.env.*
+!.env.example
+.aws/
+.ssh/
+*.key
+*.p12
+*.pfx
+.venv/
+venv/
+.local/
+
+# Python bytecode, caches and test coverage.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+pytest-cache-files-*/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+*.egg-info/
+
+# Frontend dependencies, generated bundles and test artifacts.
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+blob-report/
+
+# Runtime uploads and collected Django static files.
+/backend/media/
+/backend/staticfiles/
+
+# Logs, temporary files and editor/OS artifacts.
+*.log
+*.log.*
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/

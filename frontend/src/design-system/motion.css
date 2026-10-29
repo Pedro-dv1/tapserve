@@ -1,0 +1,147 @@
+/* Motion only. Resting styles stay in base.css, customer.css and login.css. */
+:root {
+  --motion-micro: 150ms;
+  --motion-component: 200ms;
+  --motion-page: 260ms;
+  --motion-ease: cubic-bezier(.2, .7, .3, 1);
+  view-transition-name: none;
+}
+
+/* Move the existing two-option highlight; its resting bounds and color are unchanged. */
+@supports selector(:has(> button.selected)) {
+  .segmented-control { position: relative; isolation: isolate; }
+  .segmented-control::before {
+    content: '';
+    position: absolute;
+    inset: 4px auto 4px 4px;
+    width: calc((100% - 12px) / 2);
+    border-radius: 22px;
+    background: var(--action);
+    z-index: -1;
+    pointer-events: none;
+    translate: 0 0;
+  }
+  .segmented-control:has(> button:nth-child(2).selected)::before { translate: calc(100% + 4px) 0; }
+  .segmented-control > button.selected { background: transparent; }
+}
+
+@keyframes motion-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes motion-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes motion-panel-in { from { opacity: 0; translate: 0 3px; } to { opacity: 1; translate: 0 0; } }
+@keyframes motion-panel-out { from { opacity: 1; translate: 0 0; } to { opacity: 0; translate: 0 3px; } }
+@keyframes motion-count { from { opacity: .65; translate: 0 2px; } to { opacity: 1; translate: 0 0; } }
+/* Alternate names restart the number feedback without remounting its live region. */
+@keyframes motion-count-even { from { opacity: .65; translate: 0 2px; } to { opacity: 1; translate: 0 0; } }
+@keyframes motion-count-odd { from { opacity: .65; translate: 0 2px; } to { opacity: 1; translate: 0 0; } }
+@keyframes motion-loading { 0%, 100% { opacity: 1; } 50% { opacity: .65; } }
+
+/* React owns SPA snapshots. Keep the rest of the document still. */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+::view-transition { pointer-events: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; types: page; }
+  html:active-view-transition-type(page) { view-transition-name: root; }
+  .segmented-control::before { transition: translate var(--motion-component) var(--motion-ease); }
+
+  ::view-transition-group(*) {
+    animation-duration: var(--motion-component);
+    animation-timing-function: var(--motion-ease);
+  }
+  ::view-transition-group(.motion-page) { animation-duration: var(--motion-page); }
+  ::view-transition-old(.motion-page),
+  html:active-view-transition-type(page)::view-transition-old(root) {
+    animation: motion-fade-out var(--motion-page) var(--motion-ease) both;
+  }
+  ::view-transition-new(.motion-page),
+  html:active-view-transition-type(page)::view-transition-new(root) {
+    animation: motion-fade-in var(--motion-page) var(--motion-ease) both;
+  }
+  ::view-transition-old(.motion-panel) {
+    animation: motion-panel-out var(--motion-component) var(--motion-ease) both;
+  }
+  ::view-transition-new(.motion-panel) {
+    animation: motion-panel-in var(--motion-component) var(--motion-ease) both;
+  }
+
+  button, a, input, textarea, select, summary,
+  .option-card, .option-check, .pin-dots > span,
+  .status-badge, .table-status, .progress-dot, .progress-label {
+    transition-property: background-color, color, border-color, outline-color, opacity, scale;
+    transition-duration: var(--motion-micro);
+    transition-timing-function: var(--motion-ease);
+  }
+  button:active:not(:disabled) { scale: .985; }
+  .quantity-selector button::before {
+    transition: background-color var(--motion-micro) var(--motion-ease);
+  }
+  .disclosure-chevron .ui-icon, .unit-details summary > .ui-icon:last-child {
+    transition: transform var(--motion-component) var(--motion-ease);
+  }
+  .category-chips, .participant-chips { scroll-behavior: smooth; }
+
+  main, .empty-state, .error-state, p[role="alert"], p[role="status"],
+  .menu-product, .cart-item, .order-batch, .request-list > li,
+  .staff-list > li, .production-card, .session-stack,
+  .staff-workspace > section, .staff-workspace form, .order-item-details form {
+    animation: motion-fade-in var(--motion-component) var(--motion-ease);
+  }
+  .quantity-selector output, .cart-badge, .status-badge {
+    animation: motion-count var(--motion-micro) var(--motion-ease);
+  }
+  .loading-skeleton > div > span {
+    animation: motion-loading 1000ms ease-in-out infinite;
+  }
+
+  @supports not (view-transition-class: motion-page) {
+    .menu-page, .cart-page, .orders-page, .product-page, .table-page {
+      animation: motion-fade-in var(--motion-page) var(--motion-ease);
+    }
+  }
+
+  @supports (appearance: base-select) {
+    select::picker-icon { transition: rotate var(--motion-component) var(--motion-ease); }
+    select option {
+      transition: background-color var(--motion-micro) var(--motion-ease), color var(--motion-micro) var(--motion-ease);
+    }
+    select::picker(select) {
+      opacity: 0;
+      translate: 0 3px;
+      transition: opacity var(--motion-component) var(--motion-ease),
+        translate var(--motion-component) var(--motion-ease),
+        display var(--motion-component) allow-discrete,
+        overlay var(--motion-component) allow-discrete;
+    }
+    select:open::picker(select) { opacity: 1; translate: 0 0; }
+    @starting-style { select:open::picker(select) { opacity: 0; translate: 0 3px; } }
+  }
+
+  @supports (interpolate-size: allow-keywords) and selector(details::details-content) {
+    details::details-content {
+      interpolate-size: allow-keywords;
+      block-size: 0;
+      opacity: 0;
+      transition: block-size var(--motion-component) var(--motion-ease),
+        opacity var(--motion-component) var(--motion-ease),
+        content-visibility var(--motion-component) allow-discrete;
+    }
+    details[open]::details-content { block-size: auto; opacity: 1; }
+    details:not([open])::details-content { overflow: clip; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  select::picker(select), select::picker-icon {
+    animation: none !important;
+    transition: none !important;
+  }
+  details::details-content { transition: none !important; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

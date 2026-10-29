@@ -1,0 +1,38 @@
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+norecursedirs = [".venv", "pytest-cache-files-*", "staticfiles"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+exclude = [".venv", "staticfiles", "pytest-cache-files-*"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B", "UP", "S"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = ["S101", "S105", "S106"]
+# Fixed native executable/module arguments, no shell=True or user-built command.
+# Bandit findings remain recorded and reviewed in docs/SECURITY_AUDIT.md.
+"../scripts/bootstrap.py" = ["S603"]
+"../scripts/dev.py" = ["S603"]
+# Executable positive/negative pattern self-check, not a security guard.
+"../scripts/check_secrets.py" = ["S101"]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+check_untyped_defs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+exclude = [".venv", "migrations", "tests", "pytest-cache-files-*"]
+
+[tool.django-stubs]
+django_settings_module = "config.settings.test"
+
+[[tool.mypy.overrides]]
+module = ["environ", "drf_spectacular.*", "channels.*", "qrcode.*"]
+ignore_missing_imports = true

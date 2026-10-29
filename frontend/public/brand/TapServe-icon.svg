@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="689" height="905" viewBox="0 0 689 905"
+     fill="none">
+  <defs>
+    <!-- Base vertical gold sampled from the supplied reference -->
+    <linearGradient id="goldBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.00" stop-color="#FADD9D"/>
+      <stop offset="0.14" stop-color="#FAD58E"/>
+      <stop offset="0.28" stop-color="#F7C87D"/>
+      <stop offset="0.47" stop-color="#E8B05F"/>
+      <stop offset="0.64" stop-color="#DA9948"/>
+      <stop offset="0.80" stop-color="#D38E3B"/>
+      <stop offset="0.93" stop-color="#D88E39"/>
+      <stop offset="1.00" stop-color="#E99E3D"/>
+    </linearGradient>
+
+    <!-- Subtle upper-left sheen -->
+    <radialGradient id="sheen" cx="0.18" cy="0.14" r="0.72">
+      <stop offset="0" stop-color="#FFF5D1" stop-opacity=".48"/>
+      <stop offset=".34" stop-color="#FFF0C5" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#FFF0C5" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Soft warm shadow through the lower centre -->
+    <radialGradient id="depth" cx="0.53" cy="0.66" r="0.44">
+      <stop offset="0" stop-color="#AD6724" stop-opacity=".20"/>
+      <stop offset=".52" stop-color="#B86D26" stop-opacity=".07"/>
+      <stop offset="1" stop-color="#B86D26" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Exact orientation of the correct reference.
+         Both marks face the same direction. -->
+    <path id="piece"
+      d="M2 0
+         C65 0 293 104 293 370
+         L293 905
+         C221 905 0 763 0 570
+         L0 20
+         C0 8 0 0 2 0
+         Z"/>
+
+    <clipPath id="pieceClip">
+      <use href="#piece"/>
+    </clipPath>
+  </defs>
+
+  <!-- Left -->
+  <g>
+    <use href="#piece" fill="url(#goldBase)"/>
+    <g clip-path="url(#pieceClip)">
+      <rect width="293" height="905" fill="url(#sheen)"/>
+      <rect width="293" height="905" fill="url(#depth)"/>
+    </g>
+  </g>
+
+  <!-- Right: same orientation, never mirrored -->
+  <g transform="translate(394 0)">
+    <use href="#piece" fill="url(#goldBase)"/>
+    <g clip-path="url(#pieceClip)">
+      <rect width="293" height="905" fill="url(#sheen)"/>
+      <rect width="293" height="905" fill="url(#depth)"/>
+    </g>
+  </g>
+</svg>
