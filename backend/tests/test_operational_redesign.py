@@ -70,6 +70,8 @@ def test_delivery_scope_states_permissions_and_constant_queries(identity_data, c
         result = client.get("/api/v1/staff/deliveries/")
     assert result.status_code == 200 and result.json()["count"] == 11
     assert len(queries) == initial_queries <= 12
+    attention = client.get("/api/v1/staff/deliveries/?attention=true").json()
+    assert attention["count"] == 11 and len(attention["results"]) == 1
     assert client.get("/api/v1/staff/deliveries/?status=DELIVERED").status_code == 400
     assert client.get("/api/v1/staff/deliveries/?unit_id=foreign").status_code == 400
     waiter.permissions.remove(

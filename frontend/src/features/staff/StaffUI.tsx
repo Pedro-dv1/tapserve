@@ -15,8 +15,8 @@ export function StatusTag({ children, attention = false }: { children: ReactNode
   return <span className={`staff-status${attention ? ' attention' : ''}`}>{children}</span>;
 }
 
-export function Editor({ title, close, children, busy = false }: { title: string; close: () => void; children: ReactNode; busy?: boolean; modal?: boolean }) {
-  return <Modal open title={title} close={close} busy={busy} guardChanges className="staff-editor staff-modal">{children}</Modal>;
+export function Editor({ title, close, children, busy = false, guardChanges = true }: { title: string; close: () => void; children: ReactNode; busy?: boolean; modal?: boolean; guardChanges?: boolean }) {
+  return <Modal open title={title} close={close} busy={busy} guardChanges={guardChanges} className="staff-editor staff-modal">{children}</Modal>;
 }
 
 export function ConnectionStatus({ status }: { status: string }) {

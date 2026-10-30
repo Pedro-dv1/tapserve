@@ -1,3 +1,4 @@
+import { OrderAttentionProvider } from './OrderAttention';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { ApiError, decodeContext, request } from '../../lib/api';
 import type { StaffContext } from '../../lib/api';
@@ -55,10 +56,10 @@ export default function StaffScreen() {
   const current = resolved === '/staff/more' ? { href: resolved, label: 'Mais', icon: 'more' as const, group: 'Expediente', permissions: [], strong: false } : pages.find(page => page.href === resolved);
   const area = current?.href.replace(/^\/(admin|staff)\//, '');
   const Layout = isManagement(context) ? AdminLayout : AttendantLayout;
-  return <Layout context={context} pages={pages} current={current} busy={busy} leave={() => { void leave(); }}>
+  return <OrderAttentionProvider context={context}><Layout context={context} pages={pages} current={current} busy={busy} leave={() => { void leave(); }}>
     {error && <ErrorState message={error} />}
     <Suspense fallback={<LoadingSkeleton variant={loadingVariant} />}>
       {area === 'orders' ? <StaffOrders context={context} /> : area === 'calls' ? <StaffCalls context={context} /> : area === 'more' ? <section><h1>Mais</h1><nav className="staff-more-links" aria-label="Outras áreas autorizadas">{pages.filter(page => !['/staff/operation', '/staff/orders', '/staff/calls'].includes(page.href)).map(page => <a href={page.href} key={page.href}><Icon name={page.icon} />{page.label}<Icon name="chevron" /></a>)}</nav>{pages.every(page => ['/staff/operation', '/staff/orders', '/staff/calls'].includes(page.href)) && <p>Nenhuma função secundária disponível para seu acesso.</p>}</section> : area === 'operation' ? <Operation context={context} /> : area === 'production' ? <Production /> : area === 'menu' ? <CatalogManagement context={context} /> : area === 'points' ? <PointManagement /> : area === 'settings' ? <OrderPolicy /> : area === 'staff' ? <StaffManagement context={context} /> : <section><h1>Área indisponível</h1><p>Esta página não está disponível para seu acesso. Selecione uma Área no menu da unidade.</p></section>}
     </Suspense>
-  </Layout>;
+  </Layout></OrderAttentionProvider>;
 }

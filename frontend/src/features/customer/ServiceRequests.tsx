@@ -1,3 +1,4 @@
+import { callMessages } from '../../lib/actionMessages';
 import { randomUUID } from '../../lib/uuid.ts';
 import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
@@ -48,7 +49,7 @@ export default function ServiceRequests({ staff, revision, quick = false, sessio
   useEffect(() => {
     const controller = new AbortController(); let inFlight = false;
     async function load() {
-      if (inFlight) return;
+      if (inFlight || document.visibilityState === 'hidden') return;
       inFlight = true; setLoading(true);
       try {
         const data = await loadCalls(realm, page, controller.signal, staff ? `&status=${statusFilter}${kindFilter ? `&kind=${kindFilter}` : ''}${pointFilter ? `&point=${encodeURIComponent(pointFilter)}` : ''}` : '');
@@ -57,15 +58,15 @@ export default function ServiceRequests({ staff, revision, quick = false, sessio
       catch (cause: unknown) { if (!controller.signal.aborted) { if (cause instanceof ApiError && cause.status === 404 && page > 1) { setPage(1); return; } setError(cause instanceof Error ? cause.message : 'Não foi possível carregar chamados.'); if (cause instanceof ApiError && [401, 403].includes(cause.status)) setCalls(null); } }
       finally { inFlight = false; if (!controller.signal.aborted) setLoading(false); }
     }
-    void load(); const timer = window.setInterval(() => { void load(); }, 10_000);
-    return () => { controller.abort(); window.clearInterval(timer); };
+    void load(); const timer = window.setInterval(() => { void load(); }, 30_000); document.addEventListener('visibilitychange', load); window.addEventListener('online', load);
+    return () => { controller.abort(); window.clearInterval(timer); document.removeEventListener('visibilitychange', load); window.removeEventListener('online', load); };
   }, [realm, page, reload, revision, statusFilter, kindFilter, pointFilter, staff]);
   const refresh = (call?: Call) => { if (call && ['OPEN', 'ASSIGNED'].includes(call.status)) setCalls(values => [...(values ?? []).filter(value => value.id !== call.id), call]); setReload(value => value + 1); changed?.(); };
   const newRequest = <NewRequest packagingEnabled={packagingEnabled && Boolean(sessionStatus)} view={view} quick={quick} changed={refresh} sessionStatus={sessionStatus} disabled={unavailable || calls === null || Boolean(error)} activeKinds={calls?.map(call => call.kind) ?? []} />;
   return <section className={staff ? 'staff-calls' : quick ? 'home-service-actions' : 'table-card service-requests'} aria-label={quick ? 'Atendimento' : undefined}>
-    {staff ? <div className="staff-toolbar"><label>Estado<select value={statusFilter} onChange={event => { setStatusFilter(event.target.value); setPage(1); }}><option value="PENDING">Pendentes</option><option value="OPEN">Aguardando</option><option value="ASSIGNED">Assumidos</option><option value="RESOLVED">Resolvidos</option><option value="CANCELLED">Cancelados</option><option value="ALL">Histórico completo</option></select></label><label>Tipo<select value={kindFilter} onChange={event => { setKindFilter(event.target.value); setPage(1); }}><option value="">Todos</option>{Object.entries(names).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>{pointFilter && <a href="/staff/calls">Todas as mesas</a>}</div> : quick ? null : <div className="section-heading"><h2><Icon name="message" />Chamar atendimento</h2><button className="plain-action" onClick={() => refresh()}>Atualizar</button></div>}
-    {error && (staff ? <p className="error" role="alert">{error}</p> : <Feedback tone="error">{error}<button className="plain-action" onClick={() => refresh()}>Atualizar</button></Feedback>)}{staff && <button className="secondary" onClick={() => refresh()}>Atualizar chamados</button>}{!staff && newRequest}
-    {quick ? null : calls === null ? error ? null : <LoadingSkeleton variant="calls" /> : calls.length === 0 ? <p className={staff ? undefined : 'request-empty'}>Nenhum chamado aguardando atendimento.</p> : <ul className={staff ? 'staff-list' : 'request-list'}>{calls.map(call => <li key={call.id}><div><strong>{staff ? `${call.point_name} · ` : ''}{names[call.kind] ?? 'Solicitação'}</strong>{call.message && <p>{call.message}</p>}<p>{call.status === 'OPEN' ? 'Aguardando atendente' : `Atendimento assumido por ${call.assignee_name ?? 'funcionário'}`}</p>{staff && call.status === 'OPEN' ? <CallAction key={call.status} call={call} target="ASSIGNED" manual changed={refresh} /> : staff && call.status === 'ASSIGNED' && call.assigned_to_id === staff.staff.id ? <CallAction key={call.status} call={call} target="RESOLVED" manual changed={refresh} /> : null}{!staff && call.can_customer_cancel && <CallAction key={call.status} call={call} target="CANCELLED" changed={refresh} />}{staff && ['OPEN', 'ASSIGNED'].includes(call.status) && <CallAction key={`${call.status}:cancel`} call={call} target="CANCELLED" manual changed={refresh} />}</div></li>)}</ul>}
+    {staff ? <div className="staff-toolbar"><label>Estado<select value={statusFilter} onChange={event => { setStatusFilter(event.target.value); setPage(1); }}><option value="PENDING">Pendentes</option><option value="OPEN">Aguardando</option><option value="ASSIGNED">Assumidos</option><option value="RESOLVED">Resolvidos</option><option value="CANCELLED">Cancelados</option><option value="ALL">Histórico completo</option></select></label><label>Tipo<select value={kindFilter} onChange={event => { setKindFilter(event.target.value); setPage(1); }}><option value="">Todos</option>{Object.entries(names).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label></div> : quick ? null : <div className="section-heading"><h2><Icon name="message" />Chamar atendimento</h2></div>}
+    {error && (staff ? <p className="error" role="alert">{error}</p> : <Feedback tone="error">{error}</Feedback>)}{!staff && newRequest}
+    {quick ? null : calls === null ? error ? null : <LoadingSkeleton variant="calls" /> : calls.length === 0 ? <p className={staff ? undefined : 'request-empty'}>Nenhum chamado aguardando atendimento.</p> : <ul className={staff ? 'staff-list' : 'request-list'}>{calls.map(call => <li key={call.id}><div><strong>{staff ? `${call.point_name} · ` : ''}{names[call.kind] ?? 'Solicitação'}</strong>{call.message && <p>{call.message}</p>}<p>{call.status === 'OPEN' ? 'Aguardando atendente' : call.status === 'RESOLVED' ? 'Chamado resolvido' : call.status === 'CANCELLED' ? 'Chamado cancelado' : `Atendimento assumido por ${call.assignee_name ?? 'funcionário'}`}</p><div className="call-actions">{staff && call.status === 'OPEN' ? <CallAction key={call.status} call={call} target="ASSIGNED" manual changed={refresh} /> : staff && call.status === 'ASSIGNED' && call.assigned_to_id === staff.staff.id ? <CallAction key={call.status} call={call} target="RESOLVED" manual changed={refresh} /> : null}{!staff && call.can_customer_cancel && <CallAction key={call.status} call={call} target="CANCELLED" changed={refresh} />}{staff && ['OPEN', 'ASSIGNED'].includes(call.status) && <CallAction key={`${call.status}:cancel`} call={call} target="CANCELLED" manual changed={refresh} />}</div></div></li>)}</ul>}
     {staff && <Pagination page={page} next={next} previous={previous} busy={loading} label="Chamados" change={setPage} />}
   </section>;
 }
@@ -119,6 +120,7 @@ function NewRequest({ changed, quick = false, sessionStatus = null, disabled = f
 
 function CallAction({ call, target, manual = false, changed }: { call: Call; target: string; manual?: boolean; changed: () => void }) {
   const notify = useSuccessToast();
+  const submitting = useRef(false);
   const [busy, setBusy] = useState(false);
   const [pending, setPending] = useState<Record<string, unknown> | null>(null);
   const [error, setError] = useState('');
@@ -126,18 +128,18 @@ function CallAction({ call, target, manual = false, changed }: { call: Call; tar
   const [cancelling, setCancelling] = useState(false);
   const cancellation = useRef<Record<string, unknown> | null>(null);
   async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); if (busy) return;
+    event.preventDefault(); if (submitting.current || confirmed) return; submitting.current = true;
     const values = new FormData(event.currentTarget);
     const body = pending ?? { idempotency_key: randomUUID(), expected_status: call.status, ...(manual ? { status: target, reason: String(values.get('reason') ?? '') } : {}) };
     setPending(body); setBusy(true); setError('');
-    try { decodeCall(await request(`/api/v1/${manual ? 'staff' : 'public'}/service-requests/${call.id}/${manual ? 'status' : 'cancel'}/`, 'POST', body)); setConfirmed(true); notify?.('Alterações salvas.'); changed(); }
-    catch (cause: unknown) { setError(cause instanceof Error ? cause.message : 'Não foi possível atualizar.'); }
-    finally { setBusy(false); }
+    try { decodeCall(await request(`/api/v1/${manual ? 'staff' : 'public'}/service-requests/${call.id}/${manual ? 'status' : 'cancel'}/`, 'POST', body)); setConfirmed(true); notify?.(callMessages[target] ?? 'Chamado atualizado com sucesso.'); changed(); }
+    catch (cause: unknown) { setError(cause instanceof Error ? cause.message : target === 'RESOLVED' ? 'Não foi possível resolver o chamado. Tente novamente.' : 'Não foi possível assumir o chamado. Tente novamente.'); }
+    finally { submitting.current = false; setBusy(false); }
   }
   if (target === 'CANCELLED') return <><button className="ui-danger" disabled={busy || confirmed} type="button" onClick={() => setCancelling(true)}>Cancelar chamado</button>{cancelling && <ConfirmDialog title="Cancelar chamado?" description="A solicitação será encerrada e permanecerá no histórico." label="Cancelar chamado" close={() => setCancelling(false)} confirm={async reason => {
     const body = cancellation.current ?? { idempotency_key: randomUUID(), expected_status: call.status, ...(manual ? { status: target, reason } : {}) };
     cancellation.current = body;
-    decodeCall(await request(`/api/v1/${manual ? 'staff' : 'public'}/service-requests/${call.id}/${manual ? 'status' : 'cancel'}/`, 'POST', body)); setConfirmed(true); notify?.('Alterações salvas.'); changed();
+    decodeCall(await request(`/api/v1/${manual ? 'staff' : 'public'}/service-requests/${call.id}/${manual ? 'status' : 'cancel'}/`, 'POST', body)); setConfirmed(true); notify?.(callMessages[target] ?? 'Chamado atualizado com sucesso.'); changed();
   }} />}</>;
-  return confirmed ? null : <form onSubmit={event => { void submit(event); }}>{error && <p className="error" role="alert">{error} Atualize o chamado ou repita com os mesmos dados.</p>}{manual && target === 'CANCELLED' && <label>Motivo do cancelamento<input name="reason" maxLength={300} disabled={pending !== null} /></label>}<button className="secondary" disabled={busy}>{busy ? 'Atualizando…' : target === 'ASSIGNED' ? 'Assumir chamado' : target === 'RESOLVED' ? 'Resolver chamado' : 'Cancelar chamado'}</button></form>;
+  return confirmed ? null : <form onSubmit={event => { void submit(event); }}>{error && <p className="error" role="alert">{error} Confira o estado atual antes de repetir com os mesmos dados.</p>}{manual && target === 'CANCELLED' && <label>Motivo do cancelamento<input name="reason" maxLength={300} disabled={pending !== null} /></label>}<button className="secondary" disabled={busy}>{busy ? 'Atualizando…' : target === 'ASSIGNED' ? 'Assumir chamado' : target === 'RESOLVED' ? 'Resolver chamado' : 'Cancelar chamado'}</button></form>;
 }

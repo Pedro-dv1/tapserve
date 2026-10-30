@@ -4,6 +4,7 @@ import { Button, EmptyState, ErrorState, Icon, LoadingSkeleton, PopularityBadge,
 import { brl, decodeProduct } from './menuData';
 import type { Product } from './menuData';
 import { MenuCache } from './menuCache';
+import ProductVideo from '../../components/ProductVideo';
 export { brl, cents, decodeDetail } from './menuData';
 export type { Product, ProductDetail } from './menuData';
 export { OptionChoices } from './ProductSelection';
@@ -12,6 +13,7 @@ export default function MenuBrowser({ open, active = true, revision = '0' }: { o
   const [products, setProducts] = useState<Product[]>([]);
   const [layout, setLayout] = useState<'EDITORIAL' | 'COMPACT'>('COMPACT');
   const [hero, setHero] = useState<Product | null>(null);
+  const [highlights, setHighlights] = useState<Product[]>([]);
   const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
   const [category, setCategory] = useState('');
   const [categoryPage, setCategoryPage] = useState(1);
@@ -46,6 +48,8 @@ export default function MenuBrowser({ open, active = true, revision = '0' }: { o
       const presentation = row.presentation === undefined ? { layout: 'COMPACT', hero: null } : record(row.presentation);
       if (presentation.layout !== 'EDITORIAL' && presentation.layout !== 'COMPACT') throw new Error('Apresentação inválida.');
       setLayout(presentation.layout); setHero(presentation.hero == null ? null : decodeProduct(presentation.hero));
+      if (presentation.popular !== undefined && !Array.isArray(presentation.popular)) throw new Error('Destaques inválidos.');
+      setHighlights(Array.isArray(presentation.popular) ? presentation.popular.map(decodeProduct) : []);
       setProducts(row.results.map(decodeProduct)); setNext(typeof row.next === 'string'); setPrevious(typeof row.previous === 'string');
     }).catch((cause: unknown) => { if (!controller.signal.aborted) { if (cause instanceof ApiError && cause.status === 404 && page > 1) setPage(1); else setError(cause instanceof Error ? cause.message : 'Não foi possível carregar o cardápio.'); } }).finally(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => controller.abort();
@@ -75,12 +79,16 @@ export default function MenuBrowser({ open, active = true, revision = '0' }: { o
       {categoryNext && <button className="category-chip" onClick={() => setCategoryPage(value => value + 1)}>Mais categorias <Icon name="plus" size={16} /></button>}
     </nav>
     {loading && products.length === 0 ? <LoadingSkeleton /> : error ? <ErrorState message={error} retry={() => setReload(value => value + 1)} /> : <>
-      {hero && !query && !category && !popular && page === 1 && <article className="menu-feature"><button className="feature-image-action" aria-label={`Conhecer ${hero.name}`} onClick={() => open(hero.id)}><ProductImage key={hero.image_version} version={hero.image_version} id={hero.id} name={hero.name} hasImage={hero.has_image} className="feature-photo" /></button><div className="feature-copy"><h2>{hero.name}</h2>{hero.description && <p>{hero.description}</p>}<div><strong>{brl(hero.base_price)}</strong><button onClick={() => open(hero.id)}>Conhecer o prato <Icon name="arrow" size={16} /></button></div></div></article>}
+      {highlights.length > 0 && !query && !category && page === 1 && <section className="popular-highlights" aria-label="Produtos mais pedidos"><div className="section-heading"><h2>Mais pedidos</h2></div><div className="popular-features">{highlights.map(product => <MenuFeature key={product.id} product={product} open={open} popular />)}</div></section>}
+      {hero && !highlights.some(product => product.id === hero.id) && !query && !category && !popular && page === 1 && <MenuFeature product={hero} open={open} />}
       <div className="section-heading" id="menu-results"><h1>{popular ? 'Mais pedidos' : query ? 'Resultados da busca' : category ? categories.find(value => value.id === category)?.name ?? 'Cardápio' : 'Cardápio'}</h1>{(popular || category || query) && <button className="plain-action" onClick={() => { setPopular(false); setCategory(''); setSearch(''); setQuery(''); setPage(1); }}>Ver todos <Icon name="chevron" size={16} /></button>}</div>
       {products.length === 0 ? <EmptyState title={query ? 'Nenhum resultado' : 'Nenhum produto disponível'}>{query ? 'Tente outro nome para encontrar seu pedido.' : 'Confira outra categoria ou solicite ajuda à equipe.'}</EmptyState> : <ul className="menu-products">{products.map(product => <ProductCard key={product.id} product={product} open={open} />)}</ul>}
       {(previous || next) && <div className="pagination"><>{previous && <Button secondary disabled={loading} onClick={() => setPage(value => value - 1)}>Anterior</Button>}</><span>Página {page}</span><>{next && <Button secondary disabled={loading} onClick={() => setPage(value => value + 1)}>Próxima</Button>}</></div>}
     </>}
   </section>;
+}
+export function MenuFeature({ product, open, popular = false }: { product: Product; open: (id: string) => void; popular?: boolean }) {
+  return <article className={`menu-feature${popular ? ' popular-feature' : ''}`}><button className="feature-image-action" aria-label={`Conhecer ${product.name}`} onClick={() => open(product.id)}><ProductImage key={product.image_version} version={product.image_version} id={product.id} name={product.name} hasImage={product.has_image} className="feature-photo" /></button><div className="feature-copy">{popular && <PopularityBadge />}<h2>{product.name}</h2>{product.description && <p>{product.description}</p>}<div><strong>{brl(product.base_price)}</strong><button onClick={() => open(product.id)}>{popular ? 'Experimentar' : 'Conhecer o prato'} <Icon name="arrow" size={16} /></button></div></div>{product.has_video && <ProductVideo id={product.id} name={product.name} />}</article>;
 }
 export function ProductCard({ product, open }: { product: Product; open: (id: string) => void }) {
   return <li className="menu-product"><div className="product-main"><div className="product-cover"><button className="product-cover-open" aria-label={`Ver ${product.name}`} onClick={() => open(product.id)}><ProductImage key={product.image_version} version={product.image_version} id={product.id} name={product.name} hasImage={product.has_image} /></button></div><button className="product-copy" onClick={() => open(product.id)}><strong>{product.name}</strong><span>{product.description}</span>{product.most_ordered && <PopularityBadge />}</button></div><div className="product-side"><strong className="price">{brl(product.base_price)}</strong><button className="icon-button add-product" aria-label={`Personalizar ${product.name}`} onClick={() => open(product.id)}><Icon name="plus" /></button></div></li>;

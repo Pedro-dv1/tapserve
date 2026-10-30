@@ -51,7 +51,7 @@ export default function ItemActions({ item, manual = false, canEdit, canCancel, 
     mutation.current = true; setPending({ mode, body }); setBusy(true); setError('');
     try {
       const result = record(await request(`/api/v1/${manual ? 'staff' : 'public'}/items/${item.id}/${mode === 'cancel' ? 'cancel/' : ''}`, mode === 'cancel' ? 'POST' : 'PATCH', body));
-      text(result.id); setPending(null); setMode(null); setMessage(mode === 'edit' ? 'Alterações salvas.' : 'Pedido cancelado.'); changed(result);
+      text(result.id); setPending(null); setMode(null); setMessage(mode === 'edit' ? 'Item do pedido atualizado com sucesso.' : 'Pedido cancelado.'); changed(result);
     } catch (cause: unknown) {
       if (!wasPending && cause instanceof ApiError && cause.status >= 400 && cause.status < 500) setPending(null);
       if (cause instanceof ApiError && cause.status === 409) { setConflict(!wasPending); changed(); }

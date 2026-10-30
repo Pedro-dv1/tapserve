@@ -21,6 +21,7 @@ from common.api import CookieMutationAPIView, page_serializer
 
 from .models import Category, Menu, Option, OptionGroup, Product, ProductionSector
 from .schema import CatalogSchema
+from .search import search_catalog
 from .serializers import (
     CategoryInput,
     CategoryOutput,
@@ -113,7 +114,7 @@ class CatalogView(CookieMutationAPIView):
             if self.kind in scopes:
                 queryset = queryset.filter(**{scopes[self.kind]: menu})
         if query.validated_data["search"]:
-            queryset = queryset.filter(name__icontains=query.validated_data["search"])
+            queryset = search_catalog(queryset, query.validated_data["search"])
         if "active" in query.validated_data:
             queryset = queryset.filter(active=query.validated_data["active"] == "true")
         if "available" in query.validated_data:
@@ -224,7 +225,7 @@ def popular_products(unit, menu=None):
     from apps.orders.models import OrderItem
 
     totals = (
-        OrderItem.objects.filter(product_id=models.OuterRef("pk"))
+        OrderItem.objects.filter(product_id=models.OuterRef("pk"), batch__session__unit=unit)
         .exclude(status__in=["CANCELLED", "REJECTED"])
         .values("product_id")
         .annotate(total=models.Sum("quantity"))
@@ -257,6 +258,7 @@ class PublicMenuQuery(StrictSerializer):
 class MenuPresentationOutput(serializers.Serializer):
     layout = serializers.ChoiceField(choices=["EDITORIAL", "COMPACT"])
     hero = PublicMenuProductOutput(allow_null=True)
+    popular = PublicMenuProductOutput(many=True)
 
 
 class PublicMenuPage(serializers.Serializer):
@@ -292,10 +294,7 @@ class PublicMenuView(PublicView):
                 "-ordered_quantity", "name", "id"
             )
         if data["search"]:
-            products = products.filter(
-                models.Q(name__icontains=data["search"])
-                | models.Q(description__icontains=data["search"])
-            )
+            products = search_catalog(products, data["search"], description=True)
         if "category" in data:
             products = products.filter(category_id=data["category"])
         pager = PageNumberPagination()
@@ -312,6 +311,14 @@ class PublicMenuView(PublicView):
         response.data["presentation"] = {
             "layout": unit.menu_layout,
             "hero": PublicMenuProductOutput(hero).data if hero else None,
+            "popular": PublicMenuProductOutput(
+                products.filter(ordered_quantity__gt=0)
+                .exclude(image_key="")
+                .order_by("-ordered_quantity", "name", "id")[:3]
+                if not data["search"] and "category" not in data and data["page"] == 1
+                else [],
+                many=True,
+            ).data,
         }
         return response
 

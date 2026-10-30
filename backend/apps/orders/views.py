@@ -11,6 +11,7 @@ from apps.access.models import ServicePoint
 from apps.access.serializers import PointOutput
 from apps.access.services import live_devices
 from apps.access.views import PublicView
+from apps.catalog.search import search_catalog
 from apps.catalog.serializers import PublicMenuProductOutput
 from apps.catalog.services import point_menu
 from apps.catalog.views import popular_products
@@ -55,6 +56,7 @@ class OperationSessionOutput(SessionOutput):
 
 class DeliveryQuery(OperationQuery):
     status = serializers.ChoiceField(choices=["READY", "DELIVERING"], required=False)
+    attention = serializers.BooleanField(default=False)
 
 
 def batches(scope):
@@ -342,10 +344,9 @@ class StaffPointMenuView(CookieMutationAPIView):
             raise NotFound()
         query = OperationQuery(data=request.query_params)
         query.is_valid(raise_exception=True)
-        products = (
-            popular_products(request.auth.staff.unit, point_menu(point))
-            .filter(name__icontains=query.validated_data["search"])
-            .order_by("name", "id")
+        products = search_catalog(
+            popular_products(request.auth.staff.unit, point_menu(point)).order_by("name", "id"),
+            query.validated_data["search"],
         )
         pager = PageNumberPagination()
         return pager.get_paginated_response(
@@ -408,6 +409,13 @@ class StaffDeliveryItemsView(CookieMutationAPIView):
         query = DeliveryQuery(data=request.query_params)
         query.is_valid(raise_exception=True)
         items = work_items(request.auth.staff.unit).filter(status__in=["READY", "DELIVERING"])
+        if query.validated_data["attention"]:
+            actionable = Q(pk__in=[])
+            if request.auth.allows("CLAIM_DELIVERY"):
+                actionable |= Q(status="READY")
+            if request.auth.allows("COMPLETE_DELIVERY"):
+                actionable |= Q(status="DELIVERING", delivered_by=request.auth.staff)
+            items = items.filter(actionable)
         if "status" in query.validated_data:
             items = items.filter(status=query.validated_data["status"])
         if query.validated_data["search"]:
@@ -416,6 +424,8 @@ class StaffDeliveryItemsView(CookieMutationAPIView):
                 batch__session__point_links__ended_at__isnull=True,
             ).distinct()
         pager = PageNumberPagination()
+        if query.validated_data["attention"]:
+            pager.page_size = 1
         page: list[OrderItem] | None = pager.paginate_queryset(items, request)
         return pager.get_paginated_response(ProductionItemOutput(page, many=True).data)
 

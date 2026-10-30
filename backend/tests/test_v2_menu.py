@@ -145,6 +145,7 @@ def test_editorial_hero_metadata_and_list_remain_scoped_and_light(
     assert public.get("/api/v1/public/menu/").json()["presentation"] == {
         "layout": "EDITORIAL",
         "hero": None,
+        "popular": [],
     }
     token = admin.get("/api/v1/csrf/").json()["csrf_token"]
     with override_settings(MEDIA_ROOT=media_root):

@@ -1,3 +1,4 @@
+import SearchCombobox, { normalizeSearch } from '../../components/SearchCombobox';
 import { useEffect, useRef, useState } from 'react';
 import { ApiError, record, request } from '../../lib/api';
 import type { Point } from '../../lib/api';
@@ -18,6 +19,8 @@ export default function ManualOrder({ point, session, close, changed }: { point:
   const [cart, setCart] = useState<Cart>(() => { try { const raw = sessionStorage.getItem(storage); return raw ? decodeCart(JSON.parse(raw)) : emptyCart(); } catch { return emptyCart(); } });
   const [products, setProducts] = useState<Product[] | null>(null);
   const [page, setPage] = useState(1), [next, setNext] = useState(false);
+  const [searchError, setSearchError] = useState('');
+  const [searching, setSearching] = useState(false);
   const [query, setQuery] = useState(''), [search, setSearch] = useState('');
   const [identifier, setIdentifier] = useState(''), [product, setProduct] = useState<ProductDetail | null>(null);
   const [selected, setSelected] = useState<string[]>([]), [quantity, setQuantity] = useState(1);
@@ -27,13 +30,13 @@ export default function ManualOrder({ point, session, close, changed }: { point:
   const [storageError, setStorageError] = useState('');
   const saving = useRef(false);
   useEffect(() => { try { sessionStorage.setItem(storage, JSON.stringify(cart)); setStorageError(''); } catch { setStorageError('O navegador não permitiu preservar o rascunho. Mantenha esta janela aberta até conferir a confirmação do pedido.'); } }, [cart, storage]);
-  useEffect(() => { const timer = window.setTimeout(() => { setSearch(query); setPage(1); }, 250); return () => window.clearTimeout(timer); }, [query]);
+  useEffect(() => { const timer = window.setTimeout(() => { setSearch(normalizeSearch(query)); setPage(1); }, 250); return () => window.clearTimeout(timer); }, [query]);
   useEffect(() => {
-    const controller = new AbortController();
+    const controller = new AbortController(); setSearching(true);
     void request(`/api/v1/staff/tables/${point.id}/menu/?page=${page}&search=${encodeURIComponent(search)}`, 'GET', undefined, controller.signal).then(record).then(data => {
       if (!Array.isArray(data.results)) throw new Error('Cardápio inválido.');
-      if (!controller.signal.aborted) { setProducts(data.results.map(decodeProduct)); setNext(typeof data.next === 'string'); }
-    }).catch((cause: unknown) => { if (!controller.signal.aborted) { if (cause instanceof ApiError && cause.status === 404 && page > 1) setPage(1); else setError(cause instanceof Error ? cause.message : 'Cardápio indisponível.'); } });
+      if (!controller.signal.aborted) { setSearchError(''); setProducts(data.results.map(decodeProduct)); setNext(typeof data.next === 'string'); }
+    }).catch((cause: unknown) => { if (!controller.signal.aborted) { if (cause instanceof ApiError && cause.status === 404 && page > 1) setPage(1); else { const message = cause instanceof Error ? cause.message : 'Cardápio indisponível.'; setSearchError(message); setError(message); } } }).finally(() => { if (!controller.signal.aborted) setSearching(false); });
     return () => controller.abort();
   }, [point.id, search, page, reload]);
   useEffect(() => {
@@ -60,11 +63,11 @@ export default function ManualOrder({ point, session, close, changed }: { point:
       setError(cause instanceof ApiError && Object.keys(cause.fields).length ? Object.values(cause.fields).join(' ') : cause instanceof Error ? cause.message : 'Não foi possível confirmar o pedido.');
     } finally { saving.current = false; setBusy(false); }
   }
-  return <Editor title={`Novo pedido · ${point.type === 'TABLE' && point.number ? `Mesa ${point.number}` : point.name}`} close={close} busy={busy}>
+  return <Editor title={`Novo pedido · ${point.type === 'TABLE' && point.number ? `Mesa ${point.number}` : point.name}`} close={close} busy={busy} guardChanges={false}>
     {storageError && <p className="error" role="alert">{storageError}</p>}
     {error && <ErrorState message={error} retry={() => setReload(value => value + 1)} />}
     {cart.pending && <p role="status">Confirmação pendente. Repita com os mesmos dados para conferir o pedido sem duplicá-lo.</p>}
-    <fieldset disabled={busy || cart.pending}><legend>Produtos do cardápio da mesa</legend><label>Buscar produto<input type="search" maxLength={100} value={query} onChange={event => setQuery(event.target.value)} /></label>{products ? <><label>Selecionar produto<select value={identifier} onChange={event => setIdentifier(event.target.value)}><option value="">Selecione</option>{products.map(value => <option key={value.id} value={value.id}>{value.name} · {brl(value.base_price)}</option>)}</select></label>{!products.length && <p>Nenhum produto disponível nesta busca.</p>}<Pagination page={page} next={next} change={setPage} /></> : <LoadingSkeleton variant="options" />}
+    <fieldset disabled={busy || cart.pending}><legend>Produtos do cardápio da mesa</legend><SearchCombobox label="Buscar produto" value={query} change={setQuery} search={value => { setSearch(value); setPage(1); }} suggestions={(products ?? []).map(value => ({ ...value, detail: brl(value.base_price) }))} loading={searching || normalizeSearch(query) !== search} error={searchError} select={value => setIdentifier(value.id)} disabled={busy || cart.pending} />{products ? <><label>Selecionar produto<select value={identifier} onChange={event => setIdentifier(event.target.value)}><option value="">Selecione</option>{products.map(value => <option key={value.id} value={value.id}>{value.name} · {brl(value.base_price)}</option>)}</select></label>{!products.length && <p>Nenhum produto disponível nesta busca.</p>}<Pagination page={page} next={next} change={setPage} /></> : <LoadingSkeleton variant="options" />}
       {identifier && (product ? <><h3>{product.name}</h3>{product.takeaway_enabled && <FulfillmentSelector value={fulfillment} change={setFulfillment} />}<OptionChoices groups={product.groups} selected={selected} setSelected={setSelected} busy={busy || cart.pending} /><QuantitySelector quantity={quantity} change={setQuantity} disabled={busy || cart.pending} name={product.name} /><label>Observações<textarea maxLength={500} value={notes} onChange={event => setNotes(event.target.value)} /></label><label>Participante (opcional)<select value={participant} onChange={event => setParticipant(event.target.value)}><option value="">Sem participante</option>{session?.participants.map(person => <option key={person.id} value={person.id}>{person.display_name}</option>)}</select></label><button type="button" disabled={cart.items.length >= 50} onClick={add}>Adicionar · {formatCents(selectionTotal(product, selected, quantity))}</button></> : <LoadingSkeleton variant="options" />)}
     </fieldset>
     <h3>Itens do novo pedido</h3>{cart.items.length ? <ul className="staff-list">{cart.items.map(line => <li key={line.id}><span><FulfillmentBadge mode={line.fulfillment_mode} />{line.quantity} × {line.name} · {formatCents(cents(line.unit_price) * line.quantity)}{line.notes && <small> · {line.notes}</small>}</span><button className="secondary" type="button" disabled={busy || cart.pending} onClick={() => setCart(value => ({ ...value, idempotency_key: randomUUID(), items: value.items.filter(item => item.id !== line.id) }))}>Remover</button></li>)}</ul> : <p>Adicione os produtos antes de confirmar.</p>}

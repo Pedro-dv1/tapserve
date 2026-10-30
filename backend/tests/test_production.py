@@ -62,6 +62,7 @@ def test_production_sector_scope_partial_completion_and_delivery_ownership(
     assert mutate(admin, first, "ACCEPTED", "PREPARING").status_code == 200
     assert mutate(admin, first, "PREPARING", "READY").status_code == 200
     assert device.get("/api/v1/public/orders/").json()["results"][0]["all_ready"] is False
+    assert admin.get("/api/v1/staff/deliveries/?attention=true").json()["count"] == 1
     waiter = pin_client()
     assert mutate(waiter, first, "READY", "DELIVERING").status_code == 200
     assert mutate(admin, first, "DELIVERING", "DELIVERED").status_code == 403
