@@ -16,11 +16,35 @@ from apps.access.services import cipher, digest, exchange, point_url
 from tests.test_identity import owner_client, post_with_csrf
 
 
-def customer(token):
-    client = Client(enforce_csrf_checks=True)
+def customer(token, client=None):
+    client = client or Client(enforce_csrf_checks=True)
     result = post_with_csrf(client, "/api/v1/public/access/", {"public_token": token})
+    if result.status_code == 202:
+        approve_request(result.json()["admission_id"])
+        result = post_with_csrf(client, "/api/v1/public/access/", {"public_token": token})
     assert result.status_code == 200, result.content
     return client
+
+
+def approve_request(identifier):
+    """Provision an explicit synthetic staff grant and exercise the real admission service."""
+    from apps.access.admission import decide_admission
+    from apps.access.models import DeviceAdmission
+    from apps.identity.authentication import StaffIdentity
+    from apps.identity.models import Permission, Staff
+
+    admission = DeviceAdmission.objects.get(id=identifier)
+    staff = (
+        Staff.objects.filter(unit=admission.point.unit, active=True).select_related("role").first()
+    )
+    for code in ("APPROVE_DEVICE_ACCESS", "VIEW_OPERATION"):
+        staff.permissions.add(Permission.objects.get(code=code))
+    identity = StaffIdentity(
+        staff, False, frozenset(staff.permissions.values_list("code", flat=True))
+    )
+    decide_admission(
+        identity, admission.id, {"idempotency_key": uuid.uuid4(), "status": "APPROVED"}
+    )
 
 
 def test_access_is_bound_idempotent_and_has_no_staff_privilege(point_data):
@@ -35,6 +59,11 @@ def test_access_is_bound_idempotent_and_has_no_staff_privilege(point_data):
     )
     for _ in range(2):
         result = post_with_csrf(client, "/api/v1/public/access/", {"public_token": token})
+        if result.status_code == 202:
+            assert DeviceAccess.objects.count() == 0
+            assert client.get("/api/v1/public/menu/").status_code == 401
+            approve_request(result.json()["admission_id"])
+            result = post_with_csrf(client, "/api/v1/public/access/", {"public_token": token})
         assert result.status_code == 200
         assert result.json()["point"]["name"] == "Mesa 07"
         assert token.encode() not in result.content and b"token_digest" not in result.content
@@ -49,7 +78,7 @@ def test_access_is_bound_idempotent_and_has_no_staff_privilege(point_data):
     assert client.get("/api/v1/admin/staff/").status_code == 401
 
 
-def test_copied_static_url_creates_new_browser_access_without_proving_presence(point_data):
+def test_copied_static_url_needs_separate_staff_consent_for_each_browser(point_data):
     _, token = point_data
     first, second = customer(token), customer(token)
     assert (
@@ -141,12 +170,30 @@ def test_five_device_limit_is_atomic_under_ten_browsers(identity_data, point_dat
     point, token = point_data
     barrier = Barrier(10)
 
-    def attempt(_):
-        close_old_connections()
+    from apps.access.admission import decide_admission
+    from apps.identity.authentication import StaffIdentity
+
+    staff = identity_data[1]
+    identity = StaffIdentity(
+        staff, True, frozenset(staff.permissions.values_list("code", flat=True))
+    )
+    requests = []
+    for _ in range(10):
         request = RequestFactory().post("/api/v1/public/access/")
         request.session = {"tapserve_browser_nonce": secrets.token_urlsafe(32)}
+        admission, capability = exchange(request, token)
+        assert capability is None
+        requests.append((request, admission.id))
+    assert DeviceAccess.objects.count() == 0
+
+    def attempt(index):
+        close_old_connections()
+        request, admission_id = requests[index]
         barrier.wait(timeout=10)
         try:
+            decide_admission(
+                identity, admission_id, {"idempotency_key": uuid.uuid4(), "status": "APPROVED"}
+            )
             exchange(request, token)
             return 200
         except APIException as error:

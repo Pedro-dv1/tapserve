@@ -66,6 +66,12 @@ def resolve_staff(session, user, *, touch=False):
     if strong and (staff.user_id is None or user.pk != staff.user_id or not user.is_authenticated):
         session.flush()
         return None
+    if strong:
+        from .mfa import session_verified
+
+        if not session_verified(session, user, staff=staff):
+            session.flush()
+            return None
     if touch:
         session["tapserve_seen_at"] = now
     return StaffIdentity(staff, strong, frozenset(staff.permissions.values_list("code", flat=True)))

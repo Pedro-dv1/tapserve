@@ -68,7 +68,7 @@ body { margin: 0; min-width: 280px; }
 @media (prefers-reduced-motion: reduce) { .ui-dialog { transition: none; } }
 .ui-icon { flex-shrink: 0; vertical-align: middle; }
 main { max-width: 640px; margin: 0 auto; padding: max(32px, env(safe-area-inset-top)) 20px 32px; }
-.wordmark { display: block; width: min(240px, 100%); height: auto; margin-bottom: 40px; }
+.wordmark { display: block; width: min(270px, 100%); height: auto; margin-bottom: 40px; }
 h1 { font-size: clamp(1.4rem, 4vw, 1.8rem); line-height: 1.2; overflow-wrap: anywhere; }
 p { line-height: 1.6; overflow-wrap: anywhere; }
 button { min-height: 44px; padding: 12px 18px; border: 0; border-radius: 4px; background: var(--accent); color: #111111; font: inherit; font-weight: 600; cursor: pointer; }
@@ -173,7 +173,7 @@ a { color: #573d00; }
 @keyframes skeleton-pulse { 50% { opacity: .45; } }
 
 .customer-entrance { position: fixed; z-index: 100; inset: 0; pointer-events: auto; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; background: #f5f5f3; color: #111; animation: customer-arrive 1800ms cubic-bezier(.2, .7, .3, 1) both; }
-.customer-entrance img { width: min(240px, 65vw); }
+.customer-entrance img { width: min(270px, 73vw); }
 @keyframes customer-arrive { 0% { opacity: 1; } 24% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-8px); } }
 @media (prefers-reduced-motion: reduce) { .customer-entrance { display: none; animation: none; } }
 

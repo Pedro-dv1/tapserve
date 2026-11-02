@@ -67,7 +67,9 @@ def test_production_sector_scope_partial_completion_and_delivery_ownership(
     assert mutate(waiter, first, "READY", "DELIVERING").status_code == 200
     assert mutate(admin, first, "DELIVERING", "DELIVERED").status_code == 403
     assert mutate(waiter, first, "DELIVERING", "DELIVERED").status_code == 200
-    assert ItemStatusEvent.objects.count() == 5 and DomainEvent.objects.count() == 6
+    assert ItemStatusEvent.objects.count() == 5
+    assert DomainEvent.objects.filter(kind__startswith="ADMISSION_").count() == 2
+    assert DomainEvent.objects.exclude(kind__startswith="ADMISSION_").count() == 6
     assert device.get("/api/v1/public/orders/").json()["results"][0]["id"] == receipt["batch"]["id"]
     assert mutate(Client(enforce_csrf_checks=True), first, "DELIVERED", "READY").status_code == 401
     event = ItemStatusEvent.objects.first()

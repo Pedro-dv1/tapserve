@@ -7,6 +7,7 @@ from django.utils import timezone
 
 from apps.access.models import DeviceAccess, ServicePoint
 from apps.access.services import cipher, digest
+from tests.test_access import approve_request
 
 LAN = "http://192.168.56.10:5173"
 HOST = "127.0.0.1:8000"
@@ -20,7 +21,7 @@ def lan_settings(settings):
 
 def access(client, token, origin=LAN):
     response = client.get("/api/v1/csrf/", HTTP_HOST=HOST)
-    return client.post(
+    result = client.post(
         "/api/v1/public/access/",
         {"public_token": token},
         content_type="application/json",
@@ -28,6 +29,10 @@ def access(client, token, origin=LAN):
         HTTP_ORIGIN=origin,
         HTTP_X_CSRFTOKEN=response.json()["csrf_token"],
     )
+    if result.status_code == 202:
+        approve_request(result.json()["admission_id"])
+        return access(client, token, origin)
+    return result
 
 
 def test_lan_and_pc_use_same_point_database_with_separate_host_only_device_cookies(

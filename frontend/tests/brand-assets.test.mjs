@@ -11,10 +11,9 @@ test('official brand URLs resolve to static assets independently of the page rou
   const paths = sources.flatMap(source => [...source.matchAll(/(?:src|href)="([^"]*TapServe[^"\s]*\.(?:png|svg))"/g)].map(match => match[1]));
   assert.ok(paths.length > 10);
   for (const path of paths) {
-    assert.match(path, /^\/brand\/TapServe-(?:logo-wordmark\.png|icon\.svg)$/);
+    assert.match(path, /^\/brand\/TapServe_logo_(?:wordmark|icon)\.svg$/);
     const asset = readFileSync(new URL(`public${path}`, frontend));
-    if (path.endsWith('.png')) assert.equal(asset.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
-    else assert.match(asset.toString('utf8'), /<svg\b/);
+    assert.match(asset.toString('utf8'), /<svg\b/);
     for (const route of ['/mesa/cardapio', '/admin/production', '/staff/operation', '/platform']) {
       assert.equal(new URL(path, `http://localhost:5173${route}`).pathname, path);
     }

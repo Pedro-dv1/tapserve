@@ -15,6 +15,8 @@ import { brl } from '../customer/menuData';
 import { statusNames } from '../customer/orderStatus';
 import { FulfillmentBadge } from '../../components/Fulfillment';
 import { isManagement } from './navigation';
+import SessionSettlement, { PointSessionHistory } from './SessionSettlement';
+import StaffAdmissions from './StaffAdmissions';
 
 
 type Session = ReturnType<typeof decodeSessionValue> & { item_counts: Record<string, number> };
@@ -70,10 +72,10 @@ export default function Operation({ context }: { context: StaffContext }) {
       <p>{point.connected_devices} celulares conectados</p><p>{point.order_count} pedidos realizados{point.active_order_count !== point.order_count ? ` · ${point.active_order_count} ativos` : ''}</p><p>Consumo: <strong>{brl(point.subtotal)}</strong></p>
       {point.pending_calls.length > 0 && <a className="pending-call" href={`${isManagement(context) ? '/admin' : '/staff'}/calls?point=${point.id}`}><strong aria-hidden="true">!</strong>{point.pending_calls.length} chamados pendentes</a>}
       <div className="actions"><button className="secondary" aria-expanded={opened === point.id} onClick={() => setOpened(opened === point.id ? null : point.id)}>{opened === point.id ? 'Fechar detalhes' : 'Ver detalhes'}</button>{context.staff.permissions.includes('CREATE_MANUAL_ORDER') && <button onClick={() => setManual(point)}>Novo pedido</button>}</div>
-      {opened === point.id && <div className="staff-session-details">{point.session ? <SessionOrders session={{ ...point.session, item_counts: {} }} revision={realtime.ordersRevision + reload} context={context} changed={refresh} /> : <p>A mesa ainda não possui pedidos nesta sessão.</p>}</div>}
+      {opened === point.id && <div className="staff-session-details">{context.staff.permissions.includes('APPROVE_DEVICE_ACCESS') && <StaffAdmissions pointId={point.id} context={context} changed={refresh} />}{point.session ? <><SessionSettlement key={point.session.id} sessionId={point.session.id} pointId={point.id} context={context} revision={realtime.ordersRevision + reload} changed={refresh} /><SessionOrders session={{ ...point.session, item_counts: {} }} revision={realtime.ordersRevision + reload} context={context} changed={refresh} /></> : <p>A mesa ainda não possui pedidos nesta sessão.</p>}<PointSessionHistory pointId={point.id} context={context} revision={realtime.ordersRevision + reload} changed={refresh} renderOrders={session => <SessionOrders session={{ ...session, points: [], participants: [], item_counts: {} }} revision={realtime.ordersRevision + reload} context={context} changed={refresh} />} /></div>}
     </article>)}</div>}
     <Pagination page={page} next={next} label="Mesas" change={value => { setPage(value); setPoints(null); }} />
-    {manual && <ManualOrder point={manual} session={manual.session} close={() => setManual(null)} changed={() => { setMessage('Pedido realizado com sucesso.'); refresh(); }} />}
+    {manual && <ManualOrder point={manual} session={manual.session} context={context} close={() => setManual(null)} changed={() => { setMessage('Pedido realizado com sucesso.'); refresh(); }} />}
   </section>;
 }
 

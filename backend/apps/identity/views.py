@@ -57,13 +57,20 @@ class PasswordLoginView(CookieMutationAPIView):
     permission_classes = [AllowAny]
     authentication_classes = []
 
-    @extend_schema(request=PasswordLoginInput, responses=ContextOutput, auth=[])
+    @extend_schema(
+        request=PasswordLoginInput, responses=dict, auth=[],
+        description="Password verification returns an MFA challenge for privileged/enrolled users; only challenge completion establishes a staff session. Other users receive ContextOutput.",
+    )
     def post(self, request):
         if settings.AUTHENTICATION_REQUIRE_HTTPS and not request.is_secure():
             raise PermissionDenied()
         serializer = PasswordLoginInput(data=request.data)
         serializer.is_valid(raise_exception=True)
         staff = authenticate_staff(request._request, serializer.validated_data, strong=True)
+        from .mfa import begin_challenge, requires_mfa
+
+        if requires_mfa(staff):
+            return Response(begin_challenge(request._request, staff.user, "STAFF", staff=staff))
         return Response(context_data(staff, True))
 
 

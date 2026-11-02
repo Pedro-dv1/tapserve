@@ -6,7 +6,7 @@ import { chromium } from 'playwright';
 const browser = await chromium.launch({ channel: 'chrome', headless: true, chromiumSandbox: true });
 const context = await browser.newContext({ baseURL: process.env.TAPSERVE_TEST_ORIGIN ?? 'http://127.0.0.1:5173' });
 const id = crypto.randomUUID(), person = crypto.randomUUID();
-const logo = await readFile(new URL('../public/brand/TapServe-logo-wordmark.png', import.meta.url));
+const logo = await readFile(new URL('../../assets/demo/burger.png', import.meta.url));
 const output = new URL('../../.local/customer-refinement/', import.meta.url);
 await mkdir(output, { recursive: true });
 const point = { id, name: 'Mesa 07 de demonstração', type: 'TABLE', active: true, access_enabled: true, token_version: 1, nfc_enabled: true, qr_enabled: true, block_new_devices: false };
@@ -88,7 +88,20 @@ try {
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 850 });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `${width}px overflow`);
+    assert.equal(await page.locator('.customer-navigation').count(), 0);
+    assert.equal(await page.locator('.page-home').evaluate(el => getComputedStyle(el).paddingBottom), '0px');
+    assert.equal(await page.locator('.customer-logo').evaluate(img => img.complete && img.naturalWidth > 0 && Math.abs(img.width / img.height - img.naturalWidth / img.naturalHeight) < 0.1), true);
     await page.screenshot({ path: new URL(`home-${width}.png`, output).pathname.replace(/^\/(?=[A-Z]:)/i, ''), fullPage: true });
+    await page.getByRole('button', { name: 'Ver cardápio', exact: true }).click();
+    const navigation = page.getByRole('navigation', { name: 'Atendimento' });
+    await navigation.waitFor();
+    for (const tab of ['Carrinho', 'Pedidos', 'Mesa', 'Cardápio']) {
+      await navigation.getByRole('button', { name: tab, exact: true }).click();
+      assert.equal(await navigation.isVisible(), true, `${width}px ${tab}`);
+      assert.equal(await navigation.getByRole('button', { name: tab, exact: true }).getAttribute('aria-current'), 'page');
+    }
+    await navigation.getByRole('button', { name: 'Início', exact: true }).click();
+    assert.equal(await navigation.count(), 0);
   }
   assert.equal(await page.locator('.establishment-logo').evaluate(img => img.naturalWidth > 0 && getComputedStyle(img).objectFit === 'contain'), true);
   const call = page.getByRole('button', { name: 'Chamar garçom', exact: true });
@@ -106,6 +119,7 @@ try {
   await modal.getByText('A confirmação está pendente.', { exact: false }).waitFor();
   const retryKey = posts[0].idempotency_key;
   await modal.getByRole('button', { name: 'Cancelar', exact: true }).click();
+  await page.getByRole('button', { name: 'Ver cardápio', exact: true }).click();
   await page.getByRole('navigation', { name: 'Atendimento' }).getByRole('button', { name: 'Mesa', exact: true }).click();
   assert.equal(await page.getByRole('button', { name: 'Voltar', exact: true }).count(), 0);
   await page.getByRole('button', { name: 'Chamar atendimento', exact: true }).click();
@@ -136,6 +150,7 @@ try {
   await page.getByRole('dialog', { name: 'Conta já solicitada', exact: true }).getByRole('button', { name: 'Entendido' }).click();
   assert.equal(posts.filter(data => data.kind === 'CHECK').length, 1);
   await page.locator('.customer-entrance').waitFor({ state: 'detached' });
+  await page.getByRole('button', { name: 'Ver cardápio', exact: true }).click();
   await page.getByRole('navigation', { name: 'Atendimento' }).getByRole('button', { name: 'Mesa', exact: true }).click();
   await page.getByRole('button', { name: 'Remover Ana', exact: true }).click();
   const removal = page.getByRole('dialog', { name: 'Remover participante?' });

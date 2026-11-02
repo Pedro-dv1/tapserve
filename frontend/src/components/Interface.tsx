@@ -65,7 +65,7 @@ export function tableLabel(name: string, type = 'TABLE'): string {
 }
 export function CustomerHeader({ context, pointName, back }: { context: PublicContext; pointName: string; back?: () => void }) {
   return <><header className="customer-header">
-    <img className="customer-logo" src="/brand/TapServe-logo-wordmark.png" alt="TapServe" />
+    <img className="customer-logo" src="/brand/TapServe_logo_wordmark.svg" alt="TapServe" />
     <div className="table-indicator"><Icon name="table" size={22} /><strong>{tableLabel(context.point.number ? `Mesa ${context.point.number}` : pointName, context.point.type)}</strong></div>
   </header>{back && <div className="customer-back"><button className="icon-button back-button" aria-label="Voltar" onClick={back}><Icon name="back" size={24} /></button></div>}</>;
 }

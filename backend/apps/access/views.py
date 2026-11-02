@@ -17,7 +17,7 @@ from apps.identity.serializers import ListQuery
 from apps.organizations.services import logo_response, logo_url
 from common.api import CookieMutationAPIView, page_serializer
 
-from .models import DeviceAccess, ServicePoint
+from .models import DeviceAccess, DeviceAdmission, ServicePoint
 from .serializers import (
     AccessInput,
     DeviceOutput,
@@ -207,6 +207,14 @@ def public_context(device):
     }
 
 
+def device_response(device, token):
+    response = Response(public_context(device))
+    response.set_cookie(settings.DEVICE_COOKIE_NAME, token,
+                        max_age=max(0, int((device.expires_at - timezone.now()).total_seconds())),
+                        path="/", httponly=True, secure=settings.SESSION_COOKIE_SECURE, samesite="Lax")
+    return response
+
+
 class AccessView(CookieMutationAPIView):
     authentication_classes = []
     permission_classes = [AllowAny]
@@ -218,17 +226,11 @@ class AccessView(CookieMutationAPIView):
         data = AccessInput(data=request.data)
         data.is_valid(raise_exception=True)
         device, token = exchange(request._request, data.validated_data["public_token"])
-        response = Response(public_context(device))
-        response.set_cookie(
-            settings.DEVICE_COOKIE_NAME,
-            token,
-            max_age=max(0, int((device.expires_at - timezone.now()).total_seconds())),
-            path="/",
-            httponly=True,
-            secure=settings.SESSION_COOKIE_SECURE,
-            samesite="Lax",
-        )
-        return response
+        if isinstance(device, DeviceAdmission):
+            from .admission import admission_data
+
+            return Response(admission_data(device), status=202)
+        return device_response(device, token)
 
 
 class DeviceAuthentication(BaseAuthentication):

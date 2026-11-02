@@ -1,8 +1,73 @@
+import secrets
+from datetime import timedelta
 from decimal import Decimal
 
 import pytest
 from django.db import connection
 from django.db.migrations.executor import MigrationExecutor
+from django.utils import timezone
+
+
+@pytest.mark.django_db(transaction=True)
+def test_admission_upgrade_revokes_legacy_capabilities_without_deleting_history():
+    executor = MigrationExecutor(connection)
+    latest = executor.loader.graph.leaf_nodes()
+    previous = [
+        ("access", "0005_remove_servicepoint_point_unit_name_unique_and_more"),
+        ("identity", "0010_mfa"),
+        ("orders", "0015_external_receipts_and_session_lifecycle"),
+        ("organizations", "0005_unit_menu_layout_unit_unit_menu_layout_valid"),
+    ]
+    try:
+        executor.migrate(previous)
+        apps = executor.loader.project_state(previous).apps
+        company = apps.get_model("organizations", "Company").objects.create(
+            name="Synthetic upgrade", slug="synthetic-upgrade"
+        )
+        unit = apps.get_model("organizations", "Unit").objects.create(
+            company=company, name="Synthetic", slug="synthetic"
+        )
+        point = apps.get_model("access", "ServicePoint").objects.create(
+            unit=unit,
+            name="Synthetic table",
+            type="TABLE",
+            number=1,
+            token_digest=secrets.token_hex(32),
+            token_ciphertext=b"synthetic",
+        )
+        session = apps.get_model("orders", "ServiceSession").objects.create(unit=unit)
+        apps.get_model("orders", "SessionPoint").objects.create(point=point, session=session)
+        device = apps.get_model("access", "DeviceAccess").objects.create(
+            point=point,
+            session=session,
+            token_digest=secrets.token_hex(32),
+            token_ciphertext=b"synthetic",
+            browser_digest=secrets.token_hex(32),
+            point_token_version=point.token_version,
+            expires_at=timezone.now() + timedelta(hours=12),
+        )
+        participant = apps.get_model("orders", "SessionParticipant").objects.create(
+            session=session, display_name="Synthetic participant"
+        )
+        MigrationExecutor(connection).migrate(latest)
+        current = MigrationExecutor(connection).loader.project_state(latest).apps
+        assert current.get_model("access", "DeviceAccess").objects.get(id=device.id).revoked_at
+        assert (
+            current.get_model("access", "ServicePoint").objects.get(id=point.id).token_digest
+            == point.token_digest
+        )
+        assert (
+            current.get_model("orders", "ServiceSession").objects.get(id=session.id).status
+            == "OPEN"
+        )
+        assert (
+            current.get_model("orders", "SessionParticipant")
+            .objects.get(id=participant.id)
+            .display_name
+            == "Synthetic participant"
+        )
+    finally:
+        MigrationExecutor(connection).migrate(latest)
 
 
 @pytest.mark.django_db(transaction=True)

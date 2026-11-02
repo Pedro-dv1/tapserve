@@ -3,7 +3,7 @@
 import time
 
 from django.conf import settings
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, logout
 from django.db import IntegrityError, transaction
 from drf_spectacular.utils import extend_schema
 from rest_framework import serializers
@@ -43,6 +43,11 @@ class PlatformAuthentication(BaseAuthentication):
         if operator is None:
             request.session.flush()
             return None
+        from .mfa import session_verified
+
+        if not session_verified(request.session, user):
+            request.session.flush()
+            return None
         request.session["platform_seen_at"] = now
         return user, operator
 
@@ -73,7 +78,10 @@ class PlatformLoginView(PlatformView):
     authentication_classes = []
     permission_classes = [AllowAny]
 
-    @extend_schema(request=PlatformLoginInput, responses=PlatformIdentityOutput, auth=[])
+    @extend_schema(
+        request=PlatformLoginInput, responses=dict, auth=[],
+        description="Verifies password and creates a five-minute MFA challenge; no authenticated platform session exists until challenge completion.",
+    )
     def post(self, request):
         if settings.AUTHENTICATION_REQUIRE_HTTPS and not request.is_secure():
             raise PermissionDenied()
@@ -85,20 +93,9 @@ class PlatformLoginView(PlatformView):
         operator = PlatformOperator.objects.filter(user=user, active=True).first() if user else None
         if operator is None or user is None:
             raise AuthenticationFailed()
-        request.session.flush()
-        login(request._request, user)
-        request.session.update(
-            {
-                "tapserve_platform": True,
-                "platform_issued_at": int(time.time()),
-                "platform_seen_at": int(time.time()),
-            }
-        )
-        request.session.set_expiry(28800)
-        PlatformAuditEvent.objects.create(
-            operator=operator, action="PLATFORM_LOGIN", resource_id=str(user.pk)
-        )
-        return Response({"username": user.username})
+        from .mfa import begin_challenge
+
+        return Response(begin_challenge(request._request, user, "PLATFORM"))
 
 
 class PlatformMeView(PlatformView):

@@ -5,6 +5,8 @@ import { Button, ErrorState, Icon, SecretInput } from '../../components/Interfac
 import '../../design-system/customer.css';
 import '../../design-system/login.css';
 import { staffHome } from './navigation';
+import MfaChallenge, { decodeChallenge } from './MfaChallenge';
+import type { Challenge } from './MfaChallenge';
 
 export default function StaffLogin() {
   const [strong, setStrong] = useState(false);
@@ -17,17 +19,21 @@ export default function StaffLogin() {
   const submitting = useRef(false);
   const [error, setError] = useState('');
   const [recover, setRecover] = useState(false);
+  const [challenge, setChallenge] = useState<Challenge | null>(null);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); if (submitting.current || (!strong && !/^\d{6,12}$/.test(pin))) return;
     submitting.current = true; setBusy(true); setError('');
     try {
-      const context = decodeContext(await request(strong ? '/api/v1/staff/password-login/' : '/api/v1/staff/login/', 'POST', { company, unit, ...(strong ? { username: identity, password } : { login_code: identity, pin }) }));
+      const value = await request(strong ? '/api/v1/staff/password-login/' : '/api/v1/staff/login/', 'POST', { company, unit, ...(strong ? { username: identity, password } : { login_code: identity, pin }) });
       setPin(''); setPassword('');
-      window.location.replace(staffHome(context));
+      const pending = decodeChallenge(value);
+      if (pending) setChallenge(pending);
+      else window.location.replace(staffHome(decodeContext(value)));
     } catch (cause: unknown) { setPin(''); setPassword(''); setError(cause instanceof Error ? cause.message : 'Não foi possível entrar. Tente novamente.'); }
     finally { submitting.current = false; setBusy(false); }
   }
-  return <main className="staff-login"><img className="login-logo" src="/brand/TapServe-logo-wordmark.png" alt="TapServe" />
+  return <main className="staff-login"><img className="login-logo" src="/brand/TapServe_logo_wordmark.svg" alt="TapServe" />
+    {challenge ? <MfaChallenge challenge={challenge} realm="staff" authenticated={value => window.location.replace(staffHome(decodeContext(value)))} cancel={() => { setChallenge(null); setError(''); }} /> : <>
     <h1>Login da equipe</h1><p className="login-subtitle">{strong ? 'Use sua senha para acessar a gestão da unidade' : 'Digite seu PIN para acessar sua área de trabalho'}</p>
     <form onSubmit={event => { void submit(event); }} aria-busy={busy}>
       <details className="unit-details" open><summary><Icon name="table" size={25} /><span><strong>{unit || 'Identifique a unidade'}</strong><span>{company || 'Empresa e unidade do seu acesso'}</span></span><Icon name="chevron" size={18} /></summary><div className="unit-fields">
@@ -46,5 +52,6 @@ export default function StaffLogin() {
     </form>
     <p className="login-security"><Icon name="lock" size={16} />Tentativas excessivas podem bloquear temporariamente o acesso.</p>
     <button className="login-switch" disabled={busy} aria-pressed={strong} onClick={() => { setStrong(value => !value); setPin(''); setPassword(''); setIdentity(''); setError(''); }}>{strong ? 'Entrar com PIN individual' : 'Responsável: entrar com senha'}</button>
+    </>}
   </main>;
 }

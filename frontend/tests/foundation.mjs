@@ -11,7 +11,7 @@ try {
   await page.getByText('Serviço e banco de dados conectados.').waitFor();
   assert.equal(await page.title(), 'TapServe');
   assert.equal(await page.locator('html').getAttribute('lang'), 'pt-BR');
-  assert.equal(await page.locator('link[rel="icon"]').getAttribute('href'), '/brand/TapServe-icon.svg');
+  assert.equal(await page.locator('link[rel="icon"]').getAttribute('href'), '/brand/TapServe_logo_icon.svg');
   assert.equal(await page.getByRole('img', { name: 'TapServe' }).evaluate((image) => image.naturalWidth > 0), true);
   for (const width of [320, 360, 375, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 800 });

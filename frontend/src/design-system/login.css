@@ -1,5 +1,5 @@
 .staff-login { max-width: 430px; padding: max(36px, env(safe-area-inset-top)) 20px max(28px, env(safe-area-inset-bottom)); margin: 0 auto; }
-.login-logo { display: block; width: 220px; max-width: 75%; height: auto; margin: 0 auto 26px; }
+.login-logo { display: block; width: 248px; max-width: 84%; height: auto; margin: 0 auto 26px; }
 .staff-login h1 { text-align: center; font-size: 30px; font-weight: 750; }
 .login-subtitle { text-align: center; font-size: 14px; color: #656773; line-height: 1.45; margin: 10px 0 22px; }
 .unit-details { background: var(--control); border-radius: 18px; margin-bottom: 12px; overflow: hidden; }

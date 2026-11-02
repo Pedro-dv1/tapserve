@@ -87,6 +87,39 @@ class PlatformOperator(models.Model):
     active = models.BooleanField(default=True)
 
 
+class MfaCredential(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    secret_ciphertext = models.BinaryField(default=bytes)
+    confirmed_at = models.DateTimeField(null=True)
+    last_counter = models.BigIntegerField(default=-1)
+    recovery_hashes = models.JSONField(default=list)
+    version = models.PositiveIntegerField(default=1)
+
+
+class MfaChallenge(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    staff = models.ForeignKey(Staff, null=True, on_delete=models.PROTECT)
+    realm = models.CharField(max_length=8, choices=[("STAFF", "Staff"), ("PLATFORM", "Platform")])
+    secret_ciphertext = models.BinaryField(default=bytes)
+    credential_version = models.PositiveIntegerField()
+    staff_version = models.PositiveIntegerField(null=True)
+    password_digest = models.CharField(max_length=64)
+    replacing = models.BooleanField(default=False)
+    expires_at = models.DateTimeField(db_index=True)
+    used_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(realm="STAFF", staff__isnull=False)
+                | models.Q(realm="PLATFORM", staff__isnull=True),
+                name="mfa_challenge_actor_realm",
+            )
+        ]
+
+
 class PlatformAuditEvent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     operator = models.ForeignKey(PlatformOperator, on_delete=models.PROTECT)

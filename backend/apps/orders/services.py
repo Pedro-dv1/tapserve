@@ -108,6 +108,8 @@ def _submit_order(identity, data, *, manual):
     )
     if previous:
         return previous.response
+    if manual and "expected_session_id" in data and data["expected_session_id"] != getattr(session, "id", None):
+        raise Conflict("A ocupação desta mesa mudou. Confira a mesa antes de enviar outro pedido.")
     # Deterministic product locks before group/option pricing prevent price races and deadlocks.
     list(
         Product.objects.select_for_update(of=("self",))
@@ -132,6 +134,10 @@ def _submit_order(identity, data, *, manual):
         expires_at__gt=timezone.now(),
         point_token_version=point.token_version,
     ).update(session=session)
+    from apps.access.models import DeviceAdmission
+
+    DeviceAdmission.objects.filter(point=point, session__isnull=True,
+                                    status__in=["PENDING", "APPROVED"]).update(session=session)
     ServiceRequest.objects.filter(
         point=point, session__isnull=True, status__in=["OPEN", "ASSIGNED"]
     ).update(session=session)

@@ -18,7 +18,7 @@ from common.idempotency import Conflict
 from tests.test_access import customer
 from tests.test_identity import owner_client, pin_client, post_with_csrf
 from tests.test_orders import payload
-from tests.test_realtime import socket
+from tests.test_realtime import assert_no_refresh, next_message, socket
 
 
 def call_body(kind="ATTENDANT"):
@@ -129,13 +129,13 @@ def test_free_point_notifications_do_not_leak_to_other_free_point_or_rollback(
         try:
             for connection in (first, second):
                 assert (await connection.connect(timeout=10))[0]
-                await connection.receive_json_from(timeout=10)
+                assert (await next_message(connection))["kind"] == "SNAPSHOT_REQUIRED"
             response = await database_sync_to_async(post_with_csrf)(
                 own, "/api/v1/public/service-requests/", call_body()
             )
             assert response.status_code == 201
-            assert (await first.receive_json_from(timeout=10))["kind"] == "CALL_OPENED"
-            assert await second.receive_nothing(timeout=0.2)
+            assert (await next_message(first))["kind"] == "CALL_OPENED"
+            await assert_no_refresh(second)
 
             def rollback():
                 from apps.orders.production import publish
@@ -145,8 +145,8 @@ def test_free_point_notifications_do_not_leak_to_other_free_point_or_rollback(
                     raise ValueError("Rollback")
 
             await database_sync_to_async(rollback)()
-            assert await first.receive_nothing(timeout=0.2)
-            assert await second.receive_nothing(timeout=0.2)
+            await assert_no_refresh(first)
+            await assert_no_refresh(second)
         finally:
             await first.disconnect()
             await second.disconnect()

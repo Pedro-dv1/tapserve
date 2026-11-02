@@ -85,8 +85,18 @@ def authenticate_staff(request, data: dict[str, str], strong: bool) -> Staff:
             AuditEvent.objects.create(unit=staff.unit, staff=staff, action="STAFF_LOGIN_FAILED")
         raise AuthenticationFailed("Credenciais inválidas.")
     if strong:
+        from .mfa import requires_mfa
+
+        if requires_mfa(staff):
+            return staff
+    complete_staff_login(request, staff, strong=strong)
+    return staff
+
+
+def complete_staff_login(request, staff, *, strong, mfa_version=None):
+    if strong:
         request.session.flush()
-        login(request, user)
+        login(request, staff.user)
     else:
         # Remove any prior Django identity; cycle the opaque session to prevent fixation.
         request.session.flush()
@@ -101,8 +111,9 @@ def authenticate_staff(request, data: dict[str, str], strong: bool) -> Staff:
         }
     )
     request.session.set_expiry(28800)
+    if mfa_version is not None:
+        request.session["tapserve_mfa_version"] = mfa_version
     AuditEvent.objects.create(unit=staff.unit, staff=staff, action="STAFF_LOGIN")
-    return staff
 
 
 @transaction.atomic

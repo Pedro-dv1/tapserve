@@ -201,10 +201,9 @@ def test_log_formatter_omits_exception_and_arbitrary_request_fields():
 
 
 def test_architecture_traceability_contains_each_section_once():
-    import re
+    import runpy
 
     root = Path(__file__).resolve().parents[2]
-    matrix = (root / "docs/REQUIREMENTS_TRACEABILITY.md").read_text(encoding="utf-8")
-    assert [int(n) for n in re.findall(r"^\| (\d+) \|", matrix, re.MULTILINE)] == list(
-        range(1, 135)
-    )
+    validator = runpy.run_path(str(root / "scripts/extract_architecture.py"))
+    identifiers = validator["validate_traceability"](root)
+    assert identifiers and len(set(identifiers)) == len(identifiers)

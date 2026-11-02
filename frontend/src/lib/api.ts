@@ -115,10 +115,16 @@ export function decodePublicContext(data: unknown): PublicContext {
   return { leftover_packaging_enabled: row.leftover_packaging_enabled === true, device_id: text(row.device_id), point: decodePoint(row.point), company_name: text(row.company_name), unit_name: text(row.unit_name), expires_at: text(row.expires_at), unit_logo_url: row.unit_logo_url == null ? null : text(row.unit_logo_url), ...(typeof row.unit_timezone === 'string' ? { unit_timezone: row.unit_timezone } : {}) };
 }
 
-let pendingExchange: { token: string; promise: Promise<PublicContext> } | null = null;
-export function exchangePoint(token: string): Promise<PublicContext> {
+export type Admission = { admission_id: string; status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'EXPIRED' | 'REVOKED'; expires_at: string; verification_code: string };
+export function decodeAdmission(data: unknown): Admission {
+  const row = record(data);
+  if (!['PENDING', 'APPROVED', 'REJECTED', 'EXPIRED', 'REVOKED'].includes(text(row.status)) || !/^[0-9a-f-]{36}$/.test(text(row.admission_id)) || !/^[0-9A-F]{8}$/.test(text(row.verification_code)) || !Number.isFinite(Date.parse(text(row.expires_at)))) throw new Error('Solicitação de acesso inválida.');
+  return { admission_id: text(row.admission_id), status: row.status as Admission['status'], expires_at: text(row.expires_at), verification_code: text(row.verification_code) };
+}
+let pendingExchange: { token: string; promise: Promise<PublicContext | Admission> } | null = null;
+export function exchangePoint(token: string): Promise<PublicContext | Admission> {
   if (pendingExchange?.token === token) return pendingExchange.promise;
-  const promise = request('/api/v1/public/access/', 'POST', { public_token: token }).then(decodePublicContext);
+  const promise = request('/api/v1/public/access/', 'POST', { public_token: token }).then(value => 'admission_id' in record(value) ? decodeAdmission(value) : decodePublicContext(value));
   pendingExchange = { token, promise };
   // Consume only the derived cleanup rejection; the original promise still reports the error to its caller.
   void promise.finally(() => { if (pendingExchange?.promise === promise) pendingExchange = null; }).catch(() => {});

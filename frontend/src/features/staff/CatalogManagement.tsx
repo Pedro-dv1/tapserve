@@ -1,3 +1,4 @@
+import { clearManualDrafts } from '../../lib/manualDrafts';
 import SearchCombobox, { normalizeSearch } from '../../components/SearchCombobox';
 import { useRealtime } from '../../lib/useRealtime';
 import { useAutoRefresh } from '../../lib/useAutoRefresh';
@@ -159,7 +160,7 @@ function UnitSelector({ context }: { context: StaffContext }) {
   async function select(id: string) {
     if (submitting.current || !id || id === context.staff.id) return;
     submitting.current = true; setBusy(true); setError('');
-    try { await request('/api/v1/staff/units/', 'POST', { membership_id: id }); window.location.assign('/admin/menu'); }
+    try { await request('/api/v1/staff/units/', 'POST', { membership_id: id }); try { clearManualDrafts(sessionStorage); } catch { /* Unit context changes even when storage is unavailable. */ } window.location.assign('/admin/menu'); }
     catch (cause: unknown) { setError(cause instanceof Error ? cause.message : 'Não foi possível selecionar unidade.'); }
     finally { submitting.current = false; setBusy(false); }
   }

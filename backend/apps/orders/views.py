@@ -18,6 +18,7 @@ from apps.catalog.views import popular_products
 from apps.identity.models import IdempotencyRecord
 from apps.identity.permissions import IsActiveStaff, require_permission
 from apps.identity.serializers import StrictSerializer
+from apps.identity.services import rate_limit
 from common.api import CookieMutationAPIView, page_serializer
 
 from .models import OrderBatch, OrderItem, ServiceRequest, ServiceSession, SessionPoint
@@ -106,6 +107,75 @@ class PublicOrderReceiptView(PublicView):
         if record is None:
             raise NotFound()
         return Response(record.response)
+
+
+class ManualReceiptQuery(StrictSerializer):
+    point = serializers.UUIDField()
+
+
+class ManualOrderReceiptView(CookieMutationAPIView):
+    permission_classes = [IsActiveStaff]
+
+    @extend_schema(parameters=[ManualReceiptQuery], responses=dict)
+    def get(self, request, key):
+        require_permission(request.auth, "CREATE_MANUAL_ORDER")
+        query = ManualReceiptQuery(data=request.query_params)
+        query.is_valid(raise_exception=True)
+        record = IdempotencyRecord.objects.filter(
+            unit=request.auth.staff.unit,
+            actor=str(request.auth.staff.id),
+            action="MANUAL_ORDER",
+            resource=str(query.validated_data["point"]),
+            key=key,
+        ).first()
+        if record is None:
+            raise NotFound()
+        return Response(record.response)
+
+    @extend_schema(request=ManualReceiptQuery, responses=dict)
+    def post(self, request, key):
+        from django.db import transaction
+
+        from apps.identity.models import AuditEvent
+        from common.idempotency import remember
+
+        require_permission(request.auth, "CREATE_MANUAL_ORDER")
+        rate_limit("manual-reconcile:" + str(request.auth.staff.id), 20, 60)
+        data = ManualReceiptQuery(data=request.data)
+        data.is_valid(raise_exception=True)
+        with transaction.atomic():
+            point = (
+                ServicePoint.objects.select_for_update()
+                .filter(id=data.validated_data["point"], unit=request.auth.staff.unit)
+                .first()
+            )
+            if point is None:
+                raise NotFound()
+            actor = str(request.auth.staff.id)
+            record = IdempotencyRecord.objects.filter(
+                unit=point.unit, actor=actor, action="MANUAL_ORDER", resource=str(point.id), key=key
+            ).first()
+            if record:
+                return Response(record.response)
+            # Same lock/key as submit_order: a late original request can never create a duplicate.
+            result = {"abandoned": True}
+            remember(
+                point.unit,
+                actor,
+                "MANUAL_ORDER",
+                str(point.id),
+                key,
+                {"abandoned": True},
+                result,
+                409,
+            )
+            AuditEvent.objects.create(
+                unit=point.unit,
+                staff=request.auth.staff,
+                action="MANUAL_ATTEMPT_ABANDONED",
+                resource_id=str(point.id),
+            )
+            return Response(result)
 
 
 class PublicSessionView(PublicView):

@@ -1,7 +1,10 @@
+import base64
 import secrets
+import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 from threading import Barrier
+from urllib.parse import parse_qs, urlsplit
 
 import pytest
 from django.contrib.auth import get_user_model
@@ -14,6 +17,34 @@ from rest_framework.exceptions import Throttled
 
 from apps.identity.models import AuditEvent, Permission, RateBucket, Role, Staff
 from apps.identity.services import rate_limit
+
+_mfa_recovery = {}
+
+
+def complete_mfa(client, response, *, realm="staff"):
+    """Exercise real enrollment/challenge endpoints; never bypass the second factor."""
+    from apps.identity.mfa import totp
+    from apps.identity.models import MfaChallenge
+
+    if response.json().get("mfa_required") is not True:
+        return response
+    challenge = MfaChallenge.objects.get(id=client.session["tapserve_mfa_challenge"])
+    key = (str(challenge.user_id), challenge.credential_version, bytes(challenge.secret_ciphertext))
+    if response.json()["enrollment_required"]:
+        seed = parse_qs(urlsplit(response.json()["provisioning_uri"]).query)["secret"][0]
+        raw = base64.b32decode(seed + "=" * (-len(seed) % 8))
+        code = totp(raw).generate(int(time.time())).decode()
+    else:
+        # Fresh recovery values returned once by enrollment are retained only by the test client.
+        factor_key = (str(challenge.user_id), challenge.credential_version)
+        codes = _mfa_recovery.get(factor_key)
+        assert codes, "A pre-enrolled test factor must provide a real recovery code"
+        code = codes.pop()
+    completed = post_with_csrf(client, f"/api/v1/{realm}/mfa/challenge/", {"code": code})
+    assert completed.status_code == 200, completed.content
+    if "recovery_codes" in completed.json():
+        _mfa_recovery[(key[0], challenge.credential_version + 1)] = list(completed.json()["recovery_codes"])
+    return completed
 
 
 def post_with_csrf(client, path, data):
@@ -29,6 +60,7 @@ def owner_client(data):
         {"company": "company-a", "unit": "unit-a", "username": "owner", "password": data[-1]},
     )
     assert result.status_code == 200, result.content
+    complete_mfa(client, result)
     return client
 
 

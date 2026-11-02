@@ -4,6 +4,7 @@ import logging
 import secrets
 from functools import cache
 
+from django.conf import settings
 from django.db import DatabaseError, connection
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
@@ -59,6 +60,10 @@ class HealthView(APIView):
     @extend_schema(responses={200: HealthSerializer, 503: HealthSerializer}, auth=[])
     def get(self, request):
         try:
+            from apps.identity.services import rate_limit
+            from common.network import client_address
+
+            rate_limit("health-ip:" + client_address(request), settings.HEALTH_IP_LIMIT, 60)
             with connection.cursor() as cursor:
                 cursor.execute("SELECT 1")
                 cursor.fetchone()
@@ -80,9 +85,40 @@ class CsrfView(APIView):
 
     @extend_schema(responses=CsrfSerializer, auth=[])
     def get(self, request):
-        if "tapserve_browser_nonce" not in request.session:
-            request.session["tapserve_browser_nonce"] = secrets.token_urlsafe(32)
-        return Response({"csrf_token": get_token(request)})
+        from apps.identity.services import rate_limit
+        from common.network import client_address
+
+        try:
+            rate_limit("bootstrap-ip:" + client_address(request), settings.BOOTSTRAP_IP_LIMIT, 60)
+            nonce = request.get_signed_cookie(
+                settings.BROWSER_COOKIE_NAME, default=None, salt="tapserve.browser", max_age=43200
+            )
+            if nonce:
+                rate_limit("bootstrap-browser:" + nonce, settings.BOOTSTRAP_BROWSER_LIMIT, 60)
+        except DatabaseError:
+            return Response(
+                {
+                    "error": {
+                        "code": "unavailable",
+                        "message": "Serviço temporariamente indisponível.",
+                    }
+                },
+                status=503,
+            )
+        # ASVS V7/V15: a signed HttpOnly nonce needs no anonymous database session.
+        response = Response({"csrf_token": get_token(request)})
+        if not nonce:
+            response.set_signed_cookie(
+                settings.BROWSER_COOKIE_NAME,
+                secrets.token_urlsafe(32),
+                salt="tapserve.browser",
+                max_age=43200,
+                path="/",
+                httponly=True,
+                secure=settings.SESSION_COOKIE_SECURE,
+                samesite="Lax",
+            )
+        return response
 
 
 def csrf_failure(request, reason=""):

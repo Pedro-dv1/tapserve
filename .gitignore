@@ -11,6 +11,12 @@
 venv/
 .local/
 
+# Local documentation, audit reports and deployment/workflow artifacts.
+/doc/
+/docs/
+/deploy/
+/.github/
+
 # Python bytecode, caches and test coverage.
 __pycache__/
 *.py[cod]

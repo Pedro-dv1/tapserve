@@ -13,6 +13,7 @@ import { EmptyState, ErrorState, SecretInput, LoadingSkeleton } from '../../comp
 const errorText = (error: unknown) => error instanceof Error ? error.message : 'Não foi possível concluir. Tente novamente.';
 
 const labels: Record<string, string> = {
+  APPROVE_DEVICE_ACCESS: 'Autorizar dispositivos na mesa', CORRECT_RECEIPT: 'Corrigir declarações de recebimento externo',
   OWNER: 'Proprietário', ADMIN: 'Administrador', MANAGER: 'Gerente', WAITER: 'Atendente', KITCHEN: 'Cozinha', BAR: 'Bar', CASHIER: 'Caixa',
   VIEW_OPERATION: 'Ver operação', VIEW_ALL_TABLES: 'Ver todas as mesas', CREATE_MANUAL_ORDER: 'Criar pedido manual', EDIT_ORDER: 'Alterar pedido', CANCEL_ORDER: 'Cancelar pedido',
   ASSIGN_SERVICE_REQUEST: 'Assumir e resolver chamados', TRANSFER_SESSION: 'Transferir atendimento', MERGE_TABLES: 'Juntar mesas', SPLIT_TABLES: 'Separar mesas', REGISTER_PAYMENT: 'Registrar recebimento', CLOSE_SESSION: 'Fechar atendimento', REOPEN_SESSION: 'Reabrir atendimento',

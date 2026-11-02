@@ -82,3 +82,45 @@ class DeviceAccess(models.Model):
                 condition=models.Q(expires_at__gt=models.F("issued_at")), name="device_positive_ttl"
             )
         ]
+
+
+class DeviceAdmission(models.Model):
+    """A browser request is not a device authorization until staff approves it."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    point = models.ForeignKey(ServicePoint, on_delete=models.PROTECT)
+    session = models.ForeignKey("orders.ServiceSession", null=True, on_delete=models.PROTECT)
+    browser_digest = models.CharField(max_length=64)
+    point_token_version = models.PositiveIntegerField()
+    status = models.CharField(
+        max_length=10,
+        choices=[(s, s) for s in ("PENDING", "APPROVED", "REJECTED", "EXPIRED", "REVOKED")],
+        default="PENDING",
+    )
+    requested_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    decided_at = models.DateTimeField(null=True)
+    decided_by = models.ForeignKey("identity.Staff", null=True, on_delete=models.PROTECT)
+    device = models.OneToOneField(DeviceAccess, null=True, on_delete=models.PROTECT)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(
+                    status__in=["PENDING", "APPROVED", "REJECTED", "EXPIRED", "REVOKED"]
+                ),
+                name="admission_status_valid",
+            ),
+            models.CheckConstraint(
+                condition=~models.Q(status="APPROVED") | models.Q(decided_by__isnull=False),
+                name="admission_approval_has_actor",
+            ),
+            models.UniqueConstraint(
+                fields=["point", "browser_digest"],
+                condition=models.Q(status__in=["PENDING", "APPROVED"]),
+                name="admission_browser_one_active",
+            ),
+        ]
+        indexes = [
+            models.Index(fields=["point", "status", "expires_at"], name="admission_point_queue_idx")
+        ]

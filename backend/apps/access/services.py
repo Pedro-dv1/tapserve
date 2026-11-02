@@ -20,7 +20,7 @@ from apps.organizations.models import Unit
 from common.idempotency import Conflict, remember, replay
 from common.network import client_address
 
-from .models import DeviceAccess, ServicePoint
+from .models import DeviceAccess, DeviceAdmission, ServicePoint
 
 
 def digest(token: str) -> str:
@@ -77,6 +77,8 @@ def connected_devices(point):
 @transaction.atomic
 def configure_identifier(identity, identifier, data):
     require_permission(identity, "MANAGE_SERVICE_POINTS")
+    if data["action"] == "ROTATE":
+        require_permission(identity, "ROTATE_SERVICE_POINT_TOKEN")
     # ASVS V8: resource authorization stays at the server's unit boundary.
     point = (
         ServicePoint.objects.select_for_update()
@@ -85,6 +87,11 @@ def configure_identifier(identity, identifier, data):
     )
     if point is None:
         raise NotFound()
+    key = data.get("idempotency_key")
+    if key:
+        previous = replay(str(identity.staff.id), "POINT_IDENTIFIER", str(point.id), key, data)
+        if previous:
+            return point
     if point.token_version != data["expected_version"]:
         raise Conflict("O identificador mudou. Atualize o ponto antes de continuar.")
     if data["action"] == "ASSOCIATE":
@@ -103,6 +110,16 @@ def configure_identifier(identity, identifier, data):
         DeviceAccess.objects.filter(point=point, revoked_at__isnull=True).update(
             point_token_version=point.token_version
         )
+        from .admission import invalidate_admissions
+
+        DeviceAdmission.objects.filter(
+            point=point, device__isnull=True, status__in=["PENDING", "APPROVED"]
+        ).update(status="REVOKED")
+        if data.get("revoke_devices", False):
+            DeviceAccess.objects.filter(point=point, revoked_at__isnull=True).update(
+                revoked_at=timezone.now()
+            )
+            invalidate_admissions([point.id])
     AuditEvent.objects.create(
         unit=point.unit,
         staff=identity.staff,
@@ -110,6 +127,17 @@ def configure_identifier(identity, identifier, data):
         resource_id=str(point.id),
         reason=data["reason"],
     )
+    if key:
+        remember(
+            point.unit,
+            str(identity.staff.id),
+            "POINT_IDENTIFIER",
+            str(point.id),
+            key,
+            data,
+            {"id": str(point.id), "token_version": point.token_version},
+            200,
+        )
     return point
 
 
@@ -204,10 +232,50 @@ def active_device(token: str | None):
     return device
 
 
+def browser_nonce(request):
+    return request.get_signed_cookie(
+        settings.BROWSER_COOKIE_NAME, default=None, salt="tapserve.browser", max_age=43200
+    ) or request.session.get("tapserve_browser_nonce")
+
+
+def reclaim_idle_devices(point, session):
+    from apps.orders.models import RealtimeLease
+
+    cutoff = timezone.now() - timedelta(minutes=5)
+    scope = (
+        {"session": session} if session is not None else {"point": point, "session__isnull": True}
+    )
+    expired = (
+        DeviceAccess.objects.filter(
+            **scope,
+            revoked_at__isnull=True,
+            expires_at__gt=timezone.now(),
+            issued_at__lte=cutoff,
+            point_token_version=F("point__token_version"),
+        )
+        .annotate(actor=Concat(Value("D:"), Cast("id", CharField())))
+        .filter(Q(last_seen_at__isnull=True) | Q(last_seen_at__lte=cutoff))
+        .exclude(
+            actor__in=RealtimeLease.objects.filter(
+                unit_id=point.unit_id, expires_at__gt=timezone.now()
+            ).values("actor")
+        )
+    )
+    count = expired.update(revoked_at=timezone.now())
+    if count:
+        AuditEvent.objects.create(
+            unit=point.unit,
+            action="DEVICE_IDLE_EXPIRED",
+            resource_id=str(point.id),
+            details={"count": count},
+        )
+    return count
+
+
 def exchange(request, token: str):
     rate_limit("access-ip:" + client_address(request), 30)
     rate_limit("access-point:" + digest(token), 30)
-    browser = request.session.get("tapserve_browser_nonce")
+    browser = browser_nonce(request)
     if not isinstance(browser, str):
         raise PermissionDenied("Atualize a página.")
     with transaction.atomic():
@@ -262,6 +330,11 @@ def exchange(request, token: str):
             return device, cipher().decrypt(bytes(device.token_ciphertext)).decode()
         if point.block_new_devices:
             raise PermissionDenied()
+        from .admission import admission_for
+
+        admission = admission_for(point, digest(browser), session)
+        if admission.status != "APPROVED":
+            return admission, None
         authorized = DeviceAccess.objects.filter(
             **({"session": session} if session is not None else {"point": point}),
             revoked_at__isnull=True,
@@ -269,28 +342,7 @@ def exchange(request, token: str):
             point_token_version=F("point__token_version"),
         ).filter(Q(session__isnull=True) | Q(session__status__in=OPEN_STATES))
         if authorized.count() >= 5:
-            from apps.orders.models import RealtimeLease
-
-            cutoff = timezone.now() - timedelta(minutes=5)
-            # Idle authorizations release slots only when needed; live sockets keep their access.
-            reclaimed = (
-                authorized.annotate(actor=Concat(Value("D:"), Cast("id", CharField())))
-                .filter(issued_at__lte=cutoff)
-                .filter(Q(last_seen_at__isnull=True) | Q(last_seen_at__lte=cutoff))
-                .exclude(
-                    actor__in=RealtimeLease.objects.filter(
-                        unit_id=point.unit_id, expires_at__gt=timezone.now()
-                    ).values("actor")
-                )
-                .update(revoked_at=timezone.now())
-            )
-            if reclaimed:
-                AuditEvent.objects.create(
-                    unit=point.unit,
-                    action="DEVICE_IDLE_EXPIRED",
-                    resource_id=str(point.id),
-                    details={"count": reclaimed},
-                )
+            reclaim_idle_devices(point, session)
         if authorized.count() >= 5:
             raise Conflict("Limite de dispositivos atingido.")
         capability = secrets.token_urlsafe(32)
@@ -303,6 +355,8 @@ def exchange(request, token: str):
             point_token_version=point.token_version,
             expires_at=timezone.now() + timedelta(hours=12),
         )
+        admission.device = device
+        admission.save(update_fields=["device"])
         AuditEvent.objects.create(
             unit=point.unit, action="DEVICE_AUTHORIZED", resource_id=str(device.id)
         )
@@ -357,6 +411,10 @@ def change_point(identity, identifier, data):
         DeviceAccess.objects.filter(point=point, revoked_at__isnull=True).update(
             revoked_at=timezone.now()
         )
+    if not point.active or "menu" in data:
+        from .admission import invalidate_admissions
+
+        invalidate_admissions([point.id])
     AuditEvent.objects.create(
         unit=point.unit,
         staff=identity.staff,
@@ -381,6 +439,7 @@ def revoke_device(identity, identifier, reason):
     DeviceAccess.objects.filter(id=identifier, revoked_at__isnull=True).update(
         revoked_at=timezone.now()
     )
+    DeviceAdmission.objects.filter(device_id=identifier).update(status="REVOKED")
     AuditEvent.objects.create(
         unit=identity.staff.unit,
         staff=identity.staff,

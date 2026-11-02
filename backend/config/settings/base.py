@@ -130,6 +130,12 @@ for network in [*STAFF_PIN_NETWORKS, *TRUSTED_PROXY_NETWORKS]:
             "PIN/proxy networks must be explicit, restricted CIDRs"
         ) from error
 DEVICE_COOKIE_NAME = "tapserve-device"
+BROWSER_COOKIE_NAME = "tapserve-browser"
+BOOTSTRAP_IP_LIMIT = env.int("BOOTSTRAP_IP_LIMIT", default=600)
+BOOTSTRAP_BROWSER_LIMIT = env.int("BOOTSTRAP_BROWSER_LIMIT", default=120)
+HEALTH_IP_LIMIT = env.int("HEALTH_IP_LIMIT", default=600)
+if min(BOOTSTRAP_IP_LIMIT, BOOTSTRAP_BROWSER_LIMIT, HEALTH_IP_LIMIT) < 1:
+    raise ImproperlyConfigured("Bootstrap and health limits must be positive")
 PUBLIC_APP_ORIGIN = env("PUBLIC_APP_ORIGIN", default="http://127.0.0.1:5173").rstrip("/")
 TAPSERVE_TOKEN_KEYS = env.list("TAPSERVE_TOKEN_KEYS", default=[])
 if len(TAPSERVE_TOKEN_KEYS) > 3:

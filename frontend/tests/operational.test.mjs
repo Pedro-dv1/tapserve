@@ -1,4 +1,4 @@
-﻿import assert from 'node:assert/strict';
+import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { existsSync, readFileSync } from 'node:fs';
 import { registerHooks } from 'node:module';
@@ -126,7 +126,7 @@ test('table summaries reject incorrect counts and manual drafts use a real confi
  const previous = globalThis.sessionStorage;
  try {
   globalThis.sessionStorage = { getItem: () => null };
-  const html = renderToStaticMarkup(React.createElement(ManualOrder, { point, session: null, close() {}, changed() {} }));
+  const html = renderToStaticMarkup(React.createElement(ManualOrder, { point, session: null, context: { unit_id: 'unit', staff: { id: 'staff' } }, close() {}, changed() {} }));
   assert.ok(html.includes('<dialog'));
   assert.ok(html.includes('Novo pedido'));
   assert.ok(html.includes('Confirmar pedido'));
@@ -139,7 +139,7 @@ test('customer table labels expose only the registered number and preserve acces
  const html = renderToStaticMarkup(React.createElement(CustomerHeader, { context: { point: { type: 'TABLE' }, company_name: 'QA company' }, pointName: 'Mesa 12 demonstração' }));
  assert.ok(html.includes('Mesa 12')); assert.equal(/QA company|demonstração/.test(html), false);
  const branded = renderToStaticMarkup(React.createElement(CustomerHeader, { context: { point: { type: 'TABLE', number: 12 }, unit_name: 'Restaurante', unit_logo_url: '/api/v1/public/unit-logo/image/?v=0123456789abcdef' }, pointName: 'Mesa 12' }));
- assert.ok(branded.includes('src="/brand/TapServe-logo-wordmark.png" alt="TapServe"'));
+ assert.ok(branded.includes('src="/brand/TapServe_logo_wordmark.svg" alt="TapServe"'));
  assert.equal(branded.includes('/unit-logo/'), false);
  const popup = renderToStaticMarkup(React.createElement(ActionPopup, { notice: { title: 'Conta solicitada', message: 'A equipe foi avisada.' }, close() {} }));
  for (const text of ['<dialog', 'aria-labelledby', 'Entendido', 'Conta solicitada']) assert.ok(popup.includes(text));
@@ -165,6 +165,9 @@ test('customer home, table cleanup, lazy video and NFC fallback expose the reque
   globalThis.window = { location: { pathname: '/customer', search: '' }, isSecureContext: false };
   globalThis.sessionStorage = { getItem: () => null };
   const home = renderToStaticMarkup(React.createElement(CustomerWorkspace, { context }));
+  assert.equal(home.includes('class="customer-navigation"'), false);
+  globalThis.window.location.pathname = '/customer/';
+  assert.equal(renderToStaticMarkup(React.createElement(CustomerWorkspace, { context })).includes('class="customer-navigation"'), false);
   for (const label of ['Ver cardápio', 'Chamar garçom', 'Pedir a conta', 'Mesa 07']) assert.ok(home.includes(label));
   assert.ok(home.includes('após o primeiro pedido'));
   globalThis.window.location.pathname = '/customer/table';

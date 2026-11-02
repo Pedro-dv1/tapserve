@@ -2,6 +2,14 @@ from django.conf import settings
 from django.urls import path
 from drf_spectacular.views import SpectacularAPIView
 
+from apps.access.admission import (
+    AdmissionClaimView,
+    AdmissionDecisionView,
+    AdmissionPollView,
+    NfcAuthorizeView,
+    RevokePointDevicesView,
+    StaffAdmissionsView,
+)
 from apps.access.views import (
     AccessView,
     DeviceRevokeView,
@@ -30,6 +38,12 @@ from apps.catalog.views import (
     PublicProductVideoView,
     PublicProductView,
     PublicQuoteView,
+)
+from apps.identity.mfa import (
+    PlatformMfaChallengeView,
+    PlatformMfaSettingsView,
+    StaffMfaChallengeView,
+    StaffMfaSettingsView,
 )
 from apps.identity.platform import (
     PlatformCompanyView,
@@ -69,7 +83,17 @@ from apps.orders.service_requests import (
     StaffRequestStatusView,
     StaffRequestsView,
 )
+from apps.orders.settlement import (
+    ExternalReceiptReverseView,
+    ExternalReceiptView,
+    PointSessionHistoryView,
+    SessionCloseView,
+    SessionReopenView,
+    SettlementCommandResultView,
+    StaffSessionSettlementView,
+)
 from apps.orders.views import (
+    ManualOrderReceiptView,
     ManualOrderView,
     PublicOrderReceiptView,
     PublicOrdersView,
@@ -86,6 +110,39 @@ from apps.organizations.views import UnitLogoImageView, UnitLogoView
 from common.api import CsrfView, HealthView, not_found, server_error
 
 urlpatterns = [
+    path("api/v1/staff/manual-order-receipts/<uuid:key>/", ManualOrderReceiptView.as_view()),
+    path(
+        "api/v1/admin/service-points/<uuid:identifier>/nfc-authorize/", NfcAuthorizeView.as_view()
+    ),
+    path("api/v1/staff/mfa/challenge/", StaffMfaChallengeView.as_view()),
+    path("api/v1/platform/mfa/challenge/", PlatformMfaChallengeView.as_view()),
+    path("api/v1/staff/mfa/", StaffMfaSettingsView.as_view()),
+    path("api/v1/platform/mfa/", PlatformMfaSettingsView.as_view()),
+    path("api/v1/public/admissions/<uuid:identifier>/", AdmissionPollView.as_view()),
+    path("api/v1/public/admissions/<uuid:identifier>/claim/", AdmissionClaimView.as_view()),
+    path("api/v1/staff/admissions/", StaffAdmissionsView.as_view()),
+    path("api/v1/staff/admissions/<uuid:identifier>/decision/", AdmissionDecisionView.as_view()),
+    path(
+        "api/v1/admin/service-points/<uuid:identifier>/revoke-devices/",
+        RevokePointDevicesView.as_view(),
+    ),
+    path(
+        "api/v1/staff/sessions/<uuid:identifier>/settlement/", StaffSessionSettlementView.as_view()
+    ),
+    path(
+        "api/v1/staff/sessions/<uuid:identifier>/external-receipts/", ExternalReceiptView.as_view()
+    ),
+    path(
+        "api/v1/staff/sessions/<uuid:identifier>/external-receipts/<uuid:receipt_id>/reverse/",
+        ExternalReceiptReverseView.as_view(),
+    ),
+    path("api/v1/staff/sessions/<uuid:identifier>/close/", SessionCloseView.as_view()),
+    path("api/v1/staff/sessions/<uuid:identifier>/reopen/", SessionReopenView.as_view()),
+    path(
+        "api/v1/staff/sessions/<uuid:identifier>/settlement-results/<uuid:key>/",
+        SettlementCommandResultView.as_view(),
+    ),
+    path("api/v1/staff/tables/<uuid:identifier>/history/", PointSessionHistoryView.as_view()),
     path("api/v1/admin/products/<uuid:identifier>/photos/", ProductPhotosView.as_view()),
     path(
         "api/v1/admin/products/<uuid:identifier>/photos/<uuid:photo_id>/",

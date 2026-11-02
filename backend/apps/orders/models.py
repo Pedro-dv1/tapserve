@@ -311,3 +311,69 @@ class RealtimeLease(models.Model):
         indexes = [
             models.Index(fields=["unit", "actor", "expires_at"], name="socket_actor_expiry_idx")
         ]
+
+
+class ExternalReceipt(models.Model):
+    """An employee declaration of money received elsewhere, never a bank confirmation."""
+
+    class Method(models.TextChoices):
+        MONEY = "MONEY", "Dinheiro"
+        PIX = "PIX", "Pix externo"
+        CARD = "CARD", "Cartão externo"
+        OTHER = "OTHER", "Outro"
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    session = models.ForeignKey(
+        ServiceSession, on_delete=models.PROTECT, related_name="external_receipts"
+    )
+    point = models.ForeignKey("access.ServicePoint", on_delete=models.PROTECT)
+    staff = models.ForeignKey("identity.Staff", on_delete=models.PROTECT)
+    method = models.CharField(max_length=5, choices=Method.choices)
+    amount = models.DecimalField(max_digits=16, decimal_places=2)
+    notes = models.CharField(max_length=300, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    reverses = models.OneToOneField(
+        "self", null=True, on_delete=models.PROTECT, related_name="reversal"
+    )
+
+    class Meta:
+        ordering = ["created_at", "id"]
+        indexes = [models.Index(fields=["session", "created_at"], name="receipt_session_time_idx")]
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(amount__gt=0), name="receipt_amount_positive"
+            ),
+            models.CheckConstraint(
+                condition=models.Q(method__in=["MONEY", "PIX", "CARD", "OTHER"]),
+                name="receipt_method_valid",
+            ),
+        ]
+
+
+class SessionLifecycleEvent(models.Model):
+    """Immutable snapshots of each closure/reopening, including repeated service cycles."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    session = models.ForeignKey(
+        ServiceSession, on_delete=models.PROTECT, related_name="lifecycle_events"
+    )
+    staff = models.ForeignKey("identity.Staff", on_delete=models.PROTECT)
+    action = models.CharField(max_length=6, choices=[("CLOSE", "Fechar"), ("REOPEN", "Reabrir")])
+    reason = models.CharField(max_length=300)
+    consumption_total = models.DecimalField(max_digits=16, decimal_places=2)
+    declared_received = models.DecimalField(max_digits=16, decimal_places=2)
+    version = models.PositiveIntegerField()
+    points = models.JSONField(default=list)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["created_at", "id"]
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(action__in=["CLOSE", "REOPEN"]), name="lifecycle_action_valid"
+            ),
+            models.CheckConstraint(
+                condition=models.Q(consumption_total__gte=0, declared_received__gte=0),
+                name="lifecycle_totals_nonnegative",
+            ),
+        ]

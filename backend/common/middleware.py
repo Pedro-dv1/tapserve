@@ -27,7 +27,10 @@ class RequestBoundaryMiddleware:
         )
         body_limit = (
             settings.PRODUCT_IMAGE_MAX_BYTES + 65536
-            if request.path == "/api/v1/admin/unit-logo/"
+            if (
+                request.path == "/api/v1/admin/unit-logo/"
+                or re.fullmatch(r"/api/v1/admin/products/[0-9a-fA-F-]{36}/photos/", request.path)
+            )
             and request.content_type == "multipart/form-data"
             else settings.PRODUCT_IMAGE_MAX_BYTES + settings.PRODUCT_VIDEO_MAX_BYTES + 65536
             if image_upload
@@ -68,6 +71,9 @@ class RequestBoundaryMiddleware:
                 }:
                     if len(request.body) > body_limit:
                         raise RequestDataTooBig
+                    if not request.META.get("CONTENT_LENGTH"):
+                        # ASGI can supply a bounded body without the optional header.
+                        request.META["CONTENT_LENGTH"] = str(len(request.body))
                 response = self.get_response(request)
             except RequestDataTooBig:
                 response = self._error(

@@ -9,7 +9,7 @@ from django.db import IntegrityError, transaction
 
 from apps.identity.models import PlatformAuditEvent, PlatformOperator, Staff
 from apps.organizations.models import Company, Unit
-from tests.test_identity import owner_client, post_with_csrf
+from tests.test_identity import complete_mfa, owner_client, post_with_csrf
 
 
 @pytest.mark.django_db
@@ -27,12 +27,12 @@ def test_platform_is_explicit_and_does_not_bypass_staff_scope(identity_data):
         == 401
     )
     operator = PlatformOperator.objects.create(user=user)
-    assert (
-        post_with_csrf(
-            client, "/api/v1/platform/login/", {"username": "platform", "password": password}
-        ).status_code
-        == 200
+    response = post_with_csrf(
+        client, "/api/v1/platform/login/", {"username": "platform", "password": password}
     )
+    assert response.status_code == 200
+    assert client.get("/api/v1/platform/me/").status_code == 401
+    complete_mfa(client, response, realm="platform")
     assert client.get("/api/v1/staff/me/").status_code == 401
     assert client.get("/api/v1/admin/staff/").status_code == 401
     created = post_with_csrf(

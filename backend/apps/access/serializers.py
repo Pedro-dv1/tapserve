@@ -89,10 +89,12 @@ class PointUrlOutput(serializers.Serializer):
 
 
 class IdentifierInput(ReasonInput):
+    idempotency_key = serializers.UUIDField(required=False)
     action = serializers.ChoiceField(choices=["ROTATE", "ASSOCIATE"])
     expected_version = serializers.IntegerField(min_value=1)
     confirmed = serializers.BooleanField(default=False)
     url = serializers.URLField(max_length=500, required=False)
+    revoke_devices = serializers.BooleanField(default=False)
 
 
 class PresenceOutput(serializers.Serializer):

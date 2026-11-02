@@ -18,7 +18,7 @@ export function App() {
     return () => media.removeEventListener('change', reduced);
   }, []);
   const route = appRoute(path);
-  if (route === 'customer') return <>{entering && <div className="customer-entrance" role="status" aria-label="Abrindo TapServe" onAnimationEnd={event => { if (event.target === event.currentTarget) setEntering(false); }}><img src="/brand/TapServe-logo-wordmark.png" alt="TapServe" /></div>}<div hidden={entering}><Suspense fallback={<main><LoadingSkeleton variant="menu" /></main>}><CustomerScreen /></Suspense></div></>;
+  if (route === 'customer') return <>{entering && <div className="customer-entrance" role="status" aria-label="Abrindo TapServe" onAnimationEnd={event => { if (event.target === event.currentTarget) setEntering(false); }}><img src="/brand/TapServe_logo_wordmark.svg" alt="TapServe" /></div>}<div hidden={entering}><Suspense fallback={<main><LoadingSkeleton variant="menu" /></main>}><CustomerScreen /></Suspense></div></>;
   if (route === 'platform') return <Suspense fallback={<main><LoadingSkeleton variant="staff" /></main>}><PlatformScreen /></Suspense>;
   if (route === 'staff') {
     return <Suspense fallback={<main><LoadingSkeleton variant="staff" /></main>}><StaffScreen /></Suspense>;
@@ -49,7 +49,7 @@ function HealthScreen() {
   }, [attempt]);
 
   return <main>
-    <img className="wordmark" src="/brand/TapServe-logo-wordmark.png" alt="TapServe" />
+    <img className="wordmark" src="/brand/TapServe_logo_wordmark.svg" alt="TapServe" />
     <h1>Conexão com o TapServe</h1>
     <div aria-live="polite" aria-busy={status.kind === 'loading'}>
       {status.kind === 'loading' && <LoadingSkeleton variant="health" />}

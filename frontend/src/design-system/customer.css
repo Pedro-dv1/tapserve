@@ -1,5 +1,6 @@
 .customer-root { max-width: 600px; padding: max(20px, env(safe-area-inset-top)) var(--page-space) 24px; }
 .customer-app { --navigation-height: 72px; color: var(--text); padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+.page-home { padding-bottom: 0; }
 .page-menu, .page-cart, .page-orders { padding-bottom: calc(176px + env(safe-area-inset-bottom)); }
 .page-menu .sticky-action, .page-cart .sticky-action, .page-orders .sticky-action { bottom: calc(var(--navigation-height) + env(safe-area-inset-bottom)); padding-bottom: 12px; }
 .customer-app [hidden] { display: none; }
@@ -13,7 +14,7 @@
 .customer-app textarea { display: block; resize: vertical; }
 .customer-app button:disabled, .staff-login button:disabled { cursor: not-allowed; }
 .customer-header { display: flex; align-items: center; gap: 12px; min-height: 52px; margin-bottom: 18px; }
-.customer-logo { display: block; width: min(47%, 154px); height: auto; }
+.customer-logo { display: block; width: min(50%, 174px); height: auto; }
 .table-indicator { margin-left: auto; display: flex; align-items: center; gap: 8px; max-width: 46%; padding: 10px 12px; background: var(--control); border-radius: 16px; }
 .table-indicator > .ui-icon { color: var(--accent); }
 .table-indicator strong { display: block; overflow-wrap: anywhere; }
@@ -291,7 +292,7 @@ button.product-copy { flex: 1; padding: 1px 0 0; text-align: left; background: t
 @media (max-width: 350px) {
   :root { --page-space: 14px; }
   .customer-header { gap: 8px; }
-  .customer-logo { width: 43%; }
+  .customer-logo { width: 48%; }
   .table-indicator { gap: 6px; padding: 8px; }
   .table-indicator > .ui-icon { width: 18px; }
   .product-main { gap: 8px; }

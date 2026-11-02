@@ -1,13 +1,17 @@
 """Real HTTP cookies/CSRF and real PostgreSQL; no mocked order or pricing service."""
 
+import base64
 import json
+import time
 import uuid
 from http.cookiejar import CookieJar
 from urllib.error import HTTPError
+from urllib.parse import parse_qs, urlsplit
 from urllib.request import HTTPCookieProcessor, Request, build_opener
 
 import pytest
 
+from apps.identity.mfa import totp
 from apps.orders.models import OrderBatch, ProductionAssignment, ServiceSession
 from tests.test_orders import payload
 
@@ -42,7 +46,30 @@ def test_customer_confirmation_appears_in_staff_operation_over_http(
         call(customer, "/api/v1/public/access/", {"public_token": point_data[1]}, csrf=False)[0]
         == 403
     )
-    assert call(customer, "/api/v1/public/access/", {"public_token": point_data[1]})[0] == 200
+    status, admission = call(customer, "/api/v1/public/access/", {"public_token": point_data[1]})
+    assert status == 202
+    assert call(customer, "/api/v1/public/menu/")[0] == 401
+    approver = build_opener(HTTPCookieProcessor(CookieJar()))
+    assert (
+        call(
+            approver,
+            "/api/v1/staff/login/",
+            {"company": "company-a", "unit": "unit-a", "login_code": "waiter", "pin": "123456"},
+        )[0]
+        == 200
+    )
+    assert (
+        call(
+            approver,
+            f"/api/v1/staff/admissions/{admission['admission_id']}/decision/",
+            {"status": "APPROVED", "idempotency_key": str(uuid.uuid4())},
+        )[0]
+        == 200
+    )
+    assert (
+        call(customer, f"/api/v1/public/admissions/{admission['admission_id']}/claim/", {})[0]
+        == 200
+    )
     assert ServiceSession.objects.count() == 0
     assert call(customer, "/api/v1/public/menu/")[1]["results"][0]["name"] == "Lanche"
     body = payload(catalog_data)
@@ -51,16 +78,25 @@ def test_customer_confirmation_appears_in_staff_operation_over_http(
     assert call(customer, "/api/v1/public/orders/", body) == (201, receipt)
     assert OrderBatch.objects.count() == 1
     assert call(staff, "/api/v1/staff/operation/")[0] == 401
+    status, challenge = call(
+        staff,
+        "/api/v1/staff/password-login/",
+        {
+            "company": "company-a",
+            "unit": "unit-a",
+            "username": "owner",
+            "password": identity_data[-1],
+        },
+    )
+    assert status == 200 and challenge["mfa_required"] is True
+    assert call(staff, "/api/v1/staff/operation/")[0] == 401
+    seed = parse_qs(urlsplit(challenge["provisioning_uri"]).query)["secret"][0]
+    raw = base64.b32decode(seed + "=" * (-len(seed) % 8))
     assert (
         call(
             staff,
-            "/api/v1/staff/password-login/",
-            {
-                "company": "company-a",
-                "unit": "unit-a",
-                "username": "owner",
-                "password": identity_data[-1],
-            },
+            "/api/v1/staff/mfa/challenge/",
+            {"code": totp(raw).generate(int(time.time())).decode()},
         )[0]
         == 200
     )

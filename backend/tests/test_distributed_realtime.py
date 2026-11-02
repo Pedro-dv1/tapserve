@@ -99,8 +99,9 @@ def test_committed_order_notifies_two_independent_native_asgi_processes(
                 )
             )  # noqa: S603
         assert processes[0].pid != processes[1].pid
-        deadline = time.monotonic() + 20
         for port, process in zip(ports, processes, strict=True):
+            # Native Windows import/startup can be scanned by endpoint protection.
+            deadline = time.monotonic() + (60 if os.name == "nt" else 20)
             while time.monotonic() < deadline:
                 assert process.poll() is None, "Native ASGI process exited during startup"
                 with socket.socket() as probe:

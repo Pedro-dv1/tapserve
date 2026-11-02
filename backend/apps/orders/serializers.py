@@ -35,6 +35,7 @@ class OrderInput(StrictSerializer):
 
 class ManualOrderInput(OrderInput):
     point_id = serializers.UUIDField()
+    expected_session_id = serializers.UUIDField(required=False, allow_null=True)
 
 
 class ParticipantInput(StrictSerializer):

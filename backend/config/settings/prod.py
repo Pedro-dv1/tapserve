@@ -59,6 +59,7 @@ DATABASES["default"]["OPTIONS"]["sslrootcert"] = env("POSTGRES_SSL_ROOT_CERT")
 SESSION_COOKIE_NAME = "__Host-tapserve-session"
 CSRF_COOKIE_NAME = "__Host-tapserve-csrf"
 DEVICE_COOKIE_NAME = "__Host-tapserve-device"
+BROWSER_COOKIE_NAME = "__Host-tapserve-browser"
 SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True

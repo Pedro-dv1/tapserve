@@ -357,6 +357,11 @@ def test_closed_session_authorizations_do_not_fill_the_next_service(point_data, 
     assert fresh.get("/api/v1/public/session/").json()["session"] is None
     assert connected_devices(point_data[0]).count() == 0
     assert clients[0].get("/api/v1/public/context/").status_code == 401
+    response = post_with_csrf(clients[0], "/api/v1/public/access/", {"public_token": point_data[1]})
+    assert response.status_code == 202
+    from tests.test_access import approve_request
+
+    approve_request(response.json()["admission_id"])
     assert (
         post_with_csrf(
             clients[0], "/api/v1/public/access/", {"public_token": point_data[1]}
