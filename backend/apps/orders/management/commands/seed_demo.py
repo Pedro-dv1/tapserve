@@ -1,4 +1,4 @@
-"""Explicit DEV-only data; all credentials come from hidden interactive input."""
+"""Existing interactive demo and complete named local profiles; never resets credentials."""
 
 import getpass
 import re
@@ -19,12 +19,22 @@ from apps.organizations.models import Unit
 
 
 class Command(BaseCommand):
-    help = "Seed an isolated demo company, owner, waiter, point and real menu; DEV only."
+    help = "Seed local DEV/QA scenarios, or the original interactive DEV demo. Never resets data."
 
     def add_arguments(self, parser):
-        parser.add_argument("--username", required=True)
+        parser.add_argument("--username")
+        parser.add_argument("--env", choices=("dev", "qa"))
+        parser.add_argument("--dry-run", action="store_true")
 
     def handle(self, *args, **options):
+        if options.get("env"):
+            from apps.orders.demo import seed_environment
+
+            result = seed_environment(options["env"], dry_run=options["dry_run"])
+            self.stdout.write(("DRY RUN (rolled back): " if options["dry_run"] else "DEMO: ") + str(result))
+            return
+        if options["dry_run"] or not options.get("username"):
+            raise CommandError("Use --env dev/qa, or --username for the original interactive demo.")
         if not settings.DEBUG or settings.SETTINGS_MODULE != "config.settings.dev":
             raise CommandError("Demo seed requires explicit DEV settings.")
         waiter_pin = getpass.getpass("PIN individual do garçom de demonstração (6–12 dígitos): ")

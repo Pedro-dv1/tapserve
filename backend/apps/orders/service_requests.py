@@ -45,6 +45,7 @@ class RequestQuery(StrictSerializer):
 class RequestCommand(StrictSerializer):
     idempotency_key = serializers.UUIDField()
     expected_status = serializers.ChoiceField(choices=ServiceRequest.State.choices)
+    reason = serializers.CharField(max_length=300, allow_blank=True, required=False)
 
 
 class StaffRequestCommand(RequestCommand):

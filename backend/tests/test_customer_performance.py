@@ -70,7 +70,9 @@ def test_customer_profile(point_data, catalog_data):
         result[name] = {"median_ms": round(statistics.median(samples), 2), "queries": counts}
     stage = os.environ["TAPSERVE_CUSTOMER_PROFILE"]
     assert stage in {"before", "after"}
-    output = Path(__file__).resolve().parents[2] / ".local" / f"customer-profile-{stage}.json"
+    directory = Path(os.environ.get("TAPSERVE_PROFILE_DIR", Path(__file__).resolve().parents[2] / ".local"))
+    directory.mkdir(parents=True, exist_ok=True)
+    output = directory / f"customer-profile-{stage}.json"
     result["volume"] = {"products": Product.objects.count(), "items": OrderItem.objects.count()}
     result["menu_plan"] = (
         popular_products(point_data[0].unit, catalog_data[0])

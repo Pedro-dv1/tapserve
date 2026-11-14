@@ -8,7 +8,7 @@
   --accent: #e5a62b;
   --action: #ffbe4c;
   --text: #111111;
-  --muted: #70727e;
+  --muted: #62646e;
   --border: #e9e9e9;
   --control: #f5f5f6;
   --warm-surface: #fff4df;
@@ -140,7 +140,7 @@ a { color: #573d00; }
 .session-stack { border: 1px solid #777; padding: 16px; margin: 20px 0; }
 .production-card { background: #242424; border: 1px solid #777; padding: 16px; margin-bottom: 16px; overflow-wrap: anywhere; }
 .production-card h4 { margin: 0; font-size: 1.15rem; }
-.production-card button { width: 100%; margin-top: 12px; }
+.production-card > button, .production-card > div > button { width: 100%; margin-top: 12px; }
 .kds-columns { display: grid; gap: 20px; }
 .kds-columns > section { min-width: 0; }
 .connection-status { font-size: .9rem; }

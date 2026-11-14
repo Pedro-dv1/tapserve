@@ -1,0 +1,8 @@
+{
+  "autorizacao_publicacao": { "approved": false, "reviewer": null, "date": null, "evidence": null },
+  "identidade_fornecedor_e_dominio": { "approved": false, "reviewer": null, "date": null, "evidence": null },
+  "oferta_comercial_e_modelo_fisico": { "approved": false, "reviewer": null, "date": null, "evidence": null },
+  "conteudo_e_direitos_visuais": { "approved": false, "reviewer": null, "date": null, "evidence": null },
+  "praticas_dados_contratos_e_revisao_juridica": { "approved": false, "reviewer": null, "date": null, "evidence": null },
+  "qa_final_de_lancamento": { "approved": false, "reviewer": null, "date": null, "evidence": null }
+}

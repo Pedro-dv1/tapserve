@@ -123,7 +123,9 @@ def test_operational_profile(identity_data, catalog_data):
         )
         pg_stat_statements = cursor.fetchone()[0]
     root = Path(__file__).resolve().parents[2]
-    output = root / ".local" / f"performance-{os.environ['TAPSERVE_PROFILE']}.json"
+    directory = Path(os.environ.get("TAPSERVE_PROFILE_DIR", root / ".local"))
+    directory.mkdir(parents=True, exist_ok=True)
+    output = directory / f"performance-{os.environ['TAPSERVE_PROFILE']}.json"
     assert os.environ["TAPSERVE_PROFILE"] in {"before", "after"}
     output.write_text(
         json.dumps(

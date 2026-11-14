@@ -1,0 +1,433 @@
+{
+  "date": "2026-11-13",
+  "generationMode": "built-in",
+  "assets": [
+    {
+      "id": "D01",
+      "filename": "D01-demo-burger",
+      "category": "demo-cardapio",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-be6022e5-4b41-4ad1-9342-ead709325307.png",
+      "prompt": "Use case: photorealistic-natural. Square professional food photography for a simulated Brazilian restaurant menu, consistent series. Dark walnut table, charcoal matte ceramic plate when appropriate, warm soft window light from upper left, rich natural textures, controlled shadows, shallow depth of field, real 50mm food photography, centered single portion with breathing room. No brands, lettering, packaging logos, watermark, hands, UI, CGI or oversaturated fake food. One appetizing artisanal beef hamburger with brioche bun, melted cheese, lettuce, tomato and onion, on a charcoal matte ceramic plate.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/D01-demo-burger.png",
+      "file": "site/public/assets/demo-cardapio/D01-demo-burger.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 164638,
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D01-demo-burger-320.webp",
+        "site/public/assets/demo-cardapio/D01-demo-burger-640.webp"
+      ]
+    },
+    {
+      "id": "D02",
+      "filename": "D02-demo-fries",
+      "category": "demo-cardapio",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-706424b7-6385-4948-9a7d-57d29dc73169.png",
+      "prompt": "Use case: photorealistic-natural. Square professional food photography for a simulated Brazilian restaurant menu, consistent series. Dark walnut table, charcoal matte ceramic plate when appropriate, warm soft window light from upper left, rich natural textures, controlled shadows, shallow depth of field, real 50mm food photography, centered single portion with breathing room. No brands, lettering, packaging logos, watermark, hands, UI, CGI or oversaturated fake food. One generous portion of crisp golden french fries, subtle sea salt, in a small charcoal matte ceramic bowl.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/D02-demo-fries.png",
+      "file": "site/public/assets/demo-cardapio/D02-demo-fries.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 211768,
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D02-demo-fries-320.webp",
+        "site/public/assets/demo-cardapio/D02-demo-fries-640.webp"
+      ]
+    },
+    {
+      "id": "D03",
+      "filename": "D03-demo-soda",
+      "category": "demo-cardapio",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-8bec2997-48fb-49df-bf43-dd10bc619542.png",
+      "prompt": "Create a square product photograph of ONE GLASS OF COLA ONLY. The only object on the dark walnut table is a plain clear tumbler filled with dark brown cola soda, ice cubes, and condensation, centered in the frame. Warm soft window light from upper left, blurred dark restaurant background, premium photorealistic 50mm beverage photography. No food of any kind, no plate, no rice, no meat, no cutlery, no bottle, no logos, no text, no watermark. This image is the beverage thumbnail D03 in a demo menu. The glass is the entire subject, fully visible.",
+      "state": "gerado",
+      "note": "Regenerated after first output included unrelated meal.",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/D03-demo-soda.png",
+      "file": "site/public/assets/demo-cardapio/D03-demo-soda.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 227648,
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D03-demo-soda-320.webp",
+        "site/public/assets/demo-cardapio/D03-demo-soda-640.webp"
+      ]
+    },
+    {
+      "id": "D04",
+      "filename": "D04-demo-water",
+      "category": "demo-cardapio",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-c88f3d72-5f9f-4942-935c-8b9bb88b5181.png",
+      "prompt": "Create a square product photograph of ONE GLASS OF WATER ONLY. The only object on the dark walnut table is a plain clear tumbler filled with transparent drinking water, a few tiny condensation droplets, centered in the frame. Warm soft window light from upper left, blurred dark restaurant background, premium photorealistic 50mm beverage photography. No food of any kind, no plate, no rice, no meat, no cutlery, no bottle, no logos, no text, no watermark. This image is the beverage thumbnail D04 in a demo menu. The glass is the entire subject, fully visible.",
+      "state": "gerado",
+      "note": "Regenerated after first output included unrelated meal.",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/D04-demo-water.png",
+      "file": "site/public/assets/demo-cardapio/D04-demo-water.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 122052,
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D04-demo-water-320.webp",
+        "site/public/assets/demo-cardapio/D04-demo-water-640.webp"
+      ]
+    },
+    {
+      "id": "D05",
+      "filename": "D05-demo-brownie",
+      "category": "demo-cardapio",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-a4f448f7-6dbb-413f-be16-8eabf3c9fc06.png",
+      "prompt": "Square product photograph of ONE chocolate brownie topped with ONE scoop of vanilla ice cream on a charcoal ceramic plate; rich fudgy texture. Only this item appears on the dark walnut table. Premium photorealistic 50mm food photography, warm soft window light from upper left, blurred dark restaurant background. Centered, entire portion visible, charcoal matte ceramic when appropriate. No other dishes, rice, beans, steak, branding, logos, text, watermark, people, hands, CGI.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/D05-demo-brownie.png",
+      "file": "site/public/assets/demo-cardapio/D05-demo-brownie.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 165760,
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D05-demo-brownie-320.webp",
+        "site/public/assets/demo-cardapio/D05-demo-brownie-640.webp"
+      ]
+    },
+    {
+      "id": "D06",
+      "filename": "D06-demo-milkshake",
+      "category": "demo-cardapio",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-b10a7fc7-49cc-4aac-a619-34b67b27b8a8.png",
+      "prompt": "Square product photograph of ONE tall plain glass of chocolate milkshake topped with modest whipped cream and chocolate shavings. NO food or plate. Only this item appears on the dark walnut table. Premium photorealistic 50mm food photography, warm soft window light from upper left, blurred dark restaurant background. Centered, entire portion visible, charcoal matte ceramic when appropriate. No other dishes, rice, beans, steak, branding, logos, text, watermark, people, hands, CGI.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/D06-demo-milkshake.png",
+      "file": "site/public/assets/demo-cardapio/D06-demo-milkshake.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 141584,
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D06-demo-milkshake-320.webp",
+        "site/public/assets/demo-cardapio/D06-demo-milkshake-640.webp"
+      ]
+    },
+    {
+      "id": "D07",
+      "filename": "D07-demo-chicken",
+      "category": "demo-cardapio",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-b6801dd9-dd08-467f-9470-9e4da961abfa.png",
+      "prompt": "Square product photograph of ONE grilled chicken sandwich on a brioche bun with lettuce, tomato and light sauce, on a charcoal ceramic plate. Visible white grilled chicken breast filling. Only this item appears on the dark walnut table. Premium photorealistic 50mm food photography, warm soft window light from upper left, blurred dark restaurant background. Centered, entire portion visible, charcoal matte ceramic when appropriate. No other dishes, rice, beans, steak, branding, logos, text, watermark, people, hands, CGI.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/D07-demo-chicken.png",
+      "file": "site/public/assets/demo-cardapio/D07-demo-chicken.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 189092,
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D07-demo-chicken-320.webp",
+        "site/public/assets/demo-cardapio/D07-demo-chicken-640.webp"
+      ]
+    },
+    {
+      "id": "D08",
+      "filename": "D08-demo-salad",
+      "category": "demo-cardapio",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-a598fbd2-4971-41b2-9556-87a60faef1fa.png",
+      "prompt": "Square product photograph of ONE bowl of fresh vegetarian salad with green leaves, cherry tomatoes, sliced cucumber, shredded carrot and chickpeas in charcoal ceramic bowl. Only this item appears on the dark walnut table. Premium photorealistic 50mm food photography, warm soft window light from upper left, blurred dark restaurant background. Centered, entire portion visible, charcoal matte ceramic when appropriate. No other dishes, rice, beans, steak, branding, logos, text, watermark, people, hands, CGI.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/D08-demo-salad.png",
+      "file": "site/public/assets/demo-cardapio/D08-demo-salad.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "bytes": 247440,
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D08-demo-salad-320.webp",
+        "site/public/assets/demo-cardapio/D08-demo-salad-640.webp"
+      ]
+    },
+    {
+      "id": "F01",
+      "filename": "F01-hero-restaurant-wide",
+      "category": "photography",
+      "source": "C:/Users/pedro/.codex/generated_images/01a1d5f9-677c-7281-b222-d5d0e5563afa/exec-7c022899-52f2-426b-bf41-7be635d22ad0.png",
+      "prompt": "Use case: photorealistic-natural. Asset F01, website hero panorama, 16:9 landscape. Premium editorial advertising photography of a plausible contemporary Brazilian restaurant, no people in foreground. A beautiful dark natural walnut dining table fills the lower third, completely empty with generous clear surface for later product compositing. Background elegant restaurant with black metal details, off-white stoneware on distant tables, subtle warm amber light and soft daylight, sophisticated but welcoming. 35mm real camera lens, tactile wood grain and glass, controlled depth of field, high realism and refined exposure. Composition has calm negative space on left for web headline, restaurant atmosphere on right. Absolutely no brands, lettering, logos, signage, NFC plaques, QR codes, devices, watermark, UI, plastic CGI look, exaggerated gold lighting. Do not include the TapServe product; it will be inserted from its original artwork.",
+      "state": "gerado",
+      "width": 1672,
+      "height": 941,
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/F01-hero-restaurant-wide.png",
+      "file": "site/public/assets/photography/F01-hero-restaurant-wide.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 154240,
+      "responsive_files": [
+        "site/public/assets/photography/F01-hero-restaurant-wide-1280.webp",
+        "site/public/assets/photography/F01-hero-restaurant-wide-1920.webp",
+        "site/public/assets/photography/F01-hero-restaurant-wide-640.webp"
+      ]
+    },
+    {
+      "id": "F04",
+      "filename": "F04-customer-using-menu",
+      "category": "photography",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-74387604-3777-426c-9b5c-90630b4236e9.png",
+      "prompt": "Use case: photorealistic-natural. An adult restaurant guest in natural side profile at a dark walnut dining table, casually browsing a black smartphone held normally, phone screen turned away from camera and completely invisible. White ceramic plate and water glass, contemporary restaurant background, no identifiable real person. Natural anatomical hands. 4:3 horizontal framing. Premium editorial advertising photography, real 35–50mm lens, tactile wood glass metal, refined subtle amber and off-white palette with charcoal accents, realistic materials, controlled depth of field. Absolutely no brands, logos, words, watermark, UI text, QR codes, plaques, fake signage, CGI, exaggerated golden lighting.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/F04-customer-using-menu.png",
+      "file": "site/public/assets/photography/F04-customer-using-menu.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 102974,
+      "responsive_files": [
+        "site/public/assets/photography/F04-customer-using-menu-1280.webp",
+        "site/public/assets/photography/F04-customer-using-menu-640.webp"
+      ]
+    },
+    {
+      "id": "F05",
+      "filename": "F05-food-and-phone",
+      "category": "photography",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-621153b1-cb16-42a5-9ed6-a74e217b1273.png",
+      "prompt": "Use case: photorealistic-natural. A 4:3 landscape editorial photograph of a plated artisanal hamburger and french fries on charcoal ceramic, on a dark walnut restaurant table. A black smartphone rests face down as a small secondary detail at the edge of the table, no visible screen or brand. Water glass, off-white linen napkin, appetizing natural food. Premium hospitality photography, real 35–50mm camera, tactile materials, natural soft window light mixed with restrained warm amber ambiance, controlled depth of field, believable contemporary Brazilian restaurant. No brands, lettering, logos, signage, QR codes, plaques, watermark, generated UI, CGI, people.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/F05-food-and-phone.png",
+      "file": "site/public/assets/photography/F05-food-and-phone.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 185866,
+      "responsive_files": [
+        "site/public/assets/photography/F05-food-and-phone-1280.webp",
+        "site/public/assets/photography/F05-food-and-phone-640.webp"
+      ]
+    },
+    {
+      "id": "F06",
+      "filename": "F06-staff-on-floor",
+      "category": "photography",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-ba970dfe-27e2-412a-8147-a44d74fe3337.png",
+      "prompt": "Use case: photorealistic-natural. An adult server wearing a simple charcoal apron over an off-white shirt, naturally holding a small black tablet screen turned away from camera and completely invisible, standing in a plausible contemporary Brazilian restaurant dining room between dark wood tables. Professional candid atmosphere, no identifiable real person. 4:3 horizontal framing. Premium editorial advertising photography, real 35–50mm lens, tactile wood glass metal, refined subtle amber and off-white palette with charcoal accents, realistic materials, controlled depth of field. Absolutely no brands, logos, words, watermark, UI text, QR codes, plaques, fake signage, CGI, exaggerated golden lighting.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/F06-staff-on-floor.png",
+      "file": "site/public/assets/photography/F06-staff-on-floor.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 121120,
+      "responsive_files": [
+        "site/public/assets/photography/F06-staff-on-floor-1280.webp",
+        "site/public/assets/photography/F06-staff-on-floor-640.webp"
+      ]
+    },
+    {
+      "id": "F07",
+      "filename": "F07-kitchen-kds-real",
+      "category": "photography",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-2314cfc9-57a5-460c-b1c3-9364994696eb.png",
+      "prompt": "Use case: photorealistic-natural. A clean modern professional restaurant kitchen with stainless steel pass, adult cook in dark apron partly visible at right, a wall-mounted black landscape monitor at left with completely blank dark charcoal screen, no pixels or UI, clear front three-quarter view suitable for later real screenshot insertion. Practical overhead lighting with warm neutral tones. 4:3 horizontal framing. No claim of real software content. Premium editorial advertising photography, real 35–50mm lens, tactile wood glass metal, refined subtle amber and off-white palette with charcoal accents, realistic materials, controlled depth of field. Absolutely no brands, logos, words, watermark, UI text, QR codes, plaques, fake signage, CGI, exaggerated golden lighting.",
+      "state": "gerado",
+      "note": "Scene only; blank monitor. Actual KDS screenshot S13/S14 pending; never present as actual product capture.",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/F07-kitchen-kds-real.png",
+      "file": "site/public/assets/photography/F07-kitchen-kds-real.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 101744,
+      "responsive_files": [
+        "site/public/assets/photography/F07-kitchen-kds-real-1280.webp",
+        "site/public/assets/photography/F07-kitchen-kds-real-640.webp"
+      ]
+    },
+    {
+      "id": "F13",
+      "filename": "F13-venue-restaurant",
+      "category": "photography",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-5a3294b2-7bdd-4e0c-a64c-6736e84eb1c5.png",
+      "prompt": "Use case: photorealistic-natural. A beautiful contemporary Brazilian restaurant dining room, dark walnut tables, curved wood chairs, neutral plaster walls, black metal pendant lamps, off-white tableware, soft window daylight and subtle warm evening ambiance, believable spacious arrangement. No people, no devices. 4:3 landscape. Premium editorial advertising photography, real 35–50mm lens, tactile wood glass metal, refined subtle amber and off-white palette with charcoal accents, realistic materials, controlled depth of field. Absolutely no brands, logos, words, watermark, UI text, QR codes, plaques, fake signage, CGI, exaggerated golden lighting.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/F13-venue-restaurant.png",
+      "file": "site/public/assets/photography/F13-venue-restaurant.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 208062,
+      "responsive_files": [
+        "site/public/assets/photography/F13-venue-restaurant-1280.webp",
+        "site/public/assets/photography/F13-venue-restaurant-640.webp"
+      ]
+    },
+    {
+      "id": "F14",
+      "filename": "F14-venue-hamburger",
+      "category": "photography",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-d4b5a8f2-f193-46ff-befc-8c541b4d014d.png",
+      "prompt": "Use case: photorealistic-natural. A contemporary Brazilian artisanal burger restaurant interior, dark walnut tables and seating, black metal pendant lamps, open kitchen pass in background, warm brick and charcoal details, tasteful relaxed dining atmosphere. No people, no devices, no visible menu text. 4:3 horizontal landscape, premium editorial hospitality photography, real 35mm lens, tactile wood glass ceramic metal, controlled depth of field, consistent charcoal warm neutral campaign. Absolutely no brands, words, logos, watermark, UI, QR codes, NFC plaques, CGI, artificial gold cast.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/F14-venue-hamburger.png",
+      "file": "site/public/assets/photography/F14-venue-hamburger.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 236428,
+      "responsive_files": [
+        "site/public/assets/photography/F14-venue-hamburger-1280.webp",
+        "site/public/assets/photography/F14-venue-hamburger-640.webp"
+      ]
+    },
+    {
+      "id": "F15",
+      "filename": "F15-venue-snack",
+      "category": "photography",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-47c66375-eed8-449b-a316-9c2d0495dcae.png",
+      "prompt": "Use case: photorealistic-natural. A clean welcoming contemporary Brazilian neighborhood snack bar interior, compact dark wood tables and stools, off-white tiled counter, black metal details, natural daylight, fresh approachable and realistic rather than luxurious. No people, devices, menu boards or signs. 4:3 horizontal landscape, premium editorial hospitality photography, real 35mm lens, tactile wood glass ceramic metal, controlled depth of field, consistent charcoal warm neutral campaign. Absolutely no brands, words, logos, watermark, UI, QR codes, NFC plaques, CGI, artificial gold cast.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/F15-venue-snack.png",
+      "file": "site/public/assets/photography/F15-venue-snack.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 229216,
+      "responsive_files": [
+        "site/public/assets/photography/F15-venue-snack-1280.webp",
+        "site/public/assets/photography/F15-venue-snack-640.webp"
+      ]
+    },
+    {
+      "id": "F16",
+      "filename": "F16-venue-bar",
+      "category": "photography",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-02dab4e7-624d-4dd0-ade8-0645bf383a9e.png",
+      "prompt": "Use case: photorealistic-natural. A sophisticated contemporary Brazilian bar interior at dusk, dark walnut bar counter and small dining tables, black metal and warm off-white accents, subtle amber pendant lighting, backlit glassware shelves, realistic inviting atmosphere. No visible bottle labels or signs, no people. 4:3 horizontal landscape, premium editorial hospitality photography, real 35mm lens, tactile wood glass ceramic metal, controlled depth of field, consistent charcoal warm neutral campaign. Absolutely no brands, words, logos, watermark, UI, QR codes, NFC plaques, CGI, artificial gold cast.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/F16-venue-bar.png",
+      "file": "site/public/assets/photography/F16-venue-bar.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 252474,
+      "responsive_files": [
+        "site/public/assets/photography/F16-venue-bar-1280.webp",
+        "site/public/assets/photography/F16-venue-bar-640.webp"
+      ]
+    },
+    {
+      "id": "F17",
+      "filename": "F17-venue-cafe",
+      "category": "photography",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-de5489d8-7078-43e0-bb9e-5eda548ee121.png",
+      "prompt": "Use case: photorealistic-natural. A contemporary welcoming Brazilian specialty cafe interior, dark wood tables, off-white plaster walls, black metal espresso machine with no logo, ceramics, filtered natural daylight, restrained warm ambiance. No people, no signs or menu text. 4:3 horizontal landscape, premium editorial hospitality photography, real 35mm lens, tactile wood glass ceramic metal, controlled depth of field, consistent charcoal warm neutral campaign. Absolutely no brands, words, logos, watermark, UI, QR codes, NFC plaques, CGI, artificial gold cast.",
+      "state": "gerado",
+      "editPrompt": "Use case: precise-object-edit. Keep this cafe photograph unchanged in composition, lighting, camera, furniture, plants and objects. Remove only the tiny gold/light lettering/logo on the upper-left front panel of the black espresso machine. That panel must be plain uniform matte black with no letters, emblem or brand. Preserve everything else exactly. No new text, logos or watermark.",
+      "editSource": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-01748978-a7ad-41c5-972f-530c59853b0b.png",
+      "note": "Removed generated lettering from espresso machine using imagegen edit.",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/F17-venue-cafe-edited.png",
+      "file": "site/public/assets/photography/F17-venue-cafe.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "bytes": 201480,
+      "responsive_files": [
+        "site/public/assets/photography/F17-venue-cafe-1280.webp",
+        "site/public/assets/photography/F17-venue-cafe-640.webp"
+      ]
+    },
+    {
+      "id": "F18",
+      "filename": "F18-final-cta-restaurant",
+      "category": "photography",
+      "source": "C:\\Users\\pedro\\.codex\\generated_images\\01a1d5f9-677c-7281-b222-d5d0e5563afa\\exec-76adb9d4-9246-44a6-b162-5e21bc5ac5b6.png",
+      "prompt": "Use case: photorealistic-natural. A wide 2.18:1 panoramic editorial photograph of a contemporary restaurant at blue hour, a long dark walnut dining table leading into a warmly lit off-white and charcoal interior, elegant glassware and low warm lamps, inviting calm atmosphere. Compose the left third in soft deep shadow for later website CTA text; no text in image. Different viewpoint from the hero. Premium hospitality photography, real 35–50mm camera, tactile materials, natural soft window light mixed with restrained warm amber ambiance, controlled depth of field, believable contemporary Brazilian restaurant. No brands, lettering, logos, signage, QR codes, plaques, watermark, generated UI, CGI, people.",
+      "state": "gerado",
+      "tool": "image_gen.imagegen (built-in)",
+      "original": "site/assets/originals/generated/F18-final-cta-restaurant.png",
+      "file": "site/public/assets/photography/F18-final-cta-restaurant.webp",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "dimensions": [
+        1852,
+        849
+      ],
+      "bytes": 166206,
+      "responsive_files": [
+        "site/public/assets/photography/F18-final-cta-restaurant-1280.webp",
+        "site/public/assets/photography/F18-final-cta-restaurant-640.webp"
+      ]
+    }
+  ]
+}

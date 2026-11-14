@@ -1,0 +1,16 @@
+{
+  "runs": [
+    {
+      "date": "2026-11-07T16:48:05.423591+00:00",
+      "input_tokens": null,
+      "output_tokens": null,
+      "files": 291,
+      "usage_status": "unavailable_from_session_agent_tools",
+      "ast_llm_tokens": 0
+    }
+  ],
+  "total_input_tokens": 0,
+  "total_output_tokens": 0,
+  "unmetered_runs": 1,
+  "totals_scope": "Measured tokens only; excludes unmetered session-agent runs."
+}

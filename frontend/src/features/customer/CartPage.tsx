@@ -1,5 +1,6 @@
 import { randomUUID } from '../../lib/uuid.ts';
-import { startTransition, useState, ViewTransition } from 'react';
+import { useState, ViewTransition } from 'react';
+import { startMotionTransition } from '../../lib/motion';
 import { Button, EmptyState, Icon, ParticipantChip, PriceAction, ProductImage, QuantitySelector, StickyActionBar } from '../../components/Interface';
 import { cents, formatCents, NOTE_LIMIT } from './menuData';
 import type { Cart, CartLine } from './cart';
@@ -26,7 +27,7 @@ export default function CartPage({ cart, busy, change, edit, menu, send, verify 
           </div>
         </div>
       </li>)}</ul>
-      <button className="general-note" disabled={locked} aria-expanded={notesOpen} onClick={() => startTransition(() => setNotesOpen(value => !value))}><Icon name="message" /><span>{cart.notes ? 'Editar observação geral' : 'Adicionar observação geral'}</span><Icon name="chevron" size={16} /></button>
+      <button className="general-note" disabled={locked} aria-expanded={notesOpen} onClick={() => startMotionTransition(() => setNotesOpen(value => !value))}><Icon name="message" /><span>{cart.notes ? 'Editar observação geral' : 'Adicionar observação geral'}</span><Icon name="chevron" size={16} /></button>
       {notesOpen && <ViewTransition default="none" enter="motion-panel" exit="motion-panel"><div className="notes-editor"><label htmlFor="order-notes">Observação deste pedido</label><div><textarea id="order-notes" maxLength={NOTE_LIMIT} placeholder="Uma orientação para este envio" disabled={locked} value={cart.notes ?? ''} onChange={event => change({ ...cart, notes: event.target.value, idempotency_key: randomUUID() })} /><span>{cart.notes?.length ?? 0}/{NOTE_LIMIT}</span></div></div></ViewTransition>}
       <div className="cart-summary"><dl><div><dt>Subtotal</dt><dd>{total}</dd></div><div className="summary-total"><dt>Total estimado</dt><dd>{total}</dd></div></dl><p>Disponibilidade e preços serão conferidos no envio. Os valores finais da conta aparecerão na revisão da mesa.</p></div>
       {cart.pending && <div className="pending-order" role="status"><p>Este envio aguarda confirmação. Consulte o resultado antes de alterar o carrinho.</p><Button secondary disabled={busy} onClick={verify}>Verificar envio pendente</Button></div>}

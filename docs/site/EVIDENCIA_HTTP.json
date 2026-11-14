@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-13T18:15:30.555Z",
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "assets": 45
+    },
+    {
+      "path": "/como-funciona",
+      "status": 200,
+      "assets": 7
+    },
+    {
+      "path": "/funcionalidades",
+      "status": 200,
+      "assets": 7
+    },
+    {
+      "path": "/nfc-e-qr-code",
+      "status": 200,
+      "assets": 8
+    },
+    {
+      "path": "/para-quem",
+      "status": 200,
+      "assets": 21
+    },
+    {
+      "path": "/planos",
+      "status": 200,
+      "assets": 6
+    },
+    {
+      "path": "/demonstracao",
+      "status": 200,
+      "assets": 7
+    },
+    {
+      "path": "/contato",
+      "status": 200,
+      "assets": 6
+    },
+    {
+      "path": "/suporte",
+      "status": 200,
+      "assets": 6
+    },
+    {
+      "path": "/duvidas",
+      "status": 200,
+      "assets": 6
+    },
+    {
+      "path": "/sobre",
+      "status": 200,
+      "assets": 9
+    },
+    {
+      "path": "/privacidade",
+      "status": 200,
+      "assets": 6
+    },
+    {
+      "path": "/termos",
+      "status": 200,
+      "assets": 6
+    },
+    {
+      "path": "/cancelamento",
+      "status": 200,
+      "assets": 6
+    },
+    {
+      "path": "/inexistente",
+      "status": 404
+    },
+    {
+      "path": "/obrigado",
+      "status": 404
+    },
+    {
+      "path": "/cookies",
+      "status": 404
+    },
+    {
+      "path": "/termos-assinatura",
+      "status": 404
+    },
+    {
+      "path": "/demonstracao",
+      "method": "POST",
+      "status": 405
+    }
+  ]
+}

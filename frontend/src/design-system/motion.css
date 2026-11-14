@@ -40,7 +40,6 @@
 ::view-transition { pointer-events: none; }
 
 @media (prefers-reduced-motion: no-preference) {
-  @view-transition { navigation: auto; types: page; }
   html:active-view-transition-type(page) { view-transition-name: root; }
   .segmented-control::before { transition: translate var(--motion-component) var(--motion-ease); }
 

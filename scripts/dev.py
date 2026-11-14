@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--env", choices=("dev", "qa"), help="Use the isolated local profile")
     parser.add_argument("--api-port", type=int, default=8000)
     parser.add_argument("--frontend-port", type=int, default=5173)
     parser.add_argument(
@@ -24,6 +25,15 @@ def main() -> None:
         help="Comma-separated private IPv4 addresses; first is used for QR links. Binds both servers to 0.0.0.0.",
     )
     args = parser.parse_args()
+    profile_environment = None
+    if args.env:
+        from local_env import PROFILES, check_database, load
+
+        if args.lan_ip or args.api_port != 8000 or args.frontend_port != 5173:
+            parser.error("Named profiles use fixed loopback ports; edit the reviewed configuration instead")
+        profile_environment = load(args.env)
+        check_database(profile_environment)
+        _, args.api_port, args.frontend_port = PROFILES[args.env]
     if (
         not all(1024 <= port <= 65535 for port in (args.api_port, args.frontend_port))
         or args.api_port == args.frontend_port
@@ -57,12 +67,14 @@ def main() -> None:
     # All-interface binding is an explicit LAN opt-in for the DEV profile only.
     bind = "0.0.0.0" if args.lan_ip else "127.0.0.1"  # noqa: S104
     environment = {
-        **os.environ,
-        "DJANGO_SETTINGS_MODULE": "config.settings.dev",
+        **(profile_environment or os.environ),
+        "DJANGO_SETTINGS_MODULE": f"config.settings.{args.env or 'dev'}",
         "DJANGO_ALLOWED_HOSTS": ",".join(hosts),
         "PUBLIC_APP_ORIGIN": origin,
         "CSRF_TRUSTED_ORIGINS": ",".join(dict.fromkeys(origins)),
         "VITE_BACKEND_URL": f"http://127.0.0.1:{args.api_port}",
+        "VITE_TAPSERVE_ENV": args.env or "",
+        "VITE_FRONTEND_PORT": str(args.frontend_port),
     }
     python = (
         ROOT / "backend" / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
@@ -76,6 +88,8 @@ def main() -> None:
                 raise SystemExit(f"Port {port} is occupied; existing processes were not changed.")
     processes: list[subprocess.Popen] = []
     log_directory = ROOT / ".local"
+    if args.env:
+        log_directory = log_directory / "environments" / args.env / "logs"
     log_directory.mkdir(exist_ok=True)
     log_files = []
     options = {"creationflags": subprocess.CREATE_NO_WINDOW} if os.name == "nt" else {}
@@ -108,6 +122,7 @@ def main() -> None:
                     "node_modules/vite/bin/vite.js",
                     "--configLoader",
                     "native",
+                    *(["--mode", "development" if args.env == "dev" else "qa"] if args.env else []),
                     "--host",
                     bind,
                     "--port",
@@ -117,13 +132,16 @@ def main() -> None:
                 ROOT / "frontend",
             ),
         ):
-            log = (log_directory / f"{name}-dev.log").open("a", encoding="utf-8")
+            log = (log_directory / f"{name}-{args.env or 'dev'}.log").open("a", encoding="utf-8")
             log_files.append(log)
             processes.append(
                 subprocess.Popen(
                     command,
                     cwd=directory,
-                    env=environment,
+                    env=(environment if name == "api" else {
+                        key: value for key, value in environment.items()
+                        if not key.startswith(("POSTGRES_", "PG", "DJANGO_", "TAPSERVE_"))
+                    }),
                     stdout=log,
                     stderr=subprocess.STDOUT,
                     **options,
@@ -140,23 +158,28 @@ def main() -> None:
                         response.status == 200
                         and response.read() == b'{"status":"ok","database":"ok"}'
                     ):
+                        with urlopen(
+                            f"http://127.0.0.1:{args.frontend_port}/src/main.tsx", timeout=3
+                        ) as module:  # noqa: S310 - fixed loopback URL.
+                            if module.status != 200:
+                                continue
                         break
             except (URLError, TimeoutError):
                 pass
             time.sleep(0.5)
         else:
-            raise SystemExit("DEV health failed. Inspect .local/api-dev.log and frontend-dev.log.")
+            raise SystemExit(f"{args.env or 'DEV'} health failed. Inspect logs in {log_directory}.")
         print(
-            f"DEV: {origin} | API http://127.0.0.1:{args.api_port}/api/v1/health/ | PostgreSQL and proxy health OK; no Redis/Docker",
+            f"{(args.env or 'dev').upper()}: {origin} | API http://127.0.0.1:{args.api_port}/api/v1/health/ | PostgreSQL and proxy health OK; no Redis/Docker",
             flush=True,
         )
         while all(process.poll() is None for process in processes):
             time.sleep(0.5)
         raise SystemExit(
-            "A local server exited. Inspect .local/api-dev.log and frontend-dev.log; no fallback was enabled."
+            f"A local server exited. Inspect logs in {log_directory}; no fallback was enabled."
         )
     except KeyboardInterrupt:
-        print("Stopping TapServe DEV processes.")
+        print(f"Stopping TapServe {(args.env or 'dev').upper()} processes.")
     finally:
         for process in processes:
             if process.poll() is None:

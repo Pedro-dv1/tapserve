@@ -137,7 +137,7 @@ function CallAction({ call, target, manual = false, changed }: { call: Call; tar
     finally { submitting.current = false; setBusy(false); }
   }
   if (target === 'CANCELLED') return <><button className="ui-danger" disabled={busy || confirmed} type="button" onClick={() => setCancelling(true)}>Cancelar chamado</button>{cancelling && <ConfirmDialog title="Cancelar chamado?" description="A solicitação será encerrada e permanecerá no histórico." label="Cancelar chamado" close={() => setCancelling(false)} confirm={async reason => {
-    const body = cancellation.current ?? { idempotency_key: randomUUID(), expected_status: call.status, ...(manual ? { status: target, reason } : {}) };
+    const body = cancellation.current ?? { idempotency_key: randomUUID(), expected_status: call.status, reason, ...(manual ? { status: target } : {}) };
     cancellation.current = body;
     decodeCall(await request(`/api/v1/${manual ? 'staff' : 'public'}/service-requests/${call.id}/${manual ? 'status' : 'cancel'}/`, 'POST', body)); setConfirmed(true); notify?.(callMessages[target] ?? 'Chamado atualizado com sucesso.'); changed();
   }} />}</>;

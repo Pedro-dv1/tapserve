@@ -18,7 +18,7 @@ export default function CustomerScreen() {
       if (!current) return;
       try { sessionStorage.removeItem('tapserve:admission'); } catch { /* Access remains authorized without storage. */ }
       setPending(null); setError(''); setContext(value); setLoading(false);
-      window.history.replaceState(null, '', '/customer');
+      if (window.location.pathname.startsWith('/a/')) window.history.replaceState(null, '', '/customer');
     };
     const fail = (cause: unknown) => { if (current) { setError(cause instanceof Error ? cause.message : 'Não foi possível abrir o atendimento.'); setLoading(false); } };
     async function poll(identifier: string) {

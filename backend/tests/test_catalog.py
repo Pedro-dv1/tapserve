@@ -13,6 +13,31 @@ from tests.test_access import customer
 from tests.test_identity import owner_client, post_with_csrf
 
 
+@pytest.mark.parametrize(
+    ("kind", "number", "name", "expected"),
+    [
+        ("TABLE", 1, "", "Mesa 01"),
+        ("TABLE", 7, "Varanda", "Mesa 07 · Varanda"),
+        ("TABLE", 7, "Mesa 07", "Mesa 07"),
+        ("COUNTER", None, "Balcão central", "Balcão central"),
+        ("PICKUP", None, "Retirada lateral", "Retirada lateral"),
+        ("OTHER", None, "Jardim", "Jardim"),
+    ],
+)
+def test_menu_summary_uses_canonical_point_identification(
+    identity_data, catalog_data, point_data, kind, number, name, expected
+):
+    point = point_data[0]
+    point.menu = catalog_data[0]
+    point.type, point.number, point.name = kind, number, name
+    point.save()
+    response = owner_client(identity_data).get(f"/api/v1/admin/menus/{point.menu_id}/")
+    assert response.status_code == 200
+    assert response.json()["points"] == [{"id": str(point.id), "name": expected}]
+    point.refresh_from_db()
+    assert (point.type, point.number, point.name) == (kind, number, name)
+
+
 def test_public_menu_and_quote_enforce_scope_choices_and_stale_availability(
     catalog_data, point_data
 ):

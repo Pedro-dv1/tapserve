@@ -1,5 +1,6 @@
 import { randomUUID } from '../../lib/uuid.ts';
-import { startTransition, useEffect, useRef, useState, ViewTransition } from 'react';
+import { useEffect, useRef, useState, ViewTransition } from 'react';
+import { startMotionTransition } from '../../lib/motion';
 import type { Dispatch, SetStateAction } from 'react';
 import { record, request, text } from '../../lib/api';
 import { Button, ErrorState, Icon, LoadingSkeleton, PopularityBadge, PriceAction, QuantitySelector, StickyActionBar } from '../../components/Interface';
@@ -73,7 +74,7 @@ export default function ProductSelection({ identifier, initial, editing, partici
         <div className="participant-chips" aria-label="Quem vai consumir">
           {participants.map(person => <span className={`participant-chip ${draft.participant_name === person.display_name ? 'selected' : ''}`} key={person.id ?? person.display_name}><button className="participant-choice" aria-pressed={draft.participant_name === person.display_name} disabled={busy || locked} onClick={() => update({ ...draft, participant_name: draft.participant_name === person.display_name ? '' : person.display_name, participant_id: draft.participant_name === person.display_name ? null : person.id })}><Icon name="user" size={18} />{person.display_name}</button><button className="participant-remove" type="button" aria-label={`Remover ${person.display_name}`} disabled={busy || locked} onClick={() => remove(person)}><Icon name="close" size={16} /></button></span>)}
           {draft.participant_name && !participants.some(person => person.display_name === draft.participant_name) && <button className="participant-chip selected" aria-pressed="true" disabled={busy || locked} onClick={() => update({ ...draft, participant_name: '', participant_id: null })}><Icon name="user" size={18} />{draft.participant_name}</button>}
-          <button className="participant-chip" aria-expanded={newPerson} disabled={busy || locked} onClick={() => startTransition(() => setNewPerson(value => !value))}><Icon name="plus" size={18} />Outra pessoa</button>
+          <button className="participant-chip" aria-expanded={newPerson} disabled={busy || locked} onClick={() => startMotionTransition(() => setNewPerson(value => !value))}><Icon name="plus" size={18} />Outra pessoa</button>
         </div>
         {newPerson && <ViewTransition default="none" enter="motion-panel" exit="motion-panel"><form className="person-editor" onSubmit={event => { event.preventDefault(); void addPerson(); }}><label htmlFor="new-participant">Nome temporário</label><div><input id="new-participant" required maxLength={100} value={name} autoComplete="off" disabled={busy} onChange={event => setName(event.target.value)} /><Button disabled={busy || !name.trim()}>Adicionar</Button></div></form></ViewTransition>}
       </section>

@@ -18,22 +18,27 @@ class Command(BaseCommand):
         parser.add_argument("--username", required=True)
 
     def handle(self, *args, **options):
-        username = options["username"]
-        if not username.strip() or len(username) > 150:
-            raise CommandError("Usuário inválido.")
         password = getpass.getpass("Senha forte da plataforma: ")
         if password != getpass.getpass("Confirme a senha: "):
             raise CommandError("Senhas diferentes.")
-        user_type = get_user_model()
-        user = user_type.objects.filter(username=username).first()
-        try:
-            validate_password(password, user or user_type(username=username))
-        except ValidationError as error:
-            raise CommandError("Senha fora da política de segurança.") from error
-        if user is not None and (not user.is_active or not user.check_password(password)):
-            raise CommandError("Credenciais inválidas.")
-        with transaction.atomic():
-            if user is None:
-                user = user_type.objects.create_user(username=username, password=password)
-            PlatformOperator.objects.get_or_create(user=user)
+        configure_platform(options["username"], password)
         self.stdout.write("Operador configurado sem exibir ou alterar credenciais existentes.")
+
+
+def configure_platform(username, password):
+    """Keep platform bootstrap credential validation shared with the local demo."""
+    if not username.strip() or len(username) > 150:
+        raise CommandError("Usuário inválido.")
+    user_type = get_user_model()
+    user = user_type.objects.filter(username=username).first()
+    try:
+        validate_password(password, user or user_type(username=username))
+    except ValidationError as error:
+        raise CommandError("Senha fora da política de segurança.") from error
+    if user is not None and (not user.is_active or not user.check_password(password)):
+        raise CommandError("Credenciais inválidas.")
+    with transaction.atomic():
+        if user is None:
+            user = user_type.objects.create_user(username=username, password=password)
+        PlatformOperator.objects.get_or_create(user=user)
+    return user

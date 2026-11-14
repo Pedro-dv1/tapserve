@@ -1,0 +1,1388 @@
+{
+  "source": "TapServe QA — Unidade Centro Demo; leitura autenticada, 13/11/2026",
+  "products": [
+    {
+      "id": "b4fa6929-8a71-531c-9f53-e1c6c228816c",
+      "name": "Bacon Burger",
+      "description": "Hambúrguer bovino com bacon crocante, queijo derretido e molho da casa no pão brioche.",
+      "featured": false,
+      "category": "defa10c0-2bd9-5c31-a901-16707cdf0438",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "32.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [
+        {
+          "id": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+          "name": "Adicionais",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 4,
+          "active": true,
+          "options": [
+            {
+              "id": "ed75551f-0ab9-5e7e-a8a3-6d8701267af1",
+              "name": "Bacon",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "5.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "b8f9b4f5-3ba6-56be-bb3a-c13371a6e356",
+              "name": "Queijo",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "4.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "ef1a5035-ab39-5428-8cf6-c9e050e2abaa",
+              "name": "Ovo",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "3.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "284581af-8fcc-5e22-b49d-dec688d14740",
+              "name": "Hambúrguer extra",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "9.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        },
+        {
+          "id": "862ca982-e17a-5a03-a3fc-35de79389e76",
+          "name": "Molhos",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 3,
+          "active": true,
+          "options": [
+            {
+              "id": "066d886e-f2f6-57c6-9ff5-ff2e2388be33",
+              "name": "Maionese",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "809f680e-0a90-5d67-986f-09e61f3d4284",
+              "name": "Barbecue",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "6a8ae137-8848-5b79-9f75-cf9a36a30bbe",
+              "name": "Mostarda",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        },
+        {
+          "id": "91065546-2622-5166-81ab-2e359f5a750d",
+          "name": "Ponto da carne",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "SINGLE",
+          "required": true,
+          "min_choices": 1,
+          "max_choices": 1,
+          "active": true,
+          "options": [
+            {
+              "id": "4322d922-7b11-5a93-837f-48e2afb1dcfc",
+              "name": "Malpassado",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "a4c7262c-58d9-553c-bbb4-03898c1699bc",
+              "name": "Ao ponto",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "49d45687-cadd-538d-ad68-b47790b510ec",
+              "name": "Bem-passado",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Hambúrguer bovino com bacon crocante, queijo derretido e molho da casa no pão brioche.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "f690a283-4021-581e-bac5-0e38c6c06b3f",
+      "name": "Burger Especial",
+      "description": "Hambúrguer artesanal, cebola caramelizada, queijo e combinação especial de molhos.",
+      "featured": true,
+      "category": "defa10c0-2bd9-5c31-a901-16707cdf0438",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "42.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [
+        {
+          "id": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+          "name": "Adicionais",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 4,
+          "active": true,
+          "options": [
+            {
+              "id": "ed75551f-0ab9-5e7e-a8a3-6d8701267af1",
+              "name": "Bacon",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "5.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "b8f9b4f5-3ba6-56be-bb3a-c13371a6e356",
+              "name": "Queijo",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "4.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "ef1a5035-ab39-5428-8cf6-c9e050e2abaa",
+              "name": "Ovo",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "3.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "284581af-8fcc-5e22-b49d-dec688d14740",
+              "name": "Hambúrguer extra",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "9.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        },
+        {
+          "id": "862ca982-e17a-5a03-a3fc-35de79389e76",
+          "name": "Molhos",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 3,
+          "active": true,
+          "options": [
+            {
+              "id": "066d886e-f2f6-57c6-9ff5-ff2e2388be33",
+              "name": "Maionese",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "809f680e-0a90-5d67-986f-09e61f3d4284",
+              "name": "Barbecue",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "6a8ae137-8848-5b79-9f75-cf9a36a30bbe",
+              "name": "Mostarda",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        },
+        {
+          "id": "91065546-2622-5166-81ab-2e359f5a750d",
+          "name": "Ponto da carne",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "SINGLE",
+          "required": true,
+          "min_choices": 1,
+          "max_choices": 1,
+          "active": true,
+          "options": [
+            {
+              "id": "4322d922-7b11-5a93-837f-48e2afb1dcfc",
+              "name": "Malpassado",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "a4c7262c-58d9-553c-bbb4-03898c1699bc",
+              "name": "Ao ponto",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "49d45687-cadd-538d-ad68-b47790b510ec",
+              "name": "Bem-passado",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Hambúrguer artesanal, cebola caramelizada, queijo e combinação especial de molhos.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "a86eadf9-9591-5af2-b82d-c88d25289fe6",
+      "name": "Chicken Burger",
+      "description": "Filé de frango empanado, alface, tomate e maionese no pão macio.",
+      "featured": false,
+      "category": "defa10c0-2bd9-5c31-a901-16707cdf0438",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "29.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [
+        {
+          "id": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+          "name": "Adicionais",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 4,
+          "active": true,
+          "options": [
+            {
+              "id": "ed75551f-0ab9-5e7e-a8a3-6d8701267af1",
+              "name": "Bacon",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "5.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "b8f9b4f5-3ba6-56be-bb3a-c13371a6e356",
+              "name": "Queijo",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "4.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "ef1a5035-ab39-5428-8cf6-c9e050e2abaa",
+              "name": "Ovo",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "3.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "284581af-8fcc-5e22-b49d-dec688d14740",
+              "name": "Hambúrguer extra",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "9.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        },
+        {
+          "id": "862ca982-e17a-5a03-a3fc-35de79389e76",
+          "name": "Molhos",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 3,
+          "active": true,
+          "options": [
+            {
+              "id": "066d886e-f2f6-57c6-9ff5-ff2e2388be33",
+              "name": "Maionese",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "809f680e-0a90-5d67-986f-09e61f3d4284",
+              "name": "Barbecue",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "6a8ae137-8848-5b79-9f75-cf9a36a30bbe",
+              "name": "Mostarda",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Filé de frango empanado, alface, tomate e maionese no pão macio.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "7d3b8ebc-fd4c-5094-9c55-87030e6ef4f9",
+      "name": "Double Smash",
+      "description": "Dois discos de carne prensados na chapa, queijo, picles e molho especial.",
+      "featured": false,
+      "category": "defa10c0-2bd9-5c31-a901-16707cdf0438",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "36.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [
+        {
+          "id": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+          "name": "Adicionais",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 4,
+          "active": true,
+          "options": [
+            {
+              "id": "ed75551f-0ab9-5e7e-a8a3-6d8701267af1",
+              "name": "Bacon",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "5.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "b8f9b4f5-3ba6-56be-bb3a-c13371a6e356",
+              "name": "Queijo",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "4.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "ef1a5035-ab39-5428-8cf6-c9e050e2abaa",
+              "name": "Ovo",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "3.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "284581af-8fcc-5e22-b49d-dec688d14740",
+              "name": "Hambúrguer extra",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "9.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        },
+        {
+          "id": "862ca982-e17a-5a03-a3fc-35de79389e76",
+          "name": "Molhos",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 3,
+          "active": true,
+          "options": [
+            {
+              "id": "066d886e-f2f6-57c6-9ff5-ff2e2388be33",
+              "name": "Maionese",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "809f680e-0a90-5d67-986f-09e61f3d4284",
+              "name": "Barbecue",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "6a8ae137-8848-5b79-9f75-cf9a36a30bbe",
+              "name": "Mostarda",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        },
+        {
+          "id": "91065546-2622-5166-81ab-2e359f5a750d",
+          "name": "Ponto da carne",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "SINGLE",
+          "required": true,
+          "min_choices": 1,
+          "max_choices": 1,
+          "active": true,
+          "options": [
+            {
+              "id": "4322d922-7b11-5a93-837f-48e2afb1dcfc",
+              "name": "Malpassado",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "a4c7262c-58d9-553c-bbb4-03898c1699bc",
+              "name": "Ao ponto",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "49d45687-cadd-538d-ad68-b47790b510ec",
+              "name": "Bem-passado",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Dois discos de carne prensados na chapa, queijo, picles e molho especial.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "a78686ba-876a-56f8-94d2-346c8c780b99",
+      "name": "Hambúrguer Clássico",
+      "description": "Pão brioche, hambúrguer bovino grelhado, queijo, alface, tomate e maionese da casa.",
+      "featured": true,
+      "category": "defa10c0-2bd9-5c31-a901-16707cdf0438",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "24.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": true,
+      "image_version": "adebe58ee18a06f3",
+      "has_video": false,
+      "ordered_quantity": 11,
+      "most_ordered": true,
+      "groups": [
+        {
+          "id": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+          "name": "Adicionais",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 4,
+          "active": true,
+          "options": [
+            {
+              "id": "ed75551f-0ab9-5e7e-a8a3-6d8701267af1",
+              "name": "Bacon",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "5.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "b8f9b4f5-3ba6-56be-bb3a-c13371a6e356",
+              "name": "Queijo",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "4.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "ef1a5035-ab39-5428-8cf6-c9e050e2abaa",
+              "name": "Ovo",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "3.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "284581af-8fcc-5e22-b49d-dec688d14740",
+              "name": "Hambúrguer extra",
+              "group": "f9fe2403-947f-5008-96bd-aef04c2fa867",
+              "additional_price": "9.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        },
+        {
+          "id": "862ca982-e17a-5a03-a3fc-35de79389e76",
+          "name": "Molhos",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 3,
+          "active": true,
+          "options": [
+            {
+              "id": "066d886e-f2f6-57c6-9ff5-ff2e2388be33",
+              "name": "Maionese",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "809f680e-0a90-5d67-986f-09e61f3d4284",
+              "name": "Barbecue",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "6a8ae137-8848-5b79-9f75-cf9a36a30bbe",
+              "name": "Mostarda",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        },
+        {
+          "id": "91065546-2622-5166-81ab-2e359f5a750d",
+          "name": "Ponto da carne",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "SINGLE",
+          "required": true,
+          "min_choices": 1,
+          "max_choices": 1,
+          "active": true,
+          "options": [
+            {
+              "id": "4322d922-7b11-5a93-837f-48e2afb1dcfc",
+              "name": "Malpassado",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "a4c7262c-58d9-553c-bbb4-03898c1699bc",
+              "name": "Ao ponto",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "49d45687-cadd-538d-ad68-b47790b510ec",
+              "name": "Bem-passado",
+              "group": "91065546-2622-5166-81ab-2e359f5a750d",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Pão brioche, hambúrguer bovino grelhado, queijo, alface, tomate e maionese da casa.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "09aced58-6292-5101-9d86-1acb0c9b1dc8",
+      "name": "Calabresa",
+      "description": "Molho de tomate, mussarela, calabresa fatiada e cebola.",
+      "featured": false,
+      "category": "99389b21-0c9c-563a-bd8d-e84732267bed",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "54.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [
+        {
+          "id": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+          "name": "Tamanho",
+          "product": "f09d742d-c4ca-5285-bf82-30db97646828",
+          "selection_type": "SINGLE",
+          "required": true,
+          "min_choices": 1,
+          "max_choices": 1,
+          "active": true,
+          "options": [
+            {
+              "id": "9068b84d-3d11-5e11-810c-e085318b89fd",
+              "name": "Média",
+              "group": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "b27ec5de-a5ae-5efa-9cc9-2113b6568a02",
+              "name": "Grande",
+              "group": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+              "additional_price": "15.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Molho de tomate, mussarela, calabresa fatiada e cebola.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "4a0569d9-cb86-55cb-9161-8c4e0622b21d",
+      "name": "Frango com Catupiry",
+      "description": "Frango desfiado temperado, requeijão cremoso e mussarela sobre massa artesanal.",
+      "featured": false,
+      "category": "99389b21-0c9c-563a-bd8d-e84732267bed",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "59.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [
+        {
+          "id": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+          "name": "Tamanho",
+          "product": "f09d742d-c4ca-5285-bf82-30db97646828",
+          "selection_type": "SINGLE",
+          "required": true,
+          "min_choices": 1,
+          "max_choices": 1,
+          "active": true,
+          "options": [
+            {
+              "id": "9068b84d-3d11-5e11-810c-e085318b89fd",
+              "name": "Média",
+              "group": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "b27ec5de-a5ae-5efa-9cc9-2113b6568a02",
+              "name": "Grande",
+              "group": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+              "additional_price": "15.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Frango desfiado temperado, requeijão cremoso e mussarela sobre massa artesanal.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "f09d742d-c4ca-5285-bf82-30db97646828",
+      "name": "Mussarela",
+      "description": "Massa de fermentação lenta, molho de tomate, mussarela e orégano.",
+      "featured": false,
+      "category": "99389b21-0c9c-563a-bd8d-e84732267bed",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "49.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [
+        {
+          "id": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+          "name": "Tamanho",
+          "product": "f09d742d-c4ca-5285-bf82-30db97646828",
+          "selection_type": "SINGLE",
+          "required": true,
+          "min_choices": 1,
+          "max_choices": 1,
+          "active": true,
+          "options": [
+            {
+              "id": "9068b84d-3d11-5e11-810c-e085318b89fd",
+              "name": "Média",
+              "group": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "b27ec5de-a5ae-5efa-9cc9-2113b6568a02",
+              "name": "Grande",
+              "group": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+              "additional_price": "15.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Massa de fermentação lenta, molho de tomate, mussarela e orégano.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "8e712953-517f-5ce4-9626-4fc9ae1ea890",
+      "name": "Portuguesa",
+      "description": "Presunto, ovos, cebola, azeitonas e mussarela com molho de tomate.",
+      "featured": false,
+      "category": "99389b21-0c9c-563a-bd8d-e84732267bed",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "62.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [
+        {
+          "id": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+          "name": "Tamanho",
+          "product": "f09d742d-c4ca-5285-bf82-30db97646828",
+          "selection_type": "SINGLE",
+          "required": true,
+          "min_choices": 1,
+          "max_choices": 1,
+          "active": true,
+          "options": [
+            {
+              "id": "9068b84d-3d11-5e11-810c-e085318b89fd",
+              "name": "Média",
+              "group": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "b27ec5de-a5ae-5efa-9cc9-2113b6568a02",
+              "name": "Grande",
+              "group": "b35d7a62-6648-5b9c-9fc3-b1539253f93b",
+              "additional_price": "15.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Presunto, ovos, cebola, azeitonas e mussarela com molho de tomate.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "45317915-b805-5dee-9d7d-4897e90aa35b",
+      "name": "Anéis de Cebola",
+      "description": "Anéis de cebola empanados, crocantes por fora e macios por dentro.",
+      "featured": false,
+      "category": "d25591a5-154e-531b-b829-9493cd7efe53",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "26.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Anéis de cebola empanados, crocantes por fora e macios por dentro.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "2ea3cc62-f45e-5e19-88ab-e23d3c135c12",
+      "name": "Batata com Bacon",
+      "description": "Porção de batatas fritas com queijo cremoso e bacon crocante.",
+      "featured": false,
+      "category": "d25591a5-154e-531b-b829-9493cd7efe53",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "32.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Porção de batatas fritas com queijo cremoso e bacon crocante.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "5d1a617c-acda-5d0f-8e19-867a80ef78ef",
+      "name": "Batata Frita",
+      "description": "Batatas douradas e crocantes, preparadas na hora e finalizadas com sal.",
+      "featured": false,
+      "category": "d25591a5-154e-531b-b829-9493cd7efe53",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "24.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": true,
+      "image_version": "2eb205c63662ceb1",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [
+        {
+          "id": "862ca982-e17a-5a03-a3fc-35de79389e76",
+          "name": "Molhos",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 3,
+          "active": true,
+          "options": [
+            {
+              "id": "066d886e-f2f6-57c6-9ff5-ff2e2388be33",
+              "name": "Maionese",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "809f680e-0a90-5d67-986f-09e61f3d4284",
+              "name": "Barbecue",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "6a8ae137-8848-5b79-9f75-cf9a36a30bbe",
+              "name": "Mostarda",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Batatas douradas e crocantes, preparadas na hora e finalizadas com sal.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "82eab122-e66c-575b-bdce-d66f1aff4727",
+      "name": "Nuggets",
+      "description": "Porção de pedaços de frango empanados e dourados, acompanhada de molho.",
+      "featured": false,
+      "category": "d25591a5-154e-531b-b829-9493cd7efe53",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "22.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [
+        {
+          "id": "862ca982-e17a-5a03-a3fc-35de79389e76",
+          "name": "Molhos",
+          "product": "a78686ba-876a-56f8-94d2-346c8c780b99",
+          "selection_type": "MULTIPLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 3,
+          "active": true,
+          "options": [
+            {
+              "id": "066d886e-f2f6-57c6-9ff5-ff2e2388be33",
+              "name": "Maionese",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "809f680e-0a90-5d67-986f-09e61f3d4284",
+              "name": "Barbecue",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "6a8ae137-8848-5b79-9f75-cf9a36a30bbe",
+              "name": "Mostarda",
+              "group": "862ca982-e17a-5a03-a3fc-35de79389e76",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Porção de pedaços de frango empanados e dourados, acompanhada de molho.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "5060145d-4ce6-51b0-9692-d0efccd6314f",
+      "name": "Água Mineral",
+      "description": "Água mineral sem gás, garrafa individual de 500 ml.",
+      "featured": false,
+      "category": "42f6ffc5-c838-55b2-af22-3ab1aa24e045",
+      "production_sector": "a2729883-0a6c-56f7-85f2-fab5aa0c241e",
+      "base_price": "5.00",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Água mineral sem gás, garrafa individual de 500 ml.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "5d67d5f3-b67b-58dd-bedd-e2ab1eff9d70",
+      "name": "Café Expresso",
+      "description": "Café de grãos selecionados, extraído na hora, em dose de 50 ml.",
+      "featured": false,
+      "category": "42f6ffc5-c838-55b2-af22-3ab1aa24e045",
+      "production_sector": "a2729883-0a6c-56f7-85f2-fab5aa0c241e",
+      "base_price": "6.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Café de grãos selecionados, extraído na hora, em dose de 50 ml.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "76e74dc6-ff7a-545d-8f16-24e140dde5b1",
+      "name": "Coca-Cola Lata",
+      "description": "Refrigerante em lata de 350 ml, servido gelado.",
+      "featured": false,
+      "category": "42f6ffc5-c838-55b2-af22-3ab1aa24e045",
+      "production_sector": "a2729883-0a6c-56f7-85f2-fab5aa0c241e",
+      "base_price": "7.00",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Refrigerante em lata de 350 ml, servido gelado.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "4ec41e04-0084-509a-8fc2-f4d6e488d101",
+      "name": "Guaraná Lata",
+      "description": "Refrigerante de guaraná em lata de 350 ml, servido gelado.",
+      "featured": false,
+      "category": "42f6ffc5-c838-55b2-af22-3ab1aa24e045",
+      "production_sector": "a2729883-0a6c-56f7-85f2-fab5aa0c241e",
+      "base_price": "7.00",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Refrigerante de guaraná em lata de 350 ml, servido gelado.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "f71db0ad-4659-53f5-a648-6c5b261e99d7",
+      "name": "Milkshake",
+      "description": "Bebida cremosa de sorvete de chocolate e leite, em copo de 400 ml.",
+      "featured": false,
+      "category": "42f6ffc5-c838-55b2-af22-3ab1aa24e045",
+      "production_sector": "a2729883-0a6c-56f7-85f2-fab5aa0c241e",
+      "base_price": "18.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Bebida cremosa de sorvete de chocolate e leite, em copo de 400 ml.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "21b43439-d413-505c-ba66-968bb83f8ae5",
+      "name": "Suco Natural",
+      "description": "Suco de limão preparado na hora, em copo de 400 ml. Personalize gelo e açúcar.",
+      "featured": false,
+      "category": "42f6ffc5-c838-55b2-af22-3ab1aa24e045",
+      "production_sector": "a2729883-0a6c-56f7-85f2-fab5aa0c241e",
+      "base_price": "11.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": true,
+      "image_version": "068cc3350500fdf7",
+      "has_video": false,
+      "ordered_quantity": 4,
+      "most_ordered": false,
+      "groups": [
+        {
+          "id": "3c9ccd93-a93b-5bd4-977b-0c6aa7de3bcb",
+          "name": "Açúcar",
+          "product": "21b43439-d413-505c-ba66-968bb83f8ae5",
+          "selection_type": "SINGLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 1,
+          "active": true,
+          "options": [
+            {
+              "id": "b72d371b-4c5a-5c7e-bb7e-bbabe83162dc",
+              "name": "Sem açúcar",
+              "group": "3c9ccd93-a93b-5bd4-977b-0c6aa7de3bcb",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "339236e3-2aa9-5acd-ac0c-994ad40a6002",
+              "name": "Adoçado",
+              "group": "3c9ccd93-a93b-5bd4-977b-0c6aa7de3bcb",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        },
+        {
+          "id": "6b3981f8-3740-5376-a2e3-6b3170d552b7",
+          "name": "Gelo",
+          "product": "21b43439-d413-505c-ba66-968bb83f8ae5",
+          "selection_type": "SINGLE",
+          "required": false,
+          "min_choices": 0,
+          "max_choices": 1,
+          "active": true,
+          "options": [
+            {
+              "id": "141e934f-ef0f-55a1-9c1a-2900445a949f",
+              "name": "Sem gelo",
+              "group": "6b3981f8-3740-5376-a2e3-6b3170d552b7",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            },
+            {
+              "id": "f07cef9c-2e36-5189-a3b1-6f138ade1d02",
+              "name": "Com gelo",
+              "group": "6b3981f8-3740-5376-a2e3-6b3170d552b7",
+              "additional_price": "0.00",
+              "available": true,
+              "active": true
+            }
+          ]
+        }
+      ],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Suco de limão preparado na hora, em copo de 400 ml. Personalize gelo e açúcar.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "79e13e5b-57ee-5c06-97a2-e84568994852",
+      "name": "Brownie",
+      "description": "Brownie de chocolate com interior macio e casquinha delicada.",
+      "featured": false,
+      "category": "00dceff0-0be3-5432-af0e-d5491eb3bd5c",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "16.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Brownie de chocolate com interior macio e casquinha delicada.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "ad315339-de0f-5d5d-b15a-4b3df5927512",
+      "name": "Petit Gâteau",
+      "description": "Bolinho de chocolate com centro cremoso, acompanhado de sorvete.",
+      "featured": false,
+      "category": "00dceff0-0be3-5432-af0e-d5491eb3bd5c",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "24.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Bolinho de chocolate com centro cremoso, acompanhado de sorvete.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    },
+    {
+      "id": "c9204f58-f25e-5df9-b8ce-7268811bbe52",
+      "name": "Sorvete",
+      "description": "Duas bolas de sorvete cremoso, com calda de chocolate.",
+      "featured": false,
+      "category": "00dceff0-0be3-5432-af0e-d5491eb3bd5c",
+      "production_sector": "75e13382-90de-5f26-acb3-d8da45e83289",
+      "base_price": "14.90",
+      "active": true,
+      "available": true,
+      "takeaway_allowed": true,
+      "has_image": false,
+      "image_version": "",
+      "has_video": false,
+      "ordered_quantity": 0,
+      "most_ordered": false,
+      "groups": [],
+      "individual_options": [],
+      "takeaway_enabled": true,
+      "photos": [],
+      "long_description": "Duas bolas de sorvete cremoso, com calda de chocolate.",
+      "ingredients": "Consulte a descrição e a equipe para personalizações.",
+      "serving_info": "1 pessoa",
+      "allergen_info": "Consulte a equipe sobre ingredientes e contaminação cruzada. Informação demonstrativa."
+    }
+  ],
+  "categories": [
+    {
+      "id": "defa10c0-2bd9-5c31-a901-16707cdf0438",
+      "name": "Hambúrgueres",
+      "menu": "6fd860d3-1b78-5fc4-b47f-cc68c75e7f31",
+      "position": 0,
+      "active": true
+    },
+    {
+      "id": "99389b21-0c9c-563a-bd8d-e84732267bed",
+      "name": "Pizzas",
+      "menu": "6fd860d3-1b78-5fc4-b47f-cc68c75e7f31",
+      "position": 1,
+      "active": true
+    },
+    {
+      "id": "d25591a5-154e-531b-b829-9493cd7efe53",
+      "name": "Porções",
+      "menu": "6fd860d3-1b78-5fc4-b47f-cc68c75e7f31",
+      "position": 2,
+      "active": true
+    },
+    {
+      "id": "42f6ffc5-c838-55b2-af22-3ab1aa24e045",
+      "name": "Bebidas",
+      "menu": "6fd860d3-1b78-5fc4-b47f-cc68c75e7f31",
+      "position": 3,
+      "active": true
+    },
+    {
+      "id": "00dceff0-0be3-5432-af0e-d5491eb3bd5c",
+      "name": "Sobremesas",
+      "menu": "6fd860d3-1b78-5fc4-b47f-cc68c75e7f31",
+      "position": 4,
+      "active": true
+    }
+  ]
+}

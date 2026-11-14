@@ -1,0 +1,852 @@
+{
+  "date": "2026-11-13",
+  "items": [
+    {
+      "id": "B01",
+      "requested": "B01-logo-wordmark-black.svg",
+      "file": "site/public/assets/brand/B01-logo-wordmark-black.svg",
+      "source": "site/assets/originals/brand/",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "real",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Vetores originais preservados; B02 altera apenas cor do lettering, sem alterar curvas. B05 representa aproximação NFC. Validar variantes antes de lançamento."
+    },
+    {
+      "id": "B02",
+      "requested": "B02-logo-wordmark-light.svg",
+      "file": "site/public/assets/brand/B02-logo-wordmark-light.svg",
+      "source": "site/assets/originals/brand/",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Vetores originais preservados; B02 altera apenas cor do lettering, sem alterar curvas. B05 representa aproximação NFC. Validar variantes antes de lançamento."
+    },
+    {
+      "id": "B03",
+      "requested": "B03-logo-symbol.svg",
+      "file": "site/public/assets/brand/B03-logo-symbol.svg",
+      "source": "site/assets/originals/brand/",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "real",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Vetores originais preservados; B02 altera apenas cor do lettering, sem alterar curvas. B05 representa aproximação NFC. Validar variantes antes de lançamento."
+    },
+    {
+      "id": "B04",
+      "requested": "B04-favicon.svg",
+      "file": "site/public/assets/brand/B04-favicon.svg",
+      "source": "site/assets/originals/brand/",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Vetores originais preservados; B02 altera apenas cor do lettering, sem alterar curvas. B05 representa aproximação NFC. Validar variantes antes de lançamento."
+    },
+    {
+      "id": "B05",
+      "requested": "B05-icon-nfc.svg",
+      "file": "site/public/assets/brand/B05-icon-nfc.svg",
+      "source": "site/assets/originals/brand/",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Vetores originais preservados; B02 altera apenas cor do lettering, sem alterar curvas. B05 representa aproximação NFC. Validar variantes antes de lançamento."
+    },
+    {
+      "id": "B06",
+      "requested": "B06-icon-qr.svg",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "nao_aplicavel",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Retirado da apresentação comercial por decisão de refinamento NFC. Originais de referência preservados; sem uso público."
+    },
+    {
+      "id": "F01",
+      "requested": "F01-hero-restaurant-wide.webp",
+      "file": "site/public/assets/photography/F01-hero-restaurant-wide.webp",
+      "source": "site/assets/originals/generated/F01-hero-restaurant-wide.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/photography/F01-hero-restaurant-wide-1280.webp",
+        "site/public/assets/photography/F01-hero-restaurant-wide-1920.webp",
+        "site/public/assets/photography/F01-hero-restaurant-wide-640.webp"
+      ]
+    },
+    {
+      "id": "F02",
+      "requested": "F02-card-fixed-on-table.webp",
+      "file": "site/public/assets/product/F02-card-fixed-on-table.webp",
+      "source": "assets_source/card/Plaquinha.png + F01; script compose_assets.py",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Pixels da placa original recortados sem recriar arte. F02/F12 são montagens sobre mesa, não instalação fotografada; F10 é crop exato. Revisar luz/escala/recorte/acrílico e modelo físico."
+    },
+    {
+      "id": "F03",
+      "requested": "F03-phone-near-card.webp",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Opcional dispensado nesta versão; aproximação NFC adiada. Sem telefone tocando na placa."
+    },
+    {
+      "id": "F04",
+      "requested": "F04-customer-using-menu.webp",
+      "file": "site/public/assets/photography/F04-customer-using-menu.webp",
+      "source": "site/assets/originals/generated/F04-customer-using-menu.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/photography/F04-customer-using-menu-1280.webp",
+        "site/public/assets/photography/F04-customer-using-menu-640.webp"
+      ]
+    },
+    {
+      "id": "F05",
+      "requested": "F05-food-and-phone.webp",
+      "file": "site/public/assets/photography/F05-food-and-phone.webp",
+      "source": "site/assets/originals/generated/F05-food-and-phone.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/photography/F05-food-and-phone-1280.webp",
+        "site/public/assets/photography/F05-food-and-phone-640.webp"
+      ]
+    },
+    {
+      "id": "F06",
+      "requested": "F06-staff-on-floor.webp",
+      "file": "site/public/assets/photography/F06-staff-on-floor.webp",
+      "source": "site/assets/originals/generated/F06-staff-on-floor.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/photography/F06-staff-on-floor-1280.webp",
+        "site/public/assets/photography/F06-staff-on-floor-640.webp"
+      ]
+    },
+    {
+      "id": "F07",
+      "requested": "F07-kitchen-kds-real.webp",
+      "file": "site/public/assets/photography/F07-kitchen-kds-real.webp",
+      "source": "site/assets/originals/generated/F07-kitchen-kds-real.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Cenário gerado com monitor vazio. Composição com KDS real depende de S13; não é captura nem montagem final aprovada.",
+      "responsive_files": [
+        "site/public/assets/photography/F07-kitchen-kds-real-1280.webp",
+        "site/public/assets/photography/F07-kitchen-kds-real-640.webp"
+      ]
+    },
+    {
+      "id": "F08",
+      "requested": "F08-card-product-45deg.webp",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Vista adicional de 45° fiel requer foto/arte aprovada. Não inventar outro ângulo a partir de única referência."
+    },
+    {
+      "id": "F09",
+      "requested": "F09-card-topdown.webp",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Vista superior depende da arte plana/dimensões do modelo real, ainda não fornecidas."
+    },
+    {
+      "id": "F10",
+      "requested": "F10-card-macro-nfc.webp",
+      "file": "site/public/assets/product/F10-card-macro-nfc.webp",
+      "source": "assets_source/card/Plaquinha.png + F01; script compose_assets.py",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Pixels da placa original recortados sem recriar arte. F02/F12 são montagens sobre mesa, não instalação fotografada; F10 é crop exato. Revisar luz/escala/recorte/acrílico e modelo físico."
+    },
+    {
+      "id": "F11",
+      "requested": "F11-card-qr-closeup.webp",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "nao_aplicavel",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Retirado da apresentação comercial por decisão de refinamento NFC. Originais de referência preservados; sem uso público."
+    },
+    {
+      "id": "F12",
+      "requested": "F12-card-lifestyle-table.webp",
+      "file": "site/public/assets/product/F12-card-lifestyle-table.webp",
+      "source": "assets_source/card/Plaquinha.png + F01; script compose_assets.py",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Pixels da placa original recortados sem recriar arte. F02/F12 são montagens sobre mesa, não instalação fotografada; F10 é crop exato. Revisar luz/escala/recorte/acrílico e modelo físico."
+    },
+    {
+      "id": "F13",
+      "requested": "F13-venue-restaurant.webp",
+      "file": "site/public/assets/photography/F13-venue-restaurant.webp",
+      "source": "site/assets/originals/generated/F13-venue-restaurant.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/photography/F13-venue-restaurant-1280.webp",
+        "site/public/assets/photography/F13-venue-restaurant-640.webp"
+      ]
+    },
+    {
+      "id": "F14",
+      "requested": "F14-venue-hamburger.webp",
+      "file": "site/public/assets/photography/F14-venue-hamburger.webp",
+      "source": "site/assets/originals/generated/F14-venue-hamburger.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/photography/F14-venue-hamburger-1280.webp",
+        "site/public/assets/photography/F14-venue-hamburger-640.webp"
+      ]
+    },
+    {
+      "id": "F15",
+      "requested": "F15-venue-snack.webp",
+      "file": "site/public/assets/photography/F15-venue-snack.webp",
+      "source": "site/assets/originals/generated/F15-venue-snack.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/photography/F15-venue-snack-1280.webp",
+        "site/public/assets/photography/F15-venue-snack-640.webp"
+      ]
+    },
+    {
+      "id": "F16",
+      "requested": "F16-venue-bar.webp",
+      "file": "site/public/assets/photography/F16-venue-bar.webp",
+      "source": "site/assets/originals/generated/F16-venue-bar.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/photography/F16-venue-bar-1280.webp",
+        "site/public/assets/photography/F16-venue-bar-640.webp"
+      ]
+    },
+    {
+      "id": "F17",
+      "requested": "F17-venue-cafe.webp",
+      "file": "site/public/assets/photography/F17-venue-cafe.webp",
+      "source": "site/assets/originals/generated/F17-venue-cafe-edited.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/photography/F17-venue-cafe-1280.webp",
+        "site/public/assets/photography/F17-venue-cafe-640.webp"
+      ]
+    },
+    {
+      "id": "F18",
+      "requested": "F18-final-cta-restaurant.webp",
+      "file": "site/public/assets/photography/F18-final-cta-restaurant.webp",
+      "source": "site/assets/originals/generated/F18-final-cta-restaurant.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/photography/F18-final-cta-restaurant-1280.webp",
+        "site/public/assets/photography/F18-final-cta-restaurant-640.webp"
+      ]
+    },
+    {
+      "id": "S01",
+      "requested": "S01-client-entry.png",
+      "file": "site/public/assets/screenshots/S01-client-entry.png",
+      "source": "TapServe QA local, captura via playwright-local MCP em 13/11/2026",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "real",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interface original, dados sintéticos do QA. Acesso NFC legítimo com admissão normal. Nenhum pedido, chamado, pagamento ou mesa criado para captura. Sem token na imagem."
+    },
+    {
+      "id": "S02",
+      "requested": "S02-client-menu.png",
+      "file": "site/public/assets/screenshots/S02-client-menu.png",
+      "source": "TapServe QA local, captura via playwright-local MCP em 13/11/2026",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "real",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interface original, dados sintéticos do QA. Acesso NFC legítimo com admissão normal. Nenhum pedido, chamado, pagamento ou mesa criado para captura. Sem token na imagem."
+    },
+    {
+      "id": "S03",
+      "requested": "S03-client-product-options.png",
+      "file": "site/public/assets/screenshots/S03-client-product-options.png",
+      "source": "TapServe QA local, captura via playwright-local MCP em 13/11/2026",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "real",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interface original, dados sintéticos do QA. Acesso NFC legítimo com admissão normal. Nenhum pedido, chamado, pagamento ou mesa criado para captura. Sem token na imagem."
+    },
+    {
+      "id": "S04",
+      "requested": "S04-client-cart.png",
+      "file": "site/public/assets/screenshots/S04-client-cart.png",
+      "source": "TapServe QA local, captura via playwright-local MCP em 13/11/2026",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "real",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interface original, dados sintéticos do QA. Acesso NFC legítimo com admissão normal. Nenhum pedido, chamado, pagamento ou mesa criado para captura. Sem token na imagem."
+    },
+    {
+      "id": "S05",
+      "requested": "S05-client-order-confirmed.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "S06",
+      "requested": "S06-client-order-status.png",
+      "file": "site/public/assets/screenshots/S06-client-order-status.png",
+      "source": "TapServe QA local, captura via playwright-local MCP em 13/11/2026",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "real",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interface original, dados sintéticos do QA. Acesso NFC legítimo com admissão normal. Nenhum pedido, chamado, pagamento ou mesa criado para captura. Sem token na imagem."
+    },
+    {
+      "id": "S07",
+      "requested": "S07-client-call-staff.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "S08",
+      "requested": "S08-client-check-request.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "S09",
+      "requested": "S09-staff-tables.png",
+      "file": "site/public/assets/screenshots/S09-staff-tables.png",
+      "source": "TapServe QA local, captura via playwright-local MCP em 13/11/2026",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "real",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interface original, dados sintéticos do QA. Acesso NFC legítimo com admissão normal. Nenhum pedido, chamado, pagamento ou mesa criado para captura. Sem token na imagem."
+    },
+    {
+      "id": "S10",
+      "requested": "S10-staff-orders.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "S11",
+      "requested": "S11-staff-service-requests.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "S12",
+      "requested": "S12-staff-order-detail.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "S13",
+      "requested": "S13-kds-new-orders.png",
+      "file": "site/public/assets/screenshots/S13-kds-new-orders.png",
+      "source": "TapServe QA local, captura via playwright-local MCP em 13/11/2026",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "real",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interface original, dados sintéticos do QA. Acesso NFC legítimo com admissão normal. Nenhum pedido, chamado, pagamento ou mesa criado para captura. Sem token na imagem."
+    },
+    {
+      "id": "S14",
+      "requested": "S14-kds-preparing.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "S15",
+      "requested": "S15-kds-ready.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "S16",
+      "requested": "S16-admin-dashboard.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "S17",
+      "requested": "S17-admin-menu-management.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "S18",
+      "requested": "S18-admin-staff-units.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "S19",
+      "requested": "S19-admin-reports.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia. Relatórios não comprovados; recurso não anunciado."
+    },
+    {
+      "id": "S20",
+      "requested": "S20-admin-table-status.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Não capturada nem exibida como screenshot. S05 exige confirmar pedido; outras telas dependem de estados ou acesso não utilizado nesta revisão. Nenhuma substituição fictícia."
+    },
+    {
+      "id": "C01",
+      "requested": "C01-hero-product-composite.webp",
+      "file": "site/src/pages.tsx:Home",
+      "source": "Composição DOM da plaquinha original + capturas reais do QA",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interfaces de cliente, equipe e produção capturadas no TapServe real. Não há tela administrativa inventada. A demo utiliza componentes reais do cliente, isolados em memória."
+    },
+    {
+      "id": "C02",
+      "requested": "C02-card-to-phone.webp",
+      "file": "site/src/pages.tsx:NfcPage",
+      "source": "Composição DOM da plaquinha original + capturas reais do QA",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interfaces de cliente, equipe e produção capturadas no TapServe real. Não há tela administrativa inventada. A demo utiliza componentes reais do cliente, isolados em memória."
+    },
+    {
+      "id": "C03",
+      "requested": "C03-ordering-phone-sequence.webp",
+      "file": "site/src/components/Demo.tsx",
+      "source": "Composição DOM da plaquinha original + capturas reais do QA",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interfaces de cliente, equipe e produção capturadas no TapServe real. Não há tela administrativa inventada. A demo utiliza componentes reais do cliente, isolados em memória."
+    },
+    {
+      "id": "C04",
+      "requested": "C04-order-to-kds.webp",
+      "file": "site/src/components/product.tsx:OperationFlow",
+      "source": "Composição DOM da plaquinha original + capturas reais do QA",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interfaces de cliente, equipe e produção capturadas no TapServe real. Não há tela administrativa inventada. A demo utiliza componentes reais do cliente, isolados em memória."
+    },
+    {
+      "id": "C05",
+      "requested": "C05-nfc-card-gallery.webp",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "nao_aplicavel",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Retirado da apresentação comercial por decisão de refinamento NFC. Originais de referência preservados; sem uso público."
+    },
+    {
+      "id": "C06",
+      "requested": "C06-tapserve-ecosystem.webp",
+      "file": "site/src/components/product.tsx:Showcase",
+      "source": "Composição DOM da plaquinha original + capturas reais do QA",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Interfaces de cliente, equipe e produção capturadas no TapServe real. Não há tela administrativa inventada. A demo utiliza componentes reais do cliente, isolados em memória."
+    },
+    {
+      "id": "V01",
+      "requested": "V01-hero-loop.webm",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P1",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Opcional não produzido. F01 estático e movimento sutil em código substituem vídeo atmosférico."
+    },
+    {
+      "id": "V02",
+      "requested": "V02-nfc-approach.tsx",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "ADIADO por decisão V3 e usuário. Não produzido, não é bloqueio desta versão."
+    },
+    {
+      "id": "V03",
+      "requested": "V03-demo-order-flow.tsx",
+      "file": "site/src/components/Demo.tsx",
+      "source": "Transições de UI em CSS e estado local",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Motion em código acionado pelo visitante. Sem vídeo pré-renderizado, rede ou pedidos reais."
+    },
+    {
+      "id": "V04",
+      "requested": "V04-order-to-kitchen.tsx",
+      "file": "site/src/components/product.tsx:OperationFlow",
+      "source": "Transições de UI em CSS e estado local",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Motion em código acionado pelo visitante. Sem vídeo pré-renderizado, rede ou pedidos reais."
+    },
+    {
+      "id": "O01",
+      "requested": "O01-og-default.png",
+      "file": "site/public/assets/social/O01-og-default.png",
+      "source": "compose_assets.py + pixels da placa original",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "1200×630; sem recriar wordmark. Fonte Arial do sistema para copy; aprovar visual antes de lançamento."
+    },
+    {
+      "id": "O02",
+      "requested": "O02-og-nfc.png",
+      "file": "site/public/assets/social/O02-og-nfc.png",
+      "source": "compose_assets.py + pixels da placa original",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "1200×630; sem recriar wordmark. Fonte Arial do sistema para copy; aprovar visual antes de lançamento."
+    },
+    {
+      "id": "O03",
+      "requested": "O03-og-features.png",
+      "file": "site/public/assets/social/O03-og-features.png",
+      "source": "compose_assets.py + pixels da placa original",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "1200×630; sem recriar wordmark. Fonte Arial do sistema para copy; aprovar visual antes de lançamento."
+    },
+    {
+      "id": "O04",
+      "requested": "O04-og-pricing.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "nao_aplicavel",
+      "license": "Revisão necessária antes de publicação",
+      "review": "Retirado da apresentação comercial por decisão de refinamento NFC. Originais de referência preservados; sem uso público."
+    },
+    {
+      "id": "O05",
+      "requested": "O05-og-demo.png",
+      "file": "site/public/assets/social/O05-og-demo.png",
+      "source": "compose_assets.py + pixels da placa original",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "composto",
+      "license": "Revisão necessária antes de publicação",
+      "review": "1200×630; sem recriar wordmark. Fonte Arial do sistema para copy; aprovar visual antes de lançamento."
+    },
+    {
+      "id": "D01",
+      "requested": "D01-demo-burger.webp",
+      "file": "site/public/assets/demo-cardapio/D01-demo-burger.webp",
+      "source": "site/assets/originals/generated/D01-demo-burger.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D01-demo-burger-320.webp",
+        "site/public/assets/demo-cardapio/D01-demo-burger-640.webp"
+      ]
+    },
+    {
+      "id": "D02",
+      "requested": "D02-demo-fries.webp",
+      "file": "site/public/assets/demo-cardapio/D02-demo-fries.webp",
+      "source": "site/assets/originals/generated/D02-demo-fries.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D02-demo-fries-320.webp",
+        "site/public/assets/demo-cardapio/D02-demo-fries-640.webp"
+      ]
+    },
+    {
+      "id": "D03",
+      "requested": "D03-demo-soda.webp",
+      "file": "site/public/assets/demo-cardapio/D03-demo-soda.webp",
+      "source": "site/assets/originals/generated/D03-demo-soda.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D03-demo-soda-320.webp",
+        "site/public/assets/demo-cardapio/D03-demo-soda-640.webp"
+      ]
+    },
+    {
+      "id": "D04",
+      "requested": "D04-demo-water.webp",
+      "file": "site/public/assets/demo-cardapio/D04-demo-water.webp",
+      "source": "site/assets/originals/generated/D04-demo-water.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D04-demo-water-320.webp",
+        "site/public/assets/demo-cardapio/D04-demo-water-640.webp"
+      ]
+    },
+    {
+      "id": "D05",
+      "requested": "D05-demo-brownie.webp",
+      "file": "site/public/assets/demo-cardapio/D05-demo-brownie.webp",
+      "source": "site/assets/originals/generated/D05-demo-brownie.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D05-demo-brownie-320.webp",
+        "site/public/assets/demo-cardapio/D05-demo-brownie-640.webp"
+      ]
+    },
+    {
+      "id": "D06",
+      "requested": "D06-demo-milkshake.webp",
+      "file": "site/public/assets/demo-cardapio/D06-demo-milkshake.webp",
+      "source": "site/assets/originals/generated/D06-demo-milkshake.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D06-demo-milkshake-320.webp",
+        "site/public/assets/demo-cardapio/D06-demo-milkshake-640.webp"
+      ]
+    },
+    {
+      "id": "D07",
+      "requested": "D07-demo-chicken.webp",
+      "file": "site/public/assets/demo-cardapio/D07-demo-chicken.webp",
+      "source": "site/assets/originals/generated/D07-demo-chicken.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D07-demo-chicken-320.webp",
+        "site/public/assets/demo-cardapio/D07-demo-chicken-640.webp"
+      ]
+    },
+    {
+      "id": "D08",
+      "requested": "D08-demo-salad.webp",
+      "file": "site/public/assets/demo-cardapio/D08-demo-salad.webp",
+      "source": "site/assets/originals/generated/D08-demo-salad.png",
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "gerado",
+      "license": "Gerado nesta sessão; sem imagens de concorrentes. Revisão comercial e de direitos do resultado antes do lançamento.",
+      "review": "Inspecionado visualmente para conteúdo, marcas e coerência; aprovação final pelo proprietário pendente.",
+      "responsive_files": [
+        "site/public/assets/demo-cardapio/D08-demo-salad-320.webp",
+        "site/public/assets/demo-cardapio/D08-demo-salad-640.webp"
+      ]
+    },
+    {
+      "id": "M01",
+      "requested": "M01-table-clean-plate.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "ADIADO por decisão V3 e usuário. Não produzido, não é bloqueio desta versão."
+    },
+    {
+      "id": "M02",
+      "requested": "M02-hand-phone-alpha.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "ADIADO por decisão V3 e usuário. Não produzido, não é bloqueio desta versão."
+    },
+    {
+      "id": "M03",
+      "requested": "M03-nfc-card-alpha.png",
+      "file": null,
+      "source": null,
+      "page": "Ver docs/site/MATRIZ.md",
+      "priority": "P0",
+      "state": "pendente",
+      "license": "Revisão necessária antes de publicação",
+      "review": "ADIADO por decisão V3 e usuário. Não produzido, não é bloqueio desta versão."
+    }
+  ]
+}

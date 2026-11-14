@@ -13,7 +13,10 @@ venv/
 
 # Local documentation, audit reports and deployment/workflow artifacts.
 /doc/
-/docs/
+/docs/*
+!/docs/ambientes-locais.md
+!/docs/seeds-dev-qa.md
+!/docs/site/
 /deploy/
 /.github/
 
@@ -24,8 +27,15 @@ __pycache__/
 pytest-cache-files-*/
 .mypy_cache/
 .ruff_cache/
+.tox/
+.nox/
+.hypothesis/
+.eggs/
 .coverage
 .coverage.*
+coverage.xml
+junit.xml
+junit-*.xml
 htmlcov/
 *.egg-info/
 
@@ -33,16 +43,46 @@ htmlcov/
 node_modules/
 dist/
 .vite/
+.ssr/
+.cache/
+.eslintcache
 *.tsbuildinfo
 coverage/
 .nyc_output/
 test-results/
 playwright-report/
 blob-report/
+.playwright-mcp/
+.playwright/
+**/playwright/.auth/
 
 # Runtime uploads and collected Django static files.
 /backend/media/
 /backend/staticfiles/
+*.sqlite3
+*.sqlite3-*
+*.dump
+*.dump.gz
+*.sql.gz
+/backups/
+/backend/backups/
+
+# Graphify local caches, dated backups and machine-specific state.
+# Keep graph.json, graph.html, GRAPH_REPORT.md, manifests and curated labels.
+/graphify-out/cache/
+/graphify-out/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/
+/graphify-out/.graphify_build_state.json
+/graphify-out/.graphify_python
+/graphify-out/.graphify_root
+/graphify-out/.graphify_labels.pending.json
+/graphify-out/.graphify_labels.json.sig
+/graphify-out/needs_update
+/graphify-out/graph-health.json
+/graphify-out/graph-health.txt
+
+# Locally installed third-party skill and retired commercial exports.
+/.codex/skills/graphify/
+/site/assets/originals/retired/
 
 # Logs, temporary files and editor/OS artifacts.
 *.log
@@ -53,6 +93,11 @@ blob-report/
 *.swp
 *.swo
 *~
+*.pid
+*.pid.lock
+tmp/
+temp/
+.tmp/
 .DS_Store
 Thumbs.db
 Desktop.ini

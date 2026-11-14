@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="referrer" content="no-referrer" />
     <link rel="icon" type="image/svg+xml" href="/brand/TapServe_logo_icon.svg" />
+    <!-- The navigation opt-in must exist before pagereveal, before external styles load. -->
+    <style>
+      @view-transition { navigation: auto; types: page; }
+      @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+    </style>
+    <link rel="stylesheet" href="/src/design-system/motion.css" blocking="render" />
     <title>TapServe</title>
   </head>
   <body>

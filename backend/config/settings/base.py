@@ -10,11 +10,23 @@ from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 env = environ.Env()
+LOCAL_ENVIRONMENT = os.environ.get("TAPSERVE_ENV", "")
+if LOCAL_ENVIRONMENT and LOCAL_ENVIRONMENT not in {"dev", "qa"}:
+    raise ImproperlyConfigured("TAPSERVE_ENV must be dev or qa")
+if LOCAL_ENVIRONMENT and os.environ.get("DJANGO_SETTINGS_MODULE") != f"config.settings.{LOCAL_ENVIRONMENT}":
+    raise ImproperlyConfigured("The selected local profile must use its matching settings module")
 if (
     os.environ.get("TAPSERVE_LOAD_ENV", "1") == "1"
     and os.environ.get("DJANGO_SETTINGS_MODULE") != "config.settings.prod"
 ):
-    environ.Env.read_env(BASE_DIR / ".env", overwrite=False)
+    if LOCAL_ENVIRONMENT:
+        filename = ".env.development.local" if LOCAL_ENVIRONMENT == "dev" else ".env.qa.local"
+        if not (BASE_DIR / filename).is_file():
+            raise ImproperlyConfigured("Configure the selected local environment first")
+        # An explicit profile must never inherit the legacy database from the parent shell.
+        environ.Env.read_env(BASE_DIR / filename, overwrite=True)
+    else:
+        environ.Env.read_env(BASE_DIR / ".env", overwrite=False)
 
 SECRET_KEY = env("DJANGO_SECRET_KEY", default="")
 if len(SECRET_KEY) < 50 or len(set(SECRET_KEY)) < 8:

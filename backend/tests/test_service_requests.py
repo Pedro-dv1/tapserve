@@ -1,12 +1,16 @@
 import asyncio
+import json
 import secrets
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier
+from urllib.error import HTTPError
+from urllib.request import Request, urlopen
 
 import pytest
 from channels.db import database_sync_to_async
 from django.db import IntegrityError, close_old_connections, transaction
+from rest_framework.renderers import JSONRenderer
 
 from apps.access.models import ServicePoint
 from apps.access.services import cipher, digest
@@ -27,6 +31,81 @@ def call_body(kind="ATTENDANT"):
 
 def status_body(status, expected="OPEN"):
     return {"idempotency_key": str(uuid.uuid4()), "expected_status": expected, "status": status}
+
+
+@pytest.mark.parametrize("reason", [None, "", "Talheres já recebidos", "x" * 300])
+def test_public_cancellation_preserves_optional_reason_and_replay(point_data, reason):
+    client, other = customer(point_data[1]), customer(point_data[1])
+    opened = post_with_csrf(client, "/api/v1/public/service-requests/", call_body("CUTLERY"))
+    assert opened.status_code == 201
+    identifier = opened.json()["id"]
+    url = f"/api/v1/public/service-requests/{identifier}/cancel/"
+    body = {"idempotency_key": str(uuid.uuid4()), "expected_status": "OPEN"}
+    if reason is not None:
+        body["reason"] = reason
+    assert post_with_csrf(other, url, body).status_code == 404
+    response = post_with_csrf(client, url, body)
+    assert response.status_code == 200
+    assert response.json()["status"] == "CANCELLED"
+    assert post_with_csrf(client, url, body).json() == response.json()
+    audit = AuditEvent.objects.get(action="CALL_CANCELLED", resource_id=identifier)
+    assert audit.reason == (reason or "")
+    assert audit.device_id == ServiceRequest.objects.get(id=identifier).device_id
+    assert audit.staff_id is None
+    assert audit.details["before"] == "OPEN" and audit.details["after"] == "CANCELLED"
+    assert ServiceRequest.objects.get(id=identifier).status == "CANCELLED"
+    assert post_with_csrf(client, url, {**body, "reason": "outro motivo"}).status_code == 409
+    assert AuditEvent.objects.filter(action="CALL_CANCELLED", resource_id=identifier).count() == 1
+
+
+@pytest.mark.parametrize("extra", [{"reason": "x" * 301}, {"reason": None}, {"reason": []}, {"status": "RESOLVED"}])
+def test_public_cancellation_rejects_invalid_reason_without_side_effects(point_data, extra):
+    client = customer(point_data[1])
+    opened = post_with_csrf(client, "/api/v1/public/service-requests/", call_body("CUTLERY"))
+    identifier = opened.json()["id"]
+    response = post_with_csrf(client, f"/api/v1/public/service-requests/{identifier}/cancel/", {
+        "idempotency_key": str(uuid.uuid4()), "expected_status": "OPEN", **extra,
+    })
+    assert response.status_code == 400
+    assert ServiceRequest.objects.get(id=identifier).status == "OPEN"
+    assert not AuditEvent.objects.filter(action="CALL_CANCELLED", resource_id=identifier).exists()
+
+
+def test_public_cancellation_replays_receipt_from_before_optional_reason(point_data):
+    client = customer(point_data[1])
+    opened = post_with_csrf(client, "/api/v1/public/service-requests/", call_body("CUTLERY"))
+    call = ServiceRequest.objects.get(id=opened.json()["id"])
+    legacy = {"idempotency_key": uuid.uuid4(), "expected_status": "OPEN"}
+    previous = change_request(call.device, call.id, legacy)
+    response = post_with_csrf(client, f"/api/v1/public/service-requests/{call.id}/cancel/", {
+        **legacy, "idempotency_key": str(legacy["idempotency_key"]),
+    })
+    assert response.status_code == 200 and response.json() == json.loads(JSONRenderer().render(previous))
+    assert AuditEvent.objects.filter(action="CALL_CANCELLED", resource_id=str(call.id)).count() == 1
+
+
+@pytest.mark.django_db(transaction=True)
+def test_public_cancellation_reason_over_real_http(point_data, live_server):
+    client = customer(point_data[1])
+    opened = post_with_csrf(client, "/api/v1/public/service-requests/", call_body("CUTLERY"))
+    identifier = opened.json()["id"]
+    csrf = client.get("/api/v1/csrf/").json()["csrf_token"]
+    assert live_server.url.startswith(("http://localhost:", "http://127.0.0.1:"))
+    body = {"idempotency_key": str(uuid.uuid4()), "expected_status": "OPEN", "reason": "Talheres recebidos via HTTP"}
+    request = Request(  # noqa: S310 - exclusively pytest-owned loopback server.
+        live_server.url + f"/api/v1/public/service-requests/{identifier}/cancel/",
+        data=json.dumps(body).encode(), method="POST",
+        headers={"Content-Type": "application/json", "X-CSRFToken": csrf,
+                 "Cookie": "; ".join(f"{name}={item.value}" for name, item in client.cookies.items())},
+    )
+    with urlopen(request, timeout=15) as response:  # noqa: S310 - pytest-owned loopback only.
+        assert response.status == 200 and json.loads(response.read())["status"] == "CANCELLED"
+    assert AuditEvent.objects.get(action="CALL_CANCELLED", resource_id=identifier).reason == body["reason"]
+    assert ServiceRequest.objects.get(id=identifier).status == "CANCELLED"
+    request.remove_header("X-csrftoken")
+    with pytest.raises(HTTPError) as denied:
+        urlopen(request, timeout=15)  # noqa: S310 - same pytest server; exercise CSRF.
+    assert denied.value.code == 403
 
 
 def test_calls_on_free_point_are_idempotent_then_join_first_occupation(

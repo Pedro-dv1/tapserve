@@ -16,7 +16,7 @@ export default function SearchCombobox<T extends SearchSuggestion>({ label, valu
       if (event.key === 'Escape' && open) { event.preventDefault(); event.stopPropagation(); setExpanded(false); setActive(-1); }
       else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') { event.preventDefault(); setExpanded(true); if (!loading && results.length) setActive(index => event.key === 'ArrowDown' ? (index + 1) % results.length : (index <= 0 ? results.length : index) - 1); }
       else if (event.key === 'Enter') { event.preventDefault(); if (open && !loading && active >= 0 && results[active]) choose(results[active]); else submit(); }
-    }} /><button className="secondary" type="button" disabled={disabled} onClick={submit} aria-label={`Pesquisar: ${label}`}>Buscar</button></div>
+    }} /><button className="secondary" type="button" disabled={disabled} onClick={submit} aria-label={`Pesquisar: ${label}`}>Pesquisar</button></div>
     {open && <div className="search-suggestions"><ul id={`${id}-list`} role="listbox" aria-label={`Sugestões: ${label}`} aria-busy={loading}>{!loading && results.map((item, index) => <li key={item.id} id={`${id}-option-${index}`} role="option" aria-selected={active === index} onPointerDown={event => event.preventDefault()} onClick={() => choose(item)}><strong>{item.name}</strong>{item.detail && <span>{item.detail}</span>}</li>)}</ul>{(loading || results.length === 0) && <p role="status">{loading ? 'Buscando…' : error || 'Nenhuma correspondência encontrada.'}</p>}</div>}
   </div>;
 }

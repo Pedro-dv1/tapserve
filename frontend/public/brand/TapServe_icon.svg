@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="337" height="441" viewBox="159 110 337 441" role="img" aria-labelledby="logo-title logo-desc">
+  <title id="logo-title">TapServe — ícone</title>
+  <desc id="logo-desc">Marca TapServe em curvas Bézier, degradês suaves sem faixas ou raster.</desc>
+  <defs>
+    <linearGradient id="gold-left-base" x1="0" y1="128" x2="0" y2="532" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffcd65"/>
+      <stop offset="0.22" stop-color="#fbc963"/>
+      <stop offset="0.43" stop-color="#f3b652"/>
+      <stop offset="0.64" stop-color="#eaa348"/>
+      <stop offset="0.87" stop-color="#e99b3a"/>
+      <stop offset="1" stop-color="#e79b34"/>
+    </linearGradient>
+    <linearGradient id="gold-left-depth" x1="172" y1="0" x2="310" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#86400d" stop-opacity="0"/>
+      <stop offset="0.18" stop-color="#86400d" stop-opacity="0.012"/>
+      <stop offset="0.52" stop-color="#86400d" stop-opacity="0.23"/>
+      <stop offset="0.86" stop-color="#86400d" stop-opacity="0.395"/>
+      <stop offset="1" stop-color="#86400d" stop-opacity="0.43"/>
+    </linearGradient>
+    <linearGradient id="gold-right-base" x1="0" y1="128" x2="0" y2="532" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f7bb58"/>
+      <stop offset="0.21" stop-color="#fac15b"/>
+      <stop offset="0.42" stop-color="#f7bb54"/>
+      <stop offset="0.64" stop-color="#f0a846"/>
+      <stop offset="0.86" stop-color="#e99b37"/>
+      <stop offset="1" stop-color="#e59a33"/>
+    </linearGradient>
+    <linearGradient id="gold-right-depth" x1="344" y1="0" x2="482" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#70340f" stop-opacity="0"/>
+      <stop offset="0.18" stop-color="#70340f" stop-opacity="0.028"/>
+      <stop offset="0.50" stop-color="#70340f" stop-opacity="0.29"/>
+      <stop offset="0.88" stop-color="#70340f" stop-opacity="0.50"/>
+      <stop offset="1" stop-color="#70340f" stop-opacity="0.53"/>
+    </linearGradient>
+    <linearGradient id="letter-color" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#181410"/>
+      <stop offset="0.68" stop-color="#191512"/>
+      <stop offset="1" stop-color="#1a1614"/>
+    </linearGradient>
+  </defs>
+  <!-- The gold uses two uninterrupted vector fills per symbol piece, so there are no seams at any scale. -->
+  <path id="icon-left" d="M173.27 260.75 C173.65 408.54,173.09 396.54,180.65 418.31 C195.11 459.94,230.32 497.77,273.50 518.05 C285.47 523.67,300.27 529.49,304.73 530.33 L307.96 530.94 308.23 433.22 C308.38 379.47,308.21 319.75,307.86 300.50 C307.26 267.68,307.06 264.84,304.68 254.92 C301.07 239.89,298.63 233.15,291.87 219.50 C275.68 186.84,248.07 158.68,216.78 142.90 C202.19 135.54,180.54 128.00,174.01 128.00 C173.23 128.00,173.02 165.36,173.27 260.75 Z" fill="url(#gold-left-base)"/>
+  <path d="M173.27 260.75 C173.65 408.54,173.09 396.54,180.65 418.31 C195.11 459.94,230.32 497.77,273.50 518.05 C285.47 523.67,300.27 529.49,304.73 530.33 L307.96 530.94 308.23 433.22 C308.38 379.47,308.21 319.75,307.86 300.50 C307.26 267.68,307.06 264.84,304.68 254.92 C301.07 239.89,298.63 233.15,291.87 219.50 C275.68 186.84,248.07 158.68,216.78 142.90 C202.19 135.54,180.54 128.00,174.01 128.00 C173.23 128.00,173.02 165.36,173.27 260.75 Z" fill="url(#gold-left-depth)"/>
+  <path id="icon-right" d="M345.00 266.09 C345.00 401.68,345.04 404.37,347.06 414.32 C349.59 426.70,351.85 433.54,356.95 444.26 C366.69 464.70,385.69 487.04,404.94 500.70 C416.94 509.20,438.95 520.34,453.00 525.01 C463.70 528.56,478.96 532.14,480.19 531.38 C481.44 530.61,481.21 282.11,479.95 271.97 C477.30 250.63,469.12 227.71,457.34 208.64 C449.55 196.01,444.12 189.04,433.56 178.14 C415.45 159.44,394.16 145.31,368.87 135.20 C361.04 132.08,348.18 128.00,346.14 128.00 C345.29 128.00,345.00 163.24,345.00 266.09 Z" fill="url(#gold-right-base)"/>
+  <path d="M345.00 266.09 C345.00 401.68,345.04 404.37,347.06 414.32 C349.59 426.70,351.85 433.54,356.95 444.26 C366.69 464.70,385.69 487.04,404.94 500.70 C416.94 509.20,438.95 520.34,453.00 525.01 C463.70 528.56,478.96 532.14,480.19 531.38 C481.44 530.61,481.21 282.11,479.95 271.97 C477.30 250.63,469.12 227.71,457.34 208.64 C449.55 196.01,444.12 189.04,433.56 178.14 C415.45 159.44,394.16 145.31,368.87 135.20 C361.04 132.08,348.18 128.00,346.14 128.00 C345.29 128.00,345.00 163.24,345.00 266.09 Z" fill="url(#gold-right-depth)"/>
+  
+</svg>

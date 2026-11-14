@@ -1,0 +1,9 @@
+.customer-root { margin-inline: auto; }
+.demo-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 16px; background: #fff4df; color: #634514; font: 12px/1.5 system-ui, sans-serif; }
+.demo-controls button { min-height: 44px; border: 0; background: transparent; font: inherit; font-weight: 650; color: #111; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.demo-state-controls { padding: 20px 0; }
+.demo-state-controls p { color: #62646e; font-size: 13px; }
+.demo-state-controls button { margin: 0 8px 8px 0; }
+.demo-view { animation: demo-in 220ms ease-out; }
+@keyframes demo-in { from { opacity: .6; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .demo-view { animation: none; } }

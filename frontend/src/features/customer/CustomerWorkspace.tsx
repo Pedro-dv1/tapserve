@@ -1,5 +1,6 @@
 import { randomUUID } from '../../lib/uuid.ts';
-﻿import { addTransitionType, startTransition, useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
+import { startMotionTransition } from '../../lib/motion';
 import { ApiError, decodePoint, record, request, text } from '../../lib/api';
 import type { PublicContext } from '../../lib/api';
 import { Button, CustomerHeader, EmptyState, ErrorState, Icon, LoadingSkeleton, StickyActionBar, tableLabel } from '../../components/Interface';
@@ -55,7 +56,7 @@ export default function CustomerWorkspace({ context }: { context: PublicContext 
   const drafts = useRef<Record<string, ProductDraft>>({});
   const lastSession = useRef<string | null>(null);
   useEffect(() => {
-    const changed = () => { startTransition(() => { addTransitionType('navigation'); setRoute(routeFromLocation()); }); setMessage(null); window.scrollTo(0, 0); };
+    const changed = () => { startMotionTransition(() => setRoute(routeFromLocation()), 'navigation'); setMessage(null); window.scrollTo(0, 0); };
     window.addEventListener('popstate', changed);
     return () => window.removeEventListener('popstate', changed);
   }, []);
@@ -112,7 +113,7 @@ export default function CustomerWorkspace({ context }: { context: PublicContext 
   }, [reload, realtime.ordersRevision, realtime.catalogRevision, storageKey, context.expires_at, context.point, invalid]);
 
   function navigate(path: string) {
-    window.history.pushState(null, '', path); startTransition(() => { addTransitionType('navigation'); setRoute(routeFromLocation()); }); setError(''); setMessage(null); window.scrollTo(0, 0);
+    window.history.pushState(null, '', path); startMotionTransition(() => setRoute(routeFromLocation()), 'navigation'); setError(''); setMessage(null); window.scrollTo(0, 0);
   }
   function notify(text: string, tab = route.tab) { setMessage({ text, tab }); }
   function change(value: Cart) { if (!busy && !cart.pending && !restoreError && !invalid) setCart(value); }

@@ -164,7 +164,7 @@ class MenuOutput(serializers.ModelSerializer):
     points = serializers.SerializerMethodField()
 
     def get_points(self, menu) -> list[dict[str, str]]:
-        return [{"id": str(point.id), "name": point.name} for point in menu.service_points.all()]
+        return [{"id": str(point.id), "name": point.label} for point in menu.service_points.all()]
 
     class Meta:
         model = Menu

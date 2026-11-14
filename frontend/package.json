@@ -12,6 +12,7 @@
     "lint": "eslint src",
     "test": "node --test --test-isolation=none tests/*.test.mjs",
     "test:e2e": "node tests/foundation.mjs",
+    "test:ui": "tsc --project tsconfig.ui-tests.json && node tests/ui-regressions.mjs",
     "build": "tsc --noEmit && vite build --configLoader native",
     "preview": "vite preview --configLoader native --host 127.0.0.1 --strictPort"
   },

@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 
+const origin = process.env.TAPSERVE_E2E_ORIGIN || 'http://127.0.0.1:5173';
+if (!/^http:\/\/127\.0\.0\.1:(5173|5176|5177)$/.test(origin)) throw new Error('E2E requires a reviewed local frontend origin.');
 const browser = await chromium.launch({ channel: 'chrome', headless: true, chromiumSandbox: true });
-const context = await browser.newContext({ baseURL: 'http://127.0.0.1:5173' });
+const context = await browser.newContext({ baseURL: origin });
 try {
   const page = await context.newPage();
   const errors = [];

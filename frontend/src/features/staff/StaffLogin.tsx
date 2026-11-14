@@ -1,4 +1,5 @@
-import { startTransition, useRef, useState, ViewTransition } from 'react';
+import { useRef, useState, ViewTransition } from 'react';
+import { startMotionTransition } from '../../lib/motion';
 import type { FormEvent } from 'react';
 import { decodeContext, request } from '../../lib/api';
 import { Button, ErrorState, Icon, SecretInput } from '../../components/Interface';
@@ -44,7 +45,7 @@ export default function StaffLogin() {
       {!strong && <><label className="sr-only" htmlFor="staff-pin">PIN individual, de 6 a 12 dígitos</label><SecretInput label="PIN" id="staff-pin" name="pin" inputMode="numeric" autoComplete="current-password" required minLength={6} maxLength={12} pattern="[0-9]{6,12}" value={pin} disabled={busy} onChange={event => setPin(event.target.value.replace(/\D/g, '').slice(0, 12))} aria-describedby="pin-policy" />
         <p className="pin-policy" id="pin-policy">PIN de 6 a 12 dígitos</p>
         <div className="pin-keypad" aria-label="Teclado numérico">{[1, 2, 3, 4, 5, 6, 7, 8, 9].map(digit => <button type="button" key={digit} disabled={busy || pin.length >= 12} onClick={() => setPin(value => (value + digit).slice(0, 12))}>{digit}</button>)}<span aria-hidden="true" /><button type="button" disabled={busy || pin.length >= 12} onClick={() => setPin(value => (value + '0').slice(0, 12))}>0</button><button className="erase-key" type="button" aria-label="Apagar último dígito" disabled={busy || pin.length === 0} onClick={() => setPin(value => value.slice(0, -1))}><Icon name="erase" size={25} /></button></div>
-        <button className="pin-recovery" type="button" aria-expanded={recover} onClick={() => startTransition(() => setRecover(value => !value))}>Esqueci meu PIN</button>{recover && <ViewTransition default="none" enter="motion-panel" exit="motion-panel"><p className="recovery-help" role="status">Solicite a redefinição ao responsável pela unidade. Somente a gestão autorizada pode atualizar seu PIN individual.</p></ViewTransition>}
+        <button className="pin-recovery" type="button" aria-expanded={recover} onClick={() => startMotionTransition(() => setRecover(value => !value))}>Esqueci meu PIN</button>{recover && <ViewTransition default="none" enter="motion-panel" exit="motion-panel"><p className="recovery-help" role="status">Solicite a redefinição ao responsável pela unidade. Somente a gestão autorizada pode atualizar seu PIN individual.</p></ViewTransition>}
       </>}
       {strong && <div><label htmlFor="staff-password">Senha</label><SecretInput label="senha" id="staff-password" name="password" required maxLength={256} autoComplete="current-password" disabled={busy} value={password} onChange={event => setPassword(event.target.value)} /></div>}
       {error && <ErrorState message={error} />}

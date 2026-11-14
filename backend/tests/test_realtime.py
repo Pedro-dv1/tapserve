@@ -26,12 +26,14 @@ def socket(client, path, origin="http://testserver"):
     return communicator
 
 
-async def next_message(connection, *, closing=False):
-    deadline = asyncio.get_running_loop().time() + 10
+async def next_message(connection, *, closing=False, timeout=10):
+    deadline = asyncio.get_running_loop().time() + timeout
     while True:
-        frame = await connection.receive_output(
-            timeout=max(0.01, deadline - asyncio.get_running_loop().time())
-        )
+        remaining = max(0, deadline - asyncio.get_running_loop().time())
+        # receive_output cancels the ASGI app on timeout, masking it during cleanup.
+        if await connection.receive_nothing(timeout=remaining):
+            raise TimeoutError("No expected WebSocket frame before the deadline")
+        frame = await connection.receive_output(timeout=1)
         if frame["type"] == "websocket.send":
             message = json.loads(frame["text"])
             if message == {"type": "heartbeat"}:
@@ -135,6 +137,27 @@ def test_origin_tenant_revocation_reconnect_and_read_only_socket(
         finally:
             for connection in connected:
                 await connection.disconnect()
+
+    asyncio.run(scenario())
+    assert RealtimeLease.objects.count() == 0
+
+
+@pytest.mark.django_db(transaction=True)
+def test_message_timeout_preserves_socket_for_diagnostics_and_cleanup(point_data):
+    own = customer(point_data[1])
+
+    async def scenario():
+        public = socket(own, "/ws/v1/public/")
+        try:
+            assert (await public.connect(timeout=10))[0]
+            assert (await next_message(public))["kind"] == "SNAPSHOT_REQUIRED"
+            with pytest.raises(TimeoutError, match="expected WebSocket frame"):
+                await next_message(public, timeout=0.05)
+            assert not public.future.done()
+            await public.send_json_to({"invalid": "mutation"})
+            assert (await next_message(public, closing=True))["code"] == 4400
+        finally:
+            await public.disconnect()
 
     asyncio.run(scenario())
     assert RealtimeLease.objects.count() == 0

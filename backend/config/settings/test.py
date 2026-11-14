@@ -9,6 +9,9 @@ environ.Env.read_env(Path(__file__).resolve().parents[3] / ".local" / "test.env"
 
 from .base import *  # noqa: E402,F403
 
+if not re.fullmatch(r"tapserve_test_[a-f0-9]{32}|tapserve_lab(?:_[a-f0-9]{32})?", DATABASES["default"]["NAME"]):  # noqa: F405
+    raise ValueError("Automated tests require an identified disposable database; DEV/QA are persistent")
+
 # Native transport tests start Daphne separately; its runserver app selects Twisted globally.
 INSTALLED_APPS = [app for app in INSTALLED_APPS if app != "daphne"]  # noqa: F405
 

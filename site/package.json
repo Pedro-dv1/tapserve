@@ -1,0 +1,25 @@
+{
+  "name": "tapserve-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "dev": "vite --configLoader native --host 127.0.0.1 --port 4321 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "node --experimental-strip-types --test --test-isolation=none tests/*.test.mjs",
+    "build": "tsc --noEmit && vite build --configLoader native && vite build --configLoader native --ssr src/render.tsx --outDir .ssr && node scripts/prerender.mjs",
+    "preview": "node scripts/preview.mjs",
+    "test:browser": "node tests/browser.mjs",
+    "test:http": "node tests/http.mjs",
+    "check:release": "node scripts/release-check.mjs"
+  },
+  "dependencies": { "react": "19.3.0", "react-dom": "19.3.0" },
+  "devDependencies": {
+    "@types/react": "19.3.0", "@types/react-dom": "19.3.0",
+    "eslint": "10.11.0", "playwright": "1.62.1", "typescript": "6.0.2",
+    "typescript-eslint": "8.71.0", "vite": "7.3.6"
+  },
+  "overrides": { "esbuild": "0.27.7", "rollup": "4.64.0" }
+}
