@@ -43,9 +43,13 @@ htmlcov/
 node_modules/
 dist/
 .vite/
+.vite-temp/
 .ssr/
 .cache/
 .eslintcache
+.stylelintcache
+.npm/
+.pnpm-store/
 *.tsbuildinfo
 coverage/
 .nyc_output/

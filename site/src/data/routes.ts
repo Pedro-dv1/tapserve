@@ -9,8 +9,8 @@ export const routes = [
   { path: '/suporte', title: 'Precisa de ajuda com o TapServe?', description: 'Encontre orientações e os canais oficiais de suporte por WhatsApp e e-mail.', og: 'O01-og-default.png' },
   { path: '/duvidas', title: 'Boas respostas. Sem complicar.', description: 'Dúvidas sobre NFC, pedidos, implantação e suporte do TapServe.', og: 'O01-og-default.png' },
   { path: '/sobre', title: 'Mais presença à mesa. Mais clareza na operação.', description: 'A proposta do TapServe para conectar a jornada do cliente à rotina do estabelecimento.', og: 'O01-og-default.png' },
-  { path: '/privacidade', title: 'Privacidade — documento em revisão', description: 'Documento de privacidade em revisão. A minuta não é uma política vigente.', og: 'O01-og-default.png' },
-  { path: '/termos', title: 'Termos do site — documento em revisão', description: 'Termos institucionais em revisão, separados do contrato de assinatura.', og: 'O01-og-default.png' },
+  { path: '/privacidade', title: 'Política de Privacidade', description: 'Saiba como o TapServe e os estabelecimentos tratam dados pessoais, utilizam cookies e atendem aos direitos dos titulares.', og: 'O01-og-default.png' },
+  { path: '/termos', title: 'Termos de Uso', description: 'Condições de utilização do TapServe para estabelecimentos, administradores, equipes e consumidores.', og: 'O01-og-default.png' },
   { path: '/cancelamento', title: 'Cancelamento — condições em revisão', description: 'Solicite informações sobre cancelamento pelos canais de atendimento.', og: 'O01-og-default.png' },
 ] as const;
 export const notFoundRoute = { path: '/404', title: '404 — Página não encontrada', description: 'Essa página não está no cardápio. O endereço que você tentou acessar não existe ou não está mais disponível.', og: 'O01-og-default.png' } as const;

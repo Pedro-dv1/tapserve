@@ -13,12 +13,14 @@ test('13 prerendered routes, semantic content, local images/links, legal guards 
     assert.match(html, /<meta name="description"/); assert.match(html, /noindex,nofollow/);
     assert.doesNotMatch(html, /<form\b|\/obrigado|rel="canonical"/i);
     assert.match(html, /connect-src 'none'/);
+    assert.match(html, /id="site-preloader"[^>]*\bhidden\b/);
+    assert.match(html, /assets\/brand\/loader\.js/);
     for (const [, url] of html.matchAll(/(?:src|href)="(\/[^"#?]*)/g)) {
       if (url === '/') continue;
       const local = new URL(`dist${url.startsWith('/assets/') || url.endsWith('.html') ? url : `${url}/index.html`}`, root);
       assert.ok(existsSync(local), `${route.path}: ${url}`);
     }
-    if (['/privacidade', '/termos', '/cancelamento'].includes(route.path)) {
+    if (route.path === '/cancelamento') {
       assert.match(html, /em revisão/); assert.doesNotMatch(html, /PENDENTE DE CONFIRMAÇÃO/);
     }
     if (['/contato', '/suporte'].includes(route.path)) {

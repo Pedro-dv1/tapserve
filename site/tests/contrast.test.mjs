@@ -5,7 +5,7 @@ function luminance(hex) {
   return .2126 * r + .7152 * g + .0722 * b;
 }
 test('reading/action colors satisfy 4.5:1 against their flat backgrounds', () => {
-  for (const [text, background] of [['111111', 'e5a62b'], ['62625f', 'ffffff'], ['62625f', 'f5f5f3'], ['ffffff', '151715'], ['b8bcb6', '151715'], ['634514', 'f9efda'], ['4b370d', 'fff0cb']]) {
+  for (const [text, background] of [['111111', 'e5a62b'], ['62625f', 'ffffff'], ['62625f', 'f5f5f3'], ['ffffff', '151715'], ['b8bcb6', '151715'], ['634514', 'f9efda'], ['4b370d', 'fff0cb'], ['181818', 'ffffff'], ['55564f', 'ffffff'], ['181818', 'faf7ed'], ['805400', 'ffffff']]) {
     const values = [luminance(text), luminance(background)].sort((a, b) => b - a);
     assert.ok((values[0] + .05) / (values[1] + .05) >= 4.5, `${text} on ${background}`);
   }
